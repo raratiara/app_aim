@@ -352,7 +352,13 @@ class Dashboard_menu_model extends MY_Model
 
 		$rs = $this->db->query("select id, floating_crane_id, name, latitude, longitude from cctv ".$whereC." ")->result(); */
 
-		$rs = $this->db->query("select id as floating_crane_id, name, latitude, longitude from floating_crane ")->result(); 
+
+		$whereC="";
+		if($id != 'all'){
+			$whereC = "where id = '".$id."' ";
+		}
+
+		$rs = $this->db->query("select id as floating_crane_id, name, latitude, longitude from floating_crane ".$whereC." ")->result(); 
 
 
 		

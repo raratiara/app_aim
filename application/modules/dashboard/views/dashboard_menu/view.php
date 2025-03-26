@@ -26,14 +26,14 @@
 
 	<div id='map' style="width: 100%; height: 600px;"></div> 
 
-	<!-- <div>
+	<div>
 		<button type="button-primary" id="refreshButton" class="btn btn-demo" data-toggle="modal" data-target="#myModal2">
 			<i class="fa fa-bars" aria-hidden="true"></i>
 		</button>
-	</div> -->
+	</div>
 
 
-	<!-- <div class="container demo">
+	<div class="container demo">
 		
 		<div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
 			<div class="modal-dialog" role="document">
@@ -67,7 +67,7 @@
 			
 		</div>
 		
-	</div> -->
+	</div>
 	
 	
 
