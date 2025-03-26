@@ -10,8 +10,4 @@
 [class*="col-"] .chosen-container .chosen-drop {
     width: 100%!important;
 }
-
-.portlet.portlet-bordered {
-    border: 5px solid #030303;
-}
 </style>
