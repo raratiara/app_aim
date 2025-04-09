@@ -377,7 +377,8 @@ class Cctv_surveilance_menu_model extends MY_Model
 					</iframe></td> ';
 
 			}*/
-
+			$thead = "";  
+	        $tbody = "";
 
 			$maxtd = 4;
 			$counter=0;
