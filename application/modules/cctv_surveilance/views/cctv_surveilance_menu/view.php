@@ -29,6 +29,27 @@
 	<span class="tblCctv">
 		
 	</span>
+	
+	<!-- <div class="relative w-full" style="padding-top: 0%;"> 
+	     <div wire:ignore class="absolute top-0 left-0 w-full h-full">
+	         <video-js id="tesvid"
+	             class="video-js vjs-default-skin vjs-big-play-centered absolute top-0 left-0 w-full h-full" controls
+	             preload="auto" crossorigin="anonymous"
+	             data-setup='{
+	                 "fluid": true,
+	                 "autoplay": true,
+	                 "liveui": true,
+	                 "muted": true,
+	                 "aspectRatio": "16:9"
+	             }'>
+	             <source src="rtsp://admin:Nbid@2025!@172.10.11.7:554" type="application/x-mpegURL">
+	             <p class="vjs-no-js">
+	                 To view this video please enable JavaScript, and consider upgrading to a
+	                 web browser that supports HTML5 video
+	             </p>
+	         </video-js>
+	     </div>
+	 </div> -->
 		
 	
 
