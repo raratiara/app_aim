@@ -215,5 +215,25 @@ class Api extends API_Controller
 		$this->render_json($response, $response['status']);
     }
 
+    public function tes_insert()
+    {
+    	$data = [
+					'job_order_id' 		=> '1',
+					'activity_id' 		=> '6'/*,
+					'datetime_start' 	=> $datetime_start,
+					'datetime_end'		=> $datetime_end,
+					'total_time' 		=> $cycle_time,
+					'degree'			=> $degree_1,
+					'degree_2'			=> $degree_2,
+					'achieve_sla'		=> $achieve_sla,
+					'created_at' 		=> $datetime_send*/
+				];
+
+		$rs = $this->db->insert("job_order_detail", $data);
+
+		print_r($rs); die();
+
+    }
+
 
 }
