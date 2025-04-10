@@ -182,7 +182,8 @@ class Api extends API_Controller
 
 					$response = [
 						'status' 	=> 200,
-						'message' 	=> 'Success'
+						'message' 	=> 'Success tes',
+						'data' => $rs
 					];
 				}else{
 					$response = [
