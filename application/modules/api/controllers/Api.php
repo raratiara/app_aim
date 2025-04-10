@@ -235,5 +235,44 @@ class Api extends API_Controller
 
     }
 
+    public function tes_insert_json(){
+    	$jsonData = file_get_contents('php://input');
+    	$data = json_decode($jsonData, true);
+    	$_REQUEST = $data;
+
+    	$id 			= $_REQUEST['id'];
+		$type_activity 	= $_REQUEST['type_activity'];
+
+    	$data = [
+					'job_order_id' 		=> $id,
+					'activity_id' 		=> $type_activity
+					
+				];
+
+		$rs = $this->db->insert("job_order_detail", $data);
+
+		if($rs){
+			$response = [
+						'status' 	=> 200,
+						'message' 	=> 'Success'
+					];
+		}else{
+			$response = [
+						'status' 	=> 401,
+						'message' 	=> 'Failed',
+						'error' 	=> 'Error submit'
+					];
+		}
+
+
+		$this->output->set_header('Access-Control-Allow-Origin: *');
+		$this->output->set_header('Access-Control-Allow-Methods: POST');
+		$this->output->set_header('Access-Control-Max-Age: 3600');
+		$this->output->set_header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
+		$this->render_json($response, $response['status']);
+
+
+    }
+
 
 }
