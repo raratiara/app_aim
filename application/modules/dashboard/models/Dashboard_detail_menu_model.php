@@ -667,7 +667,7 @@ class Dashboard_detail_menu_model extends MY_Model
 		return $dt;
 	} 
 
-	public function getJob($idfc, $start_date, $end_date){  
+	public function getJob($idfc, $start_date, $end_date){ 
 
 		if($start_date != '' && $end_date != ''){
 			$whr_date = " and date >= '".$start_date."' and date <= '".$end_date."' ";

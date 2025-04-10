@@ -230,8 +230,7 @@ class Api extends API_Controller
 				];
 
 		$rs = $this->db->insert("job_order_detail", $data);
-echo 'tes & ';
-		echo $this->db->insert("job_order_detail", $data); die();
+
 
     }
 
