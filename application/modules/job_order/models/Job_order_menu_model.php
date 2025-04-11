@@ -5,7 +5,7 @@ class Job_order_menu_model extends MY_Model
 {
 	/* Module */
  	protected $folder_name				= "job_order/job_order_detail_menu";
- 	protected $table_name 				= _PREFIX_TABLE."job_order;
+ 	protected $table_name 				= _PREFIX_TABLE."job_order_detail";
  	protected $primary_key 				= "id";
 
 	function __construct()
