@@ -508,7 +508,7 @@ class Dashboard_detail_menu_model extends MY_Model
 			
 			$tableRow='';
 
-			for($i=0; $i<30; $i++){
+			for($i=0; $i<5; $i++){
 
 				$activity_name	= ''; 
 				$datetime_start = '';
@@ -516,6 +516,7 @@ class Dashboard_detail_menu_model extends MY_Model
 				$total_time 	= '';
 				$degree 		= '';
 				$degree_2 		= '';
+				$style='';
 
 				if(!empty($rs[$i]) && $rs[$i] != 'undefined'){
 					if($rs[$i]->activity_name != ''){
@@ -536,18 +537,20 @@ class Dashboard_detail_menu_model extends MY_Model
 					if($rs[$i]->degree_2 != ''){
 						$degree_2 		= $rs[$i]->degree_2;
 					}
+
+					if($rs[$i]->achieve_sla != ''){
+						if($rs[$i]->achieve_sla == 1){
+							$style = "style='background-color:#25f242'";
+						}else{
+							$style = "style='background-color:#f24125'";
+						}
+					}
 				}
 
 				
 				
-				$style='';
-				if($rs[$i]->achieve_sla != ''){
-					if($rs[$i]->achieve_sla == 1){
-						$style = "style='background-color:#25f242'";
-					}else{
-						$style = "style='background-color:#f24125'";
-					}
-				}
+				
+				
 
 				$tableRow .= "<tr>
 								<td>".$activity_name."</td>
