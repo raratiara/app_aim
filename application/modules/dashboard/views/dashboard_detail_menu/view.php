@@ -13,7 +13,7 @@ if  (_USER_ACCESS_LEVEL_VIEW == "1" && _USER_ACCESS_LEVEL_EKSPORT == "1") {
 	<div class="col-md-12 col-sm-12">
 		<div class="col-md-6 col-sm-12">
 			<div class="form-group">
-				<label class="col-md-4 control-label no-padding-right">Floating Craneee</label>
+				<label class="col-md-4 control-label no-padding-right">Floating Crane</label>
 				<div class="col-md-6">
 					<?=$selfloatcrane;?>
 				</div>

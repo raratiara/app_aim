@@ -350,7 +350,8 @@ function jobGraph(idfc){
 
 				document.cookie = "totalJob = " + arrJob.length;
 				<?php
-				    $ttlJob= $_COOKIE['totalJob'];
+				    /*$ttlJob= $_COOKIE['totalJob'];*/
+				    $ttlJob= 6;
 				?>
 
 
