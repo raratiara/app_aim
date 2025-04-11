@@ -1,4 +1,4 @@
-
+<!-- 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.10.0/video-js.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.10.0/video.min.js"></script>
 
@@ -87,7 +87,7 @@
            }
        });
    }
-</script>
+</script> -->
 
 
 <script type="text/javascript">
@@ -122,7 +122,7 @@ function cari(){
 function getCctv(floating_crane, jmlcctv){
 	
 
-	/*$.ajax({
+	$.ajax({
 		type: "POST",
         url : module_path+'/get_cctv',
 		data: { floating_crane: floating_crane, jmlcctv: jmlcctv },
@@ -163,7 +163,7 @@ function getCctv(floating_crane, jmlcctv){
 				}
 			});
         }
-    });*/
+    });
 }
 
 

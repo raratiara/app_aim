@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="col-md-12 col-sm-12">
 			<div class="form-group">
-				<label class="col-md-3 control-label no-padding-right">Floating Craneee</label>
+				<label class="col-md-3 control-label no-padding-right">Floating Crane</label>
 				<div class="col-md-4">
 					<?=$selfloatcrane?>
 				</div>
@@ -26,11 +26,11 @@
 	</div> &nbsp; &nbsp;
 	<div></div>
 
-	<!-- <span class="tblCctv">
+	<span class="tblCctv">
 		
-	</span> -->
+	</span>
 
-	<div class="relative w-full" style="padding-top: 0%;"> 
+	<!-- <div class="relative w-full" style="padding-top: 0%;"> 
 	     <div wire:ignore class="absolute top-0 left-0 w-full h-full">
 	         <video-js id="tesvid"
 	             class="video-js vjs-default-skin vjs-big-play-centered absolute top-0 left-0 w-full h-full" controls
@@ -49,7 +49,7 @@
 	             </p>
 	         </video-js>
 	     </div>
-	 </div>
+	 </div> -->
 		
 	
 
