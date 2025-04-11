@@ -517,7 +517,7 @@ class Dashboard_detail_menu_model extends MY_Model
 				$degree 		= '';
 				$degree_2 		= '';
 
-				if(!empty($rs[$i]) && $rs[$i] != undefined){
+				if(!empty($rs[$i]) && $rs[$i] != 'undefined'){
 					if($rs[$i]->activity_name != ''){
 						$activity_name 	= $rs[$i]->activity_name;
 					}
