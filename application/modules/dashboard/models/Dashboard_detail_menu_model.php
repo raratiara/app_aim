@@ -517,26 +517,28 @@ class Dashboard_detail_menu_model extends MY_Model
 				$degree 		= '';
 				$degree_2 		= '';
 
-				
+				if(!empty($rs[$i])){
+					if($rs[$i]->activity_name != ''){
+						$activity_name 	= $rs[$i]->activity_name;
+					}
+					if($rs[$i]->datetime_start != ''){
+						$datetime_start = $rs[$i]->datetime_start;
+					}
+					if($rs[$i]->datetime_end != ''){
+						$datetime_end 	= $rs[$i]->datetime_end;
+					}
+					if($rs[$i]->total_time != ''){
+						$total_time 	= $rs[$i]->total_time;
+					}
+					if($rs[$i]->degree != ''){
+						$degree 		= $rs[$i]->degree;
+					}
+					if($rs[$i]->degree_2 != ''){
+						$degree_2 		= $rs[$i]->degree_2;
+					}
+				}
 
-				if($rs[$i]->activity_name != ''){
-					$activity_name 	= $rs[$i]->activity_name;
-				}
-				if($rs[$i]->datetime_start != ''){
-					$datetime_start = $rs[$i]->datetime_start;
-				}
-				if($rs[$i]->datetime_end != ''){
-					$datetime_end 	= $rs[$i]->datetime_end;
-				}
-				if($rs[$i]->total_time != ''){
-					$total_time 	= $rs[$i]->total_time;
-				}
-				if($rs[$i]->degree != ''){
-					$degree 		= $rs[$i]->degree;
-				}
-				if($rs[$i]->degree_2 != ''){
-					$degree_2 		= $rs[$i]->degree_2;
-				}
+				
 				
 				$style='';
 				if($rs[$i]->achieve_sla != ''){
