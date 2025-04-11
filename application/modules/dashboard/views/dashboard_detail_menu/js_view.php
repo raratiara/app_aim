@@ -301,7 +301,7 @@ function jobGraph(idfc){
 		cache: false,		
         dataType: "JSON",
         success: function(data)
-        { console.log(data);
+        { console.log(data); 
 			if(data != false){ 
 
 				$('span#title_job').html(data[0].floating_crane_name);
@@ -577,7 +577,7 @@ function activityGraph(jobId, fcId){
                                 "#7040fa",
                                 "#ff004e"
                             ],
-                            data: arrTotalTime, //<?php echo json_encode($arrTotalTime); ?>,
+                            data: arrTotalTime, 
                             label: ''
                         }]
 			        },
