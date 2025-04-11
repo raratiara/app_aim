@@ -430,6 +430,7 @@ class Dashboard_detail_menu_model extends MY_Model
 
 		$maxtd = 4;
 		if(!empty($rd)){ 
+			$tableRow='';
 			$counter=0;
 			foreach ($rd as $row){
 				if($counter%$maxtd==0){
