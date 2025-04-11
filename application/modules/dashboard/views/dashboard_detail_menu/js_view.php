@@ -301,7 +301,7 @@ function jobGraph(idfc){
 		cache: false,		
         dataType: "JSON",
         success: function(data)
-        { 
+        { console.log(data);
 			if(data != false){ 
 
 				$('span#title_job').html(data[0].floating_crane_name);
@@ -905,7 +905,7 @@ setInterval(function(){
 	var orderid = $("#order_name option:selected").val();
 	
 	//$('#dynamic-table').DataTable().ajax.reload();
-	getDataRealtime(idfc, orderid);
+	//getDataRealtime(idfc, orderid);
 
 	/*SLACycle_percentage(idfc);
 	SLACycle_jml(idfc);*/
