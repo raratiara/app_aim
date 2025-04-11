@@ -497,7 +497,11 @@ function jobGraph(idfc){
 				//// END get Job Graph
 				
 			} else { 
-				title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
+				$('span#title_job').html('No Job order');
+
+				
+
+				/*title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
 				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
 				msg = '<p>Gagal peroleh data.</p>';
 				var dialog = bootbox.dialog({
@@ -507,7 +511,7 @@ function jobGraph(idfc){
 					setTimeout(function(){
 						dialog.modal('hide');
 					}, 1500);
-				//}
+				//}*/
 			}
         },
         error: function (jqXHR, textStatus, errorThrown)
