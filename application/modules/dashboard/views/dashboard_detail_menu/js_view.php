@@ -255,7 +255,7 @@ function getDataRealtime(idfc, orderid){
 				
 				$('span.tblDataRealtime').html(data);
 				
-			} else {
+			} else { 
 				title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
 				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
 				msg = '<p>Gagal peroleh data.</p>';
@@ -301,7 +301,7 @@ function jobGraph(idfc){
 		cache: false,		
         dataType: "JSON",
         success: function(data)
-        { console.log(data); 
+        { 
 			if(data != false){ 
 
 				$('span#title_job').html(data[0].floating_crane_name);
