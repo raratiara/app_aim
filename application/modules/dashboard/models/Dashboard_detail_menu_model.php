@@ -517,6 +517,8 @@ class Dashboard_detail_menu_model extends MY_Model
 				$degree 		= '';
 				$degree_2 		= '';
 
+				print_r($rs[17]); die();
+
 				if($rs[$i]->activity_name != ''){
 					$activity_name 	= $rs[$i]->activity_name;
 				}
