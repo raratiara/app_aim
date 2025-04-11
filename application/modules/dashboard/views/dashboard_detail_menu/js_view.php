@@ -499,7 +499,7 @@ function jobGraph(idfc){
 			} else { 
 				$('span#title_job').html('No Job order');
 
-				
+
 
 				/*title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
 				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
@@ -909,7 +909,7 @@ setInterval(function(){
 	var orderid = $("#order_name option:selected").val();
 	
 	//$('#dynamic-table').DataTable().ajax.reload();
-	//getDataRealtime(idfc, orderid);
+	getDataRealtime(idfc, orderid);
 
 	/*SLACycle_percentage(idfc);
 	SLACycle_jml(idfc);*/
