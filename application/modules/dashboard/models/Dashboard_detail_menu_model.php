@@ -505,18 +505,7 @@ class Dashboard_detail_menu_model extends MY_Model
 	
 		if(!empty($rs)){ 
 			
-			/*foreach ($rs as $row){
-				$tableRow .= "<tr>
-								<td>".$row->activity_name."</td>
-								<td>".$row->datetime_start."</td>
-								<td>".$row->datetime_end."</td>
-								<td>".$row->total_time."</td>
-								<td>".$row->degree."</td>
-								<td>".$row->degree_2."</td>
-							</tr>";
-
-
-			}*/
+			$tableRow='';
 
 			for($i=0; $i<30; $i++){
 
@@ -568,9 +557,6 @@ class Dashboard_detail_menu_model extends MY_Model
 			}
 			
 			
-
-			//echo $tableRow; die();
-
 			
 			$dt = '<div class="row ca">
                         <div class="col-md-12">
