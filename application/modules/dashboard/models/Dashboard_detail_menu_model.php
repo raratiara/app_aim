@@ -680,10 +680,16 @@ class Dashboard_detail_menu_model extends MY_Model
 		}
 
 		
-		$sql = "select a.date, b.name as floating_crane_name, a.order_name, a.date_time_total
+		/*$sql = "select a.date, b.name as floating_crane_name, a.order_name, a.date_time_total
 				FROM job_order a INNER JOIN floating_crane b ON a.floating_crane_id = b.id 
 				where b.id = '".$idfc."' 
 				".$whr_date."
+		";*/
+
+		$sql = "select a.date, b.name as floating_crane_name, a.order_name, a.date_time_total
+				FROM job_order a INNER JOIN floating_crane b ON a.floating_crane_id = b.id 
+				where b.id = '".$idfc."' 
+				
 		";
 
 		$res = $this->db->query($sql);
