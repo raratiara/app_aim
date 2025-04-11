@@ -729,7 +729,7 @@ function getLineChart(activity, jobId, fcId){
                             borderColor: [
                                 "#072f77"
                             ],
-                            data: arrTotalTime, //<?php echo json_encode($arrTotalTime); ?>,
+                            data: arrTotalTime, 
                             label: ''
                         }]
 			        },
