@@ -348,7 +348,8 @@ function jobGraph(idfc){
 					
 				} 
 
-				document.cookie = "totalJob = " + arrJob.length;
+				/*document.cookie = "totalJob = " + arrJob.length;*/
+				document.cookie = "totalJob = "+arrJob.length+"; SameSite=None; Secure";
 				<?php
 				    $ttlJob= $_COOKIE['totalJob'];
 				?>
@@ -909,7 +910,7 @@ setInterval(function(){
 	var orderid = $("#order_name option:selected").val();
 	
 	//$('#dynamic-table').DataTable().ajax.reload();
-	//getDataRealtime(idfc, orderid);
+	getDataRealtime(idfc, orderid);
 
 	/*SLACycle_percentage(idfc);
 	SLACycle_jml(idfc);*/

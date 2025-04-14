@@ -281,18 +281,49 @@ class Job_order_detail_menu_model extends MY_Model
   			$achieve_sla = 1;
   		}
 
-		$data = [
-			'job_order_id' 		=> trim($post['job_order']),
-			'activity_id' 		=> trim($post['activity']),
-			'datetime_start' 	=> $f_datetime_start,
-			'datetime_end' 		=> $f_datetime_end,
-			'total_time' 		=> $diff,
-			'degree' 			=> trim($post['degree']),
-			'degree_2' 			=> trim($post['degree_2']),
-			'achieve_sla' 		=> $achieve_sla
-		];
+  		$cek_data = $this->db->query("select * from job_order where id = '".$post['job_order']."' and is_active = 1 ")->result();
+  		if($cek_data[0]->id != '')
+		{
+			$data = [
+				'job_order_id' 		=> trim($post['job_order']),
+				'activity_id' 		=> trim($post['activity']),
+				'datetime_start' 	=> $f_datetime_start,
+				'datetime_end' 		=> $f_datetime_end,
+				'total_time' 		=> $diff,
+				'degree' 			=> trim($post['degree']),
+				'degree_2' 			=> trim($post['degree_2']),
+				'achieve_sla' 		=> $achieve_sla
+			];
 
-		return $rs = $this->db->insert($this->table_name, $data);
+			$rs = $this->db->insert($this->table_name, $data);
+
+			if($rs){
+				$cek_order_summary = $this->db->query("select * from job_order_summary where job_order_id = '".$post['job_order']."' and activity_id = '".$post['activity']."' ")->result();
+				$totaltime = $this->db->query("select sum(total_time) as total FROM job_order_detail where job_order_id = '".$post['job_order']."' and activity_id = '".$post['activity']."' ")->result();
+				if(!empty($cek_order_summary[0]->id)){
+					//update
+					$data2 = [
+						'total_date_time' 	=> $totaltime[0]->total
+					];
+					$this->db->update("job_order_summary", $data2, "id = '".$cek_order_summary[0]->id."'");
+				}else{
+					//insert
+					$data2 = [
+						'job_order_id' 		=> $post['job_order'],
+						'activity_id' 		=> $post['activity'],
+						'total_date_time' 	=> $totaltime[0]->total
+					];
+					$this->db->insert("job_order_summary", $data2);
+				}
+			}
+		}
+		else{
+			$rs='';
+		}
+
+		
+
+		return $rs;
 	}  
 
 	public function edit_data($post) { 
