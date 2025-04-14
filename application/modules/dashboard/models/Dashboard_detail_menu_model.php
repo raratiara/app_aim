@@ -978,13 +978,11 @@ class Dashboard_detail_menu_model extends MY_Model
 
 		$sla_over=''; $sla_ideal='';
 		foreach($rs as $row){
-			if($row->achieve_sla != 'undefined'){
-				if($row->achieve_sla == 0){
-					$sla_over = $row->ttlx;
-				}
-				if($row->achieve_sla == 1){
-					$sla_ideal = $row->ttlx;
-				}
+			if($row->achieve_sla == 0){
+				$sla_over = $row->ttlx;
+			}
+			if($row->achieve_sla == 1){
+				$sla_ideal = $row->ttlx;
 			}
 		}
 
