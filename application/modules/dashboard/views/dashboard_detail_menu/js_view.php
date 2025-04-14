@@ -355,7 +355,7 @@ function jobGraph(idfc){
 				Cookies.set('totalJob', valueee);
 				
 				<?php
-				    $ttlJob= 1;
+				    $ttlJob= $_COOKIE['totalJob'];
 				?>
 
 
