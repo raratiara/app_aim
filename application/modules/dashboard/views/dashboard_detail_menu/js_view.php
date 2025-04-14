@@ -349,7 +349,8 @@ function jobGraph(idfc){
 				} 
 
 				/*document.cookie = "totalJob = " + arrJob.length;*/
-				document.cookie = "totalJob = "+arrJob.length+"; SameSite=None; Secure";
+				var xx=3;
+				document.cookie = "totalJob = "+xx+"; SameSite=None; Secure";
 				<?php
 				$ttlJob='';
 				if($_COOKIE['totalJob'] != 'undefined'){
