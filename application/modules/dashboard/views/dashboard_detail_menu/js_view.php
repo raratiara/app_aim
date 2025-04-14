@@ -355,10 +355,9 @@ function jobGraph(idfc){
 				Cookies.set('totalJob', valueee);
 				
 				<?php
-				    $ttlJob= 1;//$_COOKIE['totalJob'];
+				    $ttlJob= $_COOKIE['totalJob'];
+				    
 				?>
-var cVal = Cookies.get('totalJob');
-alert(cVal);
 
 				var groupedJob = arrDataJob
 				  .reduce((acc, curr) => {
