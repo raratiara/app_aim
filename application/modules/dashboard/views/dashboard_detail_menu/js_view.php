@@ -22,6 +22,8 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -349,14 +351,11 @@ function jobGraph(idfc){
 				} 
 
 				/*document.cookie = "totalJob = " + arrJob.length;*/
-				var xx=3;
-				document.cookie = "totalJob = "+xx+"; SameSite=None; Secure";
+				var valueee = arrJob.length;
+				Cookies.set('totalJob', valueee);
+				
 				<?php
-				$ttlJob='';
-				if($_COOKIE['totalJob'] != 'undefined'){
-
-				    $ttlJob= $_COOKIE['totalJob'];
-				}
+				    $ttlJob= 1;
 				?>
 
 
