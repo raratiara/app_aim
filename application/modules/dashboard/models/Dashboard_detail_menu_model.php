@@ -975,12 +975,16 @@ class Dashboard_detail_menu_model extends MY_Model
 			where b.floating_crane_id = '".$fcId."' and a.job_order_id = '".$orderid."' and b.is_active = 1 order by a.id desc limit 30) dt group by dt.achieve_sla
 			")->result(); 
 
+
+		$sla_over=''; $sla_ideal='';
 		foreach($rs as $row){
-			if($row->achieve_sla == 0){
-				$sla_over = $row->ttlx;
-			}
-			if($row->achieve_sla == 1){
-				$sla_ideal = $row->ttlx;
+			if($row->achieve_sla != 'undefined'){
+				if($row->achieve_sla == 0){
+					$sla_over = $row->ttlx;
+				}
+				if($row->achieve_sla == 1){
+					$sla_ideal = $row->ttlx;
+				}
 			}
 		}
 
