@@ -50,7 +50,8 @@ var orderid = arrayOfStrings[2];
 
 <?php if  (_USER_ACCESS_LEVEL_VIEW == "1") { ?>
 jQuery(function($) { 
-
+	var valueee=0;
+	Cookies.set('totalJob', valueee);
 	
 	/* load table list */
 	/*myTable =
@@ -142,6 +143,8 @@ jQuery(function($) {
 	getTblWaktu('def', 'def', idfc);*/
 
 	$('[name="id_fc"]').val(idfc);
+
+	
 
 })
 
