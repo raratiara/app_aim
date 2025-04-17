@@ -27,6 +27,10 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
+	var valueee=0;
+	Cookies.set('totalJob', valueee);
+
+	
    	$(function() {
         $( "#start_date" ).datepicker();
         $( "#end_date" ).datepicker();
@@ -50,8 +54,7 @@ var orderid = arrayOfStrings[2];
 
 <?php if  (_USER_ACCESS_LEVEL_VIEW == "1") { ?>
 jQuery(function($) { 
-	var valueee=0;
-	Cookies.set('totalJob', valueee);
+	
 	
 	/* load table list */
 	/*myTable =
