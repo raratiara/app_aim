@@ -300,6 +300,8 @@ function getDataRealtime(idfc, orderid){
 
 
 function jobGraph(idfc){ 
+	location.reload();
+
 	var start_date = document.getElementById("start_date").value;
   	var end_date = document.getElementById("end_date").value;
 
