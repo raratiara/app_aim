@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="col-md-12 col-sm-12">
 			<div class="form-group">
-				<label class="col-md-3 control-label no-padding-right">Floating Craneee</label>
+				<label class="col-md-3 control-label no-padding-right">Floating Crane</label>
 				<div class="col-md-4">
 					<?=$selfloatcrane?>
 				</div>
@@ -12,7 +12,7 @@
 		&nbsp; &nbsp;
 		<div class="col-md-12 col-sm-12">
 			<div class="form-group">
-				<label class="col-md-3 control-label no-padding-right">Jumlah CCTV yang ditampilkannn</label>
+				<label class="col-md-3 control-label no-padding-right">Jumlah CCTV yang ditampilkan</label>
 				<div class="col-md-4">
 					<?=$jmlcctv?>
 					

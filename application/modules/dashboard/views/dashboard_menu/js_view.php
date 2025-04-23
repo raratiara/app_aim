@@ -115,6 +115,7 @@ $('#floating_crane').on('change', function () {
  	if(selectVal == ''){
  		selectVal = 'all';
  	}
+	$('[name="hdnfloating_crane"]').val(selectVal);
 
  	getMaps(selectVal);
 });
@@ -233,6 +234,29 @@ function getDetail(idfc){
   	link.target = "_blank"
   	link.click()
 
+}
+
+function getDetailnew(){
+	var idfc = $("#hdnfloating_crane").val();
+
+	if(idfc == ''){
+	   	alert("Choose Floating Crane");
+	}else{
+		var getUrl = window.location;
+		var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+		//alert(getUrl);
+		/*$('span.title_maps').html(loc);
+		$('#modal-detail').modal('show');*/
+
+		var link = document.createElement("a")
+	  	//link.href = ''+baseUrl+'/dashboard/dashboard_detail_menu?id='+idfc+'&orderid=0'
+	  	link.href = ''+baseUrl+'/dashboard_detail_menu?id='+idfc+'&orderid=0'
+	  	link.target = "_blank"
+	  	link.click()
+	}	
+	
+	
 }
 
 

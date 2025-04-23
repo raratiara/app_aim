@@ -55,8 +55,17 @@
 								<div class="form-group">
 									<div class="col-md-12">
 										<?=$selfloatcrane?>
+										<input type="hidden" id="hdnfloating_crane" name="hdnfloating_crane">
 									</div>
 								</div>
+							</div>
+							<div class="col-md-12 col-sm-12" style="margin-top:10px">
+								<div class="form-group">
+									<div class="col-md-12">
+										<button type="button" class="btn btn-primary" onclick="getDetailnew()">Dashboard</button>
+									</div>
+								</div>
+								
 							</div>
 						</div>
 					</div>
