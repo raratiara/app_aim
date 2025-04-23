@@ -27,8 +27,8 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	var valueee=0;
-	Cookies.set('totalJob', valueee);
+	/*var valueee=0;
+	Cookies.set('totalJob', valueee);*/
 
 	
    	$(function() {
