@@ -30,11 +30,14 @@ $(document).ready(function() {
 	/*var valueee=0;
 	Cookies.set('totalJob', valueee);*/
 
+	deleteCookie('totalJob');
 	
-   	$(function() {
-        $( "#start_date" ).datepicker();
-        $( "#end_date" ).datepicker();
-   	});
+
+	
+	$(function() {
+     $( "#start_date" ).datepicker();
+     $( "#end_date" ).datepicker();
+	});
 
    	
 });
@@ -1404,6 +1407,13 @@ $('#order_name').on('change', function () {
  	}
 
 });
+
+
+function deleteCookie(name) {
+     
+
+     document.cookie = name + '=; Max-Age=0'
+ }
 
 
 
