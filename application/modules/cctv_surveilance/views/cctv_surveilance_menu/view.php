@@ -3,7 +3,7 @@
 	<div class="row">
 		<div class="col-md-12 col-sm-12">
 			<div class="form-group">
-				<label class="col-md-3 control-label no-padding-right">Floating Crane</label>
+				<label class="col-md-3 control-label no-padding-right">Floating Craneee</label>
 				<div class="col-md-4">
 					<?=$selfloatcrane?>
 				</div>
