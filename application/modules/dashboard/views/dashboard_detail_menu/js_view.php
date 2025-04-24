@@ -27,11 +27,7 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-	/*var valueee=0;
-	Cookies.set('totalJob', valueee);*/
-
 	
-
 	
 	$(function() {
      $( "#start_date" ).datepicker();
@@ -359,9 +355,8 @@ function jobGraph(idfc){
 					
 				} 
 
-				/*var valueee = arrJob.length;
-				Cookies.set('totalJob', valueee);*/
 				
+
 				document.cookie = "totalJob = " + arrJob.length;
 				
 				
