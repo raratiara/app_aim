@@ -30,7 +30,6 @@ $(document).ready(function() {
 	/*var valueee=0;
 	Cookies.set('totalJob', valueee);*/
 
-	deleteCookie('totalJob');
 	
 
 	
