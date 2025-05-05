@@ -28,6 +28,8 @@
 
 $(document).ready(function() {
 	
+
+
 	
 	$(function() {
      $( "#start_date" ).datepicker();
@@ -52,7 +54,6 @@ var orderid = arrayOfStrings[2];
 
 <?php if  (_USER_ACCESS_LEVEL_VIEW == "1") { ?>
 jQuery(function($) { 
-	
 	
 	/* load table list */
 	/*myTable =
@@ -508,7 +509,7 @@ function jobGraph(idfc){
 				//// END get Job Graph
 				
 			} else { 
-				$('span#title_job').html('No Job order');
+				$('span#title_job').html('No Data');
 
 
 
@@ -657,7 +658,11 @@ function activityGraph(jobId, fcId){
 				//// END get Activity Graph
 				
 			} else {
-				title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
+
+				$('span#title_activity').html("No Data");
+
+
+				/*title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
 				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
 				msg = '<p>Gagal peroleh data.</p>';
 				var dialog = bootbox.dialog({
@@ -666,7 +671,7 @@ function activityGraph(jobId, fcId){
 				//if(response.status){
 					setTimeout(function(){
 						dialog.modal('hide');
-					}, 1500);
+					}, 1500);*/
 				//}
 			}
         },
@@ -710,9 +715,8 @@ function getLineChart(activity, jobId, fcId){
         success: function(data)
         { 
 			if(data != false){ 
-
-				//$('span#title_activity').html(data[0].order_name);
-
+				$('span#detail_activity').html("Cycle Time");
+				
 				//// get Activity Graph
 				var arrAct = [];
 				var arrTotalTime = [];
@@ -785,7 +789,10 @@ function getLineChart(activity, jobId, fcId){
 
 				
 			} else {
-				title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
+
+				$('span#detail_activity').html("No Data");
+
+				/*title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
 				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
 				msg = '<p>Gagal peroleh data.</p>';
 				var dialog = bootbox.dialog({
@@ -794,7 +801,7 @@ function getLineChart(activity, jobId, fcId){
 				//if(response.status){
 					setTimeout(function(){
 						dialog.modal('hide');
-					}, 1500);
+					}, 1500);*/
 				//}
 			}
         },
@@ -946,6 +953,10 @@ setInterval(function(){
 	var duration = hours+":"+minutes+":"+seconds;
 	//end count process time
 
+	
+	if(duration == 'NaN:NaN:NaN'){
+		duration = '';
+	}
 	$('#txtprocesstime').val(duration);
 
 

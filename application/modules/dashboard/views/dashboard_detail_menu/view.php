@@ -271,7 +271,8 @@ if  (_USER_ACCESS_LEVEL_VIEW == "1" && _USER_ACCESS_LEVEL_EKSPORT == "1") {
 									Image
 								</a>
 							</div>
-					        <div>Cycle Time</div>
+					        <div><span id="detail_activity"></span></div>
+					        
 					        <canvas  id="chartjs_line"></canvas>
 					    </div>  
 					</div>

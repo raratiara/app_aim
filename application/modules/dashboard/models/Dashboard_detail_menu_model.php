@@ -565,8 +565,23 @@ class Dashboard_detail_menu_model extends MY_Model
 			}
 			
 			
-			
-			$dt = '<div class="row ca">
+		}else{
+			$tableRow='';
+
+			for($i=0; $i<30; $i++){
+				$tableRow .= "<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>";
+			}
+		}
+
+
+		$dt = '<div class="row ca">
                         <div class="col-md-12">
 							<div class="portlet box green">
 								<div class="portlet-title">
@@ -599,7 +614,6 @@ class Dashboard_detail_menu_model extends MY_Model
 							</div>
 						</div>
 					</div>';
-		}
 
 
 		return $dt;
