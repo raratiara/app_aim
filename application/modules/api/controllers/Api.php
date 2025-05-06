@@ -215,63 +215,111 @@ class Api extends API_Controller
 		$this->render_json($response, $response['status']);
     }
 
-    public function tes_insert()
+    // Get next number 
+	public function getNextNumber() { 
+		
+		$yearcode = date("y");
+		$monthcode = date("m");
+		$period = $yearcode.$monthcode; 
+		
+
+		$cek = $this->db->query("select * from job_order where SUBSTRING(order_no, 4, 4) = '".$period."'");
+		$rs_cek = $cek->result_array();
+
+		if(empty($rs_cek)){
+			$num = '0001';
+		}else{
+			$cek2 = $this->db->query("select max(order_no) as maxnum from job_order where SUBSTRING(order_no, 4, 4) = '".$period."'");
+			$rs_cek2 = $cek2->result_array();
+			$dt = $rs_cek2[0]['maxnum']; 
+			$getnum = substr($dt,7); 
+			$num = str_pad($getnum + 1, 4, 0, STR_PAD_LEFT);
+			
+		}
+
+		return $num;
+		
+	} 
+
+
+    public function set_activity()
     {
-    	$data = [
-					'job_order_id' 		=> '1',
-					'activity_id' 		=> '6'/*,
-					'datetime_start' 	=> $datetime_start,
-					'datetime_end'		=> $datetime_end,
-					'total_time' 		=> $cycle_time,
-					'degree'			=> $degree_1,
-					'degree_2'			=> $degree_2,
-					'achieve_sla'		=> $achieve_sla,
-					'created_at' 		=> $datetime_send*/
-				];
+    	$bearer_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUSEVfQ0xBSU0iLCJhdWQiOiJUSEVfQVVESUVOQ0UiLCJpYXQiOjE3NDQwODY5MzIsIm5iZiI6MTc0NDA4Njk0MiwiZXhwIjoxNzQ0MDkwNTMyLCJkYXRhIjp7ImlkIjoiMSIsIm5hbWUiOiJEd2kgIiwiZW1haWwiOiJrdXN3YXJub0BnbWFpbC5jb20ifX0.lFA2RNrPCquAs4a-4Kg3z8dNv8t4HGPdxSGslN-4Jqs';
 
-		$rs = $this->db->insert("job_order_detail", $data);
+    	$headers = getallheaders();
+    	if (substr($headers['Authorization'], 0, 7) !== 'Bearer ') {
+		    echo json_encode(["error" => "Bearer keyword is missing"]);
+		    exit;
+		}else{
+			$token = trim(substr($headers['Authorization'], 7));
+
+			if($token != $bearer_token){
+				echo json_encode(["error" => "Token not valid"]);
+		    	exit;
+			}
+
+		}
 
 
-    }
-
-    public function tes_insert_json(){
     	$jsonData = file_get_contents('php://input');
     	$data = json_decode($jsonData, true);
     	$_REQUEST = $data;
 
-    	$id 			= $_REQUEST['id'];
-		$type_activity 	= $_REQUEST['type_activity'];
 
-    	$data = [
-					'job_order_id' 		=> $id,
-					'activity_id' 		=> $type_activity
-					
-				];
+		if(!empty($_REQUEST)){
+			$date 			= $_REQUEST['date'];
+			$order_name 	= $_REQUEST['order_name'];
+			$fc 			= $_REQUEST['fc'];
+			$mv 			= $_REQUEST['mv'];
+			$status_active 	= $_REQUEST['status_active'];
 
-		$rs = $this->db->insert("job_order_detail", $data);
 
-		if($rs){
+
+			$lettercode = ('ORD'); // ca code
+			$yearcode = date("y");
+			$monthcode = date("m");
+			$period = $yearcode.$monthcode; 
+			
+			$runningnumber 	= $this->getNextNumber(); // next count number
+			$nextnum 		= $lettercode.$period.$runningnumber;
+			
+
+			$data = [
+				'date' 				=> $date,
+				'order_no' 			=> $nextnum,
+				'order_name' 		=> $order_name,
+				'floating_crane_id'	=> $fc,
+				'mother_vessel_id' 	=> $mv,
+				'is_active'			=> $status_active,
+				'created_at' 		=> date("Y-m-d H:i:s")
+			];
+
+			$rs = $this->db->insert("job_order", $data);
+			$lastId = $this->db->insert_id();
+
 			$response = [
-						'status' 	=> 200,
-						'message' 	=> 'Success'
-					];
-		}else{
+				'status' 	=> 200,
+				'message' 	=> 'Success',
+				'order_id' 	=> $lastId
+			];
+
+			
+		} else {
 			$response = [
-						'status' 	=> 401,
-						'message' 	=> 'Failed',
-						'error' 	=> 'Error submit'
-					];
+				'status' 	=> 400, // Bad Request
+				'message' 	=>'Failed',
+				'error' 	=> 'Require not satisfied'
+			];
 		}
-
-
+		
 		$this->output->set_header('Access-Control-Allow-Origin: *');
 		$this->output->set_header('Access-Control-Allow-Methods: POST');
 		$this->output->set_header('Access-Control-Max-Age: 3600');
 		$this->output->set_header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 		$this->render_json($response, $response['status']);
-
-
     }
+
+    
 
 
 }
