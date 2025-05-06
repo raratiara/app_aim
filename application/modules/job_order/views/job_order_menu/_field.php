@@ -34,7 +34,7 @@
 											<?=$txtpic;?>
 										</div>
 									</div>
-									<div class="form-group">
+									<!-- <div class="form-group">
 										<label class="col-md-3 control-label no-padding-right">Date Time Start <span class="required">*</span></label>
 										<div class="col-md-9">
 											<?=$txtdatetimestart;?>
@@ -45,7 +45,7 @@
 										<div class="col-md-9">
 											<?=$txtdatetimeend;?>
 										</div>
-									</div>
+									</div> -->
 									<!-- <div class="form-group">
 										<label class="col-md-3 control-label no-padding-right">Total Time <span class="required">*</span></label>
 										<div class="col-md-9">

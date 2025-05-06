@@ -287,7 +287,7 @@ class Job_order_menu_model extends MY_Model
 
 
 		$date=date_create($post['date_pekerjaan']);
-		$datetime_start = date_create($post['date_time_start']); 
+		/*$datetime_start = date_create($post['date_time_start']); 
 		$datetime_end = date_create($post['date_time_end']); 
 
 		$f_datetime_start = date_format($datetime_start,"Y-m-d H:i:s");
@@ -297,22 +297,22 @@ class Job_order_menu_model extends MY_Model
 		$timestamp1 = strtotime($f_datetime_start); 
 		$timestamp2 = strtotime($f_datetime_end);
 
-  		$diff = abs($timestamp2 - $timestamp1)/(60); //menit
+  		$diff = abs($timestamp2 - $timestamp1)/(60); //menit*/
 		
 
 
 		$data = [
 			'date'	=> date_format($date,"Y-m-d"),
 			'order_no' 				=> $nextnum,
-			'order_name' 				=> trim($post['order_name']),
-			'floating_crane_id' 			=> trim($post['floating_crane']),
-			'mother_vessel_id' 			=> trim($post['mother_vessel']),
-			'pic' 		=> trim($post['pic']),
-			'datetime_start' 		=> $f_datetime_start,
+			'order_name' 			=> trim($post['order_name']),
+			'floating_crane_id' 	=> trim($post['floating_crane']),
+			'mother_vessel_id' 		=> trim($post['mother_vessel']),
+			'pic' 					=> trim($post['pic']),
+			/*'datetime_start' 		=> $f_datetime_start,
 			'datetime_end' 			=> $f_datetime_end,
-			'date_time_total' 	=> $diff,
-			'order_status' => trim($post['status']),
-			'is_active' => trim($post['is_active'])
+			'date_time_total' 	=> $diff,*/
+			'order_status' 			=> trim($post['status']),
+			'is_active' 			=> trim($post['is_active'])
 		];
 
 		return $rs = $this->db->insert($this->table_name, $data);
@@ -321,7 +321,7 @@ class Job_order_menu_model extends MY_Model
 	public function edit_data($post) { 
 
 		$date=date_create($post['date_pekerjaan']);
-		$datetime_start = date_create($post['date_time_start']); 
+		/*$datetime_start = date_create($post['date_time_start']); 
 		$datetime_end = date_create($post['date_time_end']); 
 
 		$f_datetime_start = date_format($datetime_start,"Y-m-d H:i:s");
@@ -331,7 +331,7 @@ class Job_order_menu_model extends MY_Model
 		$timestamp1 = strtotime($f_datetime_start); 
 		$timestamp2 = strtotime($f_datetime_end);
 
-  		$diff = abs($timestamp2 - $timestamp1)/(60); //menit
+  		$diff = abs($timestamp2 - $timestamp1)/(60); //menit*/
 
 		if(!empty($post['id'])){
 			$data = [
@@ -340,9 +340,9 @@ class Job_order_menu_model extends MY_Model
 				'floating_crane_id' => trim($post['floating_crane']),
 				'mother_vessel_id' 	=> trim($post['mother_vessel']),
 				'pic' 				=> trim($post['pic']),
-				'datetime_start' 	=> $f_datetime_start,
+				/*'datetime_start' 	=> $f_datetime_start,
 				'datetime_end' 		=> $f_datetime_end,
-				'date_time_total' 	=> $diff,
+				'date_time_total' 	=> $diff,*/
 				'order_status' 		=> trim($post['status']),
 				'is_active' 		=> trim($post['is_active'])
 			];

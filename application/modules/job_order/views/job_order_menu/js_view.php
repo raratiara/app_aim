@@ -124,9 +124,9 @@ function load_data()
 					$('[name="order_no"]').val(data.order_no);
 					$('[name="order_name"]').val(data.order_name);
 					$('[name="pic"]').val(data.pic);
-					$('[name="datetime_start"]').val(data.datetime_start);
+					/*$('[name="datetime_start"]').val(data.datetime_start);
 					$('[name="datetime_end"]').val(data.datetime_end);
-					$('[name="total_time"]').val(data.date_time_total);
+					$('[name="total_time"]').val(data.date_time_total);*/
 					$('[name="thumbnail"]').val(data.thumnail);
 					$('[name="is_active"][value="'+data.is_active+'"]').prop('checked', true);
 					$('select#floating_crane').val(data.floating_crane_id).trigger('change.select2');
