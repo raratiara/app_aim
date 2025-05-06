@@ -161,6 +161,22 @@ class Api extends API_Controller
 				
 
 				if($rs){
+
+					$f_datetime_start = date_format($datetime_start,"Y-m-d H:i:s");
+					$f_datetime_end = date_format($datetime_end,"Y-m-d H:i:s");
+					$timestamp1 = strtotime($f_datetime_start); 
+					$timestamp2 = strtotime($f_datetime_end);
+			  		$diff = abs($timestamp2 - $timestamp1)/(60); //menit
+
+					$data_order = [
+						'datetime_start'	=> $datetime_start,
+						'datetime_end' 		=> $datetime_end,
+						'date_time_total' 	=> $diff
+					];
+					$this->db->update("job_order", $data_order, "id = '".$id."'");
+
+
+
 					$cek_order_summary = $this->db->query("select * from job_order_summary where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
 					$totaltime = $this->db->query("select sum(total_time) as total FROM job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
 
