@@ -288,6 +288,7 @@ class Api extends API_Controller
 			$fc 			= $_REQUEST['fc'];
 			$mv 			= $_REQUEST['mv'];
 			$status_active 	= $_REQUEST['status_active'];
+			$ip_address 	= $_REQUEST['ip_address'];
 			
 
 
@@ -308,7 +309,8 @@ class Api extends API_Controller
 				'mother_vessel_id' 	=> $mv,
 				'is_active'			=> $status_active,
 				'created_at' 		=> date("Y-m-d H:i:s"),
-				'order_status' 		=> 2 // in progress
+				'order_status' 		=> 2, // in progress
+				'ip_address' 		=> $ip_address
 			];
 
 			$rs = $this->db->insert("job_order", $data);
