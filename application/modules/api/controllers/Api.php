@@ -134,7 +134,7 @@ class Api extends API_Controller
 			$cek_data = $this->db->query("select * from job_order where id = '".$id."' and is_active = 1 ")->result();
 
 			if($cek_data[0]->id != '')
-			{
+			{ echo 'aa &';
 				$cek_sla = $this->db->query("select * from sla where activity_id = '".$type_activity."' ")->result();
 				$sla = 0;
 				if(!empty($cek_sla[0]->sla)){
@@ -160,7 +160,7 @@ class Api extends API_Controller
 				$rs = $this->db->insert("job_order_detail", $data);
 				
 
-				if($rs){
+				if($rs){ echo 'bb &';
 
 					$f_datetime_start = date_format($datetime_start,"Y-m-d H:i:s");
 					$f_datetime_end = date_format($datetime_end,"Y-m-d H:i:s");
@@ -174,12 +174,12 @@ class Api extends API_Controller
 						'date_time_total' 	=> $diff
 					];
 					$this->db->update("job_order", $data_order, "id = '".$id."'");
-
+echo 'ff &';
 
 
 					$cek_order_summary = $this->db->query("select * from job_order_summary where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
 					$totaltime = $this->db->query("select sum(total_time) as total FROM job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
-
+echo 'gg &';
 					if(!empty($cek_order_summary[0]->id)){
 						//update
 						$data2 = [
@@ -195,12 +195,12 @@ class Api extends API_Controller
 						];
 						$this->db->insert("job_order_summary", $data2);
 					}
-
+echo 'hh &';
 					$response = [
 						'status' 	=> 200,
 						'message' 	=> 'Success'
 					];
-				}else{
+				}else{ echo 'cc &';
 					$response = [
 						'status' 	=> 401,
 						'message' 	=> 'Failed',
@@ -208,7 +208,7 @@ class Api extends API_Controller
 					];
 				}
 	
-			} else {
+			} else { echo 'dd &';
 				$response = [
 					'status' 	=> 401,
 					'message' 	=> 'Failed',
@@ -216,7 +216,7 @@ class Api extends API_Controller
 				];
 			}
 			
-		} else {
+		} else { echo 'eee &';
 			$response = [
 				'status' 	=> 400, // Bad Request
 				'message' 	=>'Failed',
