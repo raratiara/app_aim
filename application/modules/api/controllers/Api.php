@@ -157,16 +157,16 @@ class Api extends API_Controller
 					'created_at' 		=> $datetime_send
 				];
 
-				$rs = $this->db->insert("job_order_detail", $data);
+				//$rs = $this->db->insert("job_order_detail", $data);
 				
 
-				if($rs){ echo 'bb &';
+				if($rs){ echo 'bbb &';
 
-					$f_datetime_start = date_format($datetime_start,"Y-m-d H:i:s");
-					$f_datetime_end = date_format($datetime_end,"Y-m-d H:i:s");
-					$timestamp1 = strtotime($f_datetime_start); 
-					$timestamp2 = strtotime($f_datetime_end);
-			  		$diff = abs($timestamp2 - $timestamp1)/(60); //menit
+					$f_datetime_start = date_format($datetime_start,"Y-m-d H:i:s"); echo '11';
+					$f_datetime_end = date_format($datetime_end,"Y-m-d H:i:s"); echo '22';
+					$timestamp1 = strtotime($f_datetime_start); echo '33';
+					$timestamp2 = strtotime($f_datetime_end); echo '44';
+			  		$diff = abs($timestamp2 - $timestamp1)/(60); echo '55'; //menit
 echo 'datetime_start: '.$datetime_start; echo 'datetime_end: '.$datetime_end; echo 'date_time_total: '.$diff; 
 echo 'id: '.$id; echo 'f_datetime_start: '.$f_datetime_start; echo 'f_datetime_end: '.$f_datetime_end;
 					$data_order = [
