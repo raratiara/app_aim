@@ -167,7 +167,8 @@ class Api extends API_Controller
 					$timestamp1 = strtotime($f_datetime_start); 
 					$timestamp2 = strtotime($f_datetime_end);
 			  		$diff = abs($timestamp2 - $timestamp1)/(60); //menit
-
+echo 'datetime_start: '.$datetime_start; echo 'datetime_end: '.$datetime_end; echo 'date_time_total: '.$diff; 
+echo 'id: '.$id; echo 'f_datetime_start: '.$f_datetime_start; echo 'f_datetime_end: '.$f_datetime_end;
 					$data_order = [
 						'datetime_start'	=> $datetime_start,
 						'datetime_end' 		=> $datetime_end,
