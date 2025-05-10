@@ -157,7 +157,7 @@ class Api extends API_Controller
 					'created_at' 		=> $datetime_send
 				];
 
-				//$rs = $this->db->insert("job_order_detail", $data);
+				$rs = $this->db->insert("job_order_detail", $data);
 				
 
 				if($rs){ echo 'bbb &';
