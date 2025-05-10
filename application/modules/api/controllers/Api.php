@@ -134,7 +134,7 @@ class Api extends API_Controller
 			$cek_data = $this->db->query("select * from job_order where id = '".$id."' and is_active = 1 ")->result();
 
 			if($cek_data[0]->id != '')
-			{ echo 'aa &';
+			{ 
 				$cek_sla = $this->db->query("select * from sla where activity_id = '".$type_activity."' ")->result();
 				$sla = 0;
 				if(!empty($cek_sla[0]->sla)){
@@ -160,27 +160,28 @@ class Api extends API_Controller
 				$rs = $this->db->insert("job_order_detail", $data);
 				
 
-				if($rs){ echo 'bbb &';
+				if($rs){ 
 
-					$f_datetime_start = date_format($datetime_start,"Y-m-d H:i:s"); echo '11';
-					$f_datetime_end = date_format($datetime_end,"Y-m-d H:i:s"); echo '22';
-					$timestamp1 = strtotime($f_datetime_start); echo '33';
-					$timestamp2 = strtotime($f_datetime_end); echo '44';
-			  		$diff = abs($timestamp2 - $timestamp1)/(60); echo '55'; //menit
-echo 'datetime_start: '.$datetime_start; echo 'datetime_end: '.$datetime_end; echo 'date_time_total: '.$diff; 
-echo 'id: '.$id; echo 'f_datetime_start: '.$f_datetime_start; echo 'f_datetime_end: '.$f_datetime_end;
+					/*$f_datetime_start = date_format($datetime_start,"Y-m-d H:i:s"); 
+					$f_datetime_end = date_format($datetime_end,"Y-m-d H:i:s"); */
+					$f_datetime_start = $datetime_start;
+					$f_datetime_end = $datetime_end; 
+					$timestamp1 = strtotime($f_datetime_start); 
+					$timestamp2 = strtotime($f_datetime_end); 
+			  		$diff = abs($timestamp2 - $timestamp1)/(60); //menit
+
 					$data_order = [
 						'datetime_start'	=> $datetime_start,
 						'datetime_end' 		=> $datetime_end,
 						'date_time_total' 	=> $diff
 					];
 					$this->db->update("job_order", $data_order, "id = '".$id."'");
-echo 'ff &';
+
 
 
 					$cek_order_summary = $this->db->query("select * from job_order_summary where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
 					$totaltime = $this->db->query("select sum(total_time) as total FROM job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
-echo 'gg &';
+
 					if(!empty($cek_order_summary[0]->id)){
 						//update
 						$data2 = [
@@ -196,12 +197,12 @@ echo 'gg &';
 						];
 						$this->db->insert("job_order_summary", $data2);
 					}
-echo 'hh &';
+
 					$response = [
 						'status' 	=> 200,
 						'message' 	=> 'Success'
 					];
-				}else{ echo 'cc &';
+				}else{ 
 					$response = [
 						'status' 	=> 401,
 						'message' 	=> 'Failed',
@@ -209,7 +210,7 @@ echo 'hh &';
 					];
 				}
 	
-			} else { echo 'dd &';
+			} else { 
 				$response = [
 					'status' 	=> 401,
 					'message' 	=> 'Failed',
@@ -217,7 +218,7 @@ echo 'hh &';
 				];
 			}
 			
-		} else { echo 'eee &';
+		} else { 
 			$response = [
 				'status' 	=> 400, // Bad Request
 				'message' 	=>'Failed',
