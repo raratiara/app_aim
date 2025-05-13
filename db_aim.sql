@@ -128,7 +128,7 @@ CREATE TABLE `job_order` (
   `pic` varchar(100) DEFAULT NULL,
   `datetime_start` datetime DEFAULT NULL,
   `datetime_end` datetime DEFAULT NULL,
-  `date_time_total` decimal(10,0) DEFAULT NULL,
+  `date_time_total` varchar(45) DEFAULT NULL,
   `order_status` int(11) DEFAULT NULL COMMENT '1 : Not started 2 : Progress 3 : Done',
   `created_by` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -146,7 +146,7 @@ CREATE TABLE `job_order` (
 
 LOCK TABLES `job_order` WRITE;
 /*!40000 ALTER TABLE `job_order` DISABLE KEYS */;
-INSERT INTO `job_order` VALUES (1,'2025-02-26','ORD25020001','Perpindahan Batubara',1,2,'Rara','2025-02-26 08:00:00','2025-02-26 21:15:00',145,2,NULL,NULL,NULL,NULL,1,NULL),(9,'2025-05-06','ORD25050001','Perpindahan 2',1,1,NULL,NULL,NULL,NULL,NULL,NULL,'2025-05-06 07:25:34',NULL,NULL,1,NULL);
+INSERT INTO `job_order` VALUES (1,'2025-05-10','ORD25020001','Perpindahan Batubara',1,2,'Rara','2025-05-13 14:00:00','2025-05-13 14:00:08','00:00:08',2,NULL,NULL,NULL,NULL,1,NULL);
 /*!40000 ALTER TABLE `job_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,14 +163,14 @@ CREATE TABLE `job_order_detail` (
   `activity_id` int(11) DEFAULT NULL,
   `datetime_start` datetime DEFAULT NULL,
   `datetime_end` datetime DEFAULT NULL,
-  `total_time` double DEFAULT NULL,
+  `total_time` varchar(45) DEFAULT NULL,
   `degree` double DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `degree_2` varchar(45) DEFAULT NULL,
   `achieve_sla` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -179,6 +179,7 @@ CREATE TABLE `job_order_detail` (
 
 LOCK TABLES `job_order_detail` WRITE;
 /*!40000 ALTER TABLE `job_order_detail` DISABLE KEYS */;
+INSERT INTO `job_order_detail` VALUES (1,1,6,'2025-04-10 11:00:00','2025-04-10 12:00:00','00:03:30',180,'2025-04-10 11:00:00',NULL,'190',0),(2,1,6,'2025-04-10 11:00:00','2025-04-10 12:00:00','00:03:30',180,'2025-04-10 11:00:00',NULL,'190',0),(3,1,6,'2025-04-10 11:00:00','2025-04-10 12:00:00','00:03:30',180,'2025-04-10 11:00:00',NULL,'190',0),(4,1,6,'2025-04-10 11:00:00','2025-04-10 12:00:00','00:03:30',180,'2025-04-10 11:00:00',NULL,'190',0),(5,1,6,'2025-04-10 11:00:00','2025-04-10 12:00:00','00:03:30',180,'2025-04-10 11:00:00',NULL,'190',0),(7,1,6,'2025-05-13 14:00:00','2025-05-13 14:00:08','00:00:08',180,'2025-04-10 11:00:00',NULL,'190',1);
 /*!40000 ALTER TABLE `job_order_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,9 +194,9 @@ CREATE TABLE `job_order_summary` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `job_order_id` int(11) DEFAULT NULL,
   `activity_id` int(11) DEFAULT NULL,
-  `total_date_time` double DEFAULT NULL,
+  `total_date_time` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,6 +205,7 @@ CREATE TABLE `job_order_summary` (
 
 LOCK TABLES `job_order_summary` WRITE;
 /*!40000 ALTER TABLE `job_order_summary` DISABLE KEYS */;
+INSERT INTO `job_order_summary` VALUES (1,1,6,'00:17:38');
 /*!40000 ALTER TABLE `job_order_summary` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,7 +253,7 @@ DROP TABLE IF EXISTS `sla`;
 CREATE TABLE `sla` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `activity_id` int(11) DEFAULT NULL,
-  `sla` decimal(10,0) DEFAULT NULL,
+  `sla` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -262,7 +264,7 @@ CREATE TABLE `sla` (
 
 LOCK TABLES `sla` WRITE;
 /*!40000 ALTER TABLE `sla` DISABLE KEYS */;
-INSERT INTO `sla` VALUES (1,6,2);
+INSERT INTO `sla` VALUES (1,6,'00:02:00');
 /*!40000 ALTER TABLE `sla` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,7 +331,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Dwi Kuswarno','','dwi','e10adc3949ba59abbe56e057f20f883e',NULL,'1','role',NULL,1,'2','2025-04-17 08:43:20','',NULL,'HXDBKvhqrdfoQ4HNQjAVrN5jcsEEw7Py9bMJxKFvIM0zLw7WainnRkOgAY1ioltO',NULL,'2016-10-27 17:39:53',NULL,'2025-04-17 06:43:20'),(2,'Vendor Master','','master','eb0a191797624dd3a48fa681d3061212',NULL,'1','role',NULL,1,'4','2020-05-14 18:47:20','',NULL,'',NULL,'2018-12-03 02:46:50',NULL,'2020-11-01 05:00:28'),(3,'Admin','','admin','4fbd41a36dac3cd79aa1041c9648ab89',NULL,'2','role',NULL,1,'2','2020-05-14 18:48:15','',NULL,'','dwi','2019-01-16 10:44:58','dwi','2022-02-25 04:15:37'),(4,'User','','user','ee11cbb19052e40b07aac0ca060c23ee',NULL,'3','role',NULL,1,'4',NULL,'',NULL,'','dwi','2019-01-16 10:45:15',NULL,'2020-11-01 05:01:07'),(5,'Muniarsih','niar@nathabuana.id','niar','e46920f7ec22cd46f848bba7b80e3478',NULL,'1','role',NULL,1,'2','2024-11-26 13:56:44','',NULL,'4PFrgi8gAhJMkK1ZtOpqJRQIuM6jqzXLacC6Un4xNoVs5mGyft5aShiNY3v3uoTB','dwi','2020-10-16 09:55:25','awi','2024-11-26 06:56:44'),(6,'Anung Wicaksono','anung@nathabuana.id','awi','83d5c0f298e249c6f1772c7188080ea4',NULL,'1','role',NULL,1,'2','2024-11-04 14:23:45','',NULL,'Q97HNvyr8WK5hmcAQUnXEHzAOZbznWS4FRVGL2bUgDy01f4amqT5xRNuuIs9iYvC','dwi','2020-10-16 09:56:58','dwi','2024-11-04 07:23:45'),(7,'Aden Maulana','aden.maulana@nathabuana.id','aden','de5afa86dd897c038f930a791a4601e4',2,'2','role',NULL,NULL,'2','2022-06-15 08:00:21','',NULL,'','awi','2021-01-06 02:49:32','awi','2022-06-15 01:00:21'),(8,'Indra Hermawan','indra@nathabuana.com','indra','8ef334db11d44b74859422d7fc4a9b1b',30,'2','role',NULL,NULL,'2','2024-09-02 14:22:18','',NULL,'','dwi','2021-07-06 01:30:21','dwi','2024-09-02 07:22:18'),(9,'Ferry Agus','','ferry','06acce575406715f24ddcddcce92eca2',1,'3','custom',NULL,NULL,'2',NULL,'',NULL,'','awi','2022-02-14 09:48:48',NULL,NULL),(11,'Astaka Sarwiyanto','astaka@nanthabuana.id','astaka','a57f671e3bd818d5d1d77437772d9eb9',6,'1','role',NULL,NULL,'2','2023-01-02 08:52:47','',NULL,'68u5LMO9DserhBQ40Ya92XFkCI7e2vwwjlX1inTZzvfRA8BgRqk1SPcSQNfK3rTW','awi','2023-01-02 01:43:21','awi','2024-03-08 07:39:07'),(12,'Test','','test','f2fc9c769effa56554ad6da756c9d8b2',8,'1','role',NULL,NULL,'2',NULL,'',NULL,'','awi','2024-03-08 07:35:12','awi','2024-03-08 07:36:55');
+INSERT INTO `user` VALUES (1,'Dwi Kuswarno','','dwi','e10adc3949ba59abbe56e057f20f883e',NULL,'1','role',NULL,1,'2','2025-05-13 17:44:29','',NULL,'HXDBKvhqrdfoQ4HNQjAVrN5jcsEEw7Py9bMJxKFvIM0zLw7WainnRkOgAY1ioltO',NULL,'2016-10-27 17:39:53',NULL,'2025-05-13 15:44:29'),(2,'Vendor Master','','master','eb0a191797624dd3a48fa681d3061212',NULL,'1','role',NULL,1,'4','2020-05-14 18:47:20','',NULL,'',NULL,'2018-12-03 02:46:50',NULL,'2020-11-01 05:00:28'),(3,'Admin','','admin','4fbd41a36dac3cd79aa1041c9648ab89',NULL,'2','role',NULL,1,'2','2020-05-14 18:48:15','',NULL,'','dwi','2019-01-16 10:44:58','dwi','2022-02-25 04:15:37'),(4,'User','','user','ee11cbb19052e40b07aac0ca060c23ee',NULL,'3','role',NULL,1,'4',NULL,'',NULL,'','dwi','2019-01-16 10:45:15',NULL,'2020-11-01 05:01:07'),(5,'Muniarsih','niar@nathabuana.id','niar','e46920f7ec22cd46f848bba7b80e3478',NULL,'1','role',NULL,1,'2','2024-11-26 13:56:44','',NULL,'4PFrgi8gAhJMkK1ZtOpqJRQIuM6jqzXLacC6Un4xNoVs5mGyft5aShiNY3v3uoTB','dwi','2020-10-16 09:55:25','awi','2024-11-26 06:56:44'),(6,'Anung Wicaksono','anung@nathabuana.id','awi','83d5c0f298e249c6f1772c7188080ea4',NULL,'1','role',NULL,1,'2','2024-11-04 14:23:45','',NULL,'Q97HNvyr8WK5hmcAQUnXEHzAOZbznWS4FRVGL2bUgDy01f4amqT5xRNuuIs9iYvC','dwi','2020-10-16 09:56:58','dwi','2024-11-04 07:23:45'),(7,'Aden Maulana','aden.maulana@nathabuana.id','aden','de5afa86dd897c038f930a791a4601e4',2,'2','role',NULL,NULL,'2','2022-06-15 08:00:21','',NULL,'','awi','2021-01-06 02:49:32','awi','2022-06-15 01:00:21'),(8,'Indra Hermawan','indra@nathabuana.com','indra','8ef334db11d44b74859422d7fc4a9b1b',30,'2','role',NULL,NULL,'2','2024-09-02 14:22:18','',NULL,'','dwi','2021-07-06 01:30:21','dwi','2024-09-02 07:22:18'),(9,'Ferry Agus','','ferry','06acce575406715f24ddcddcce92eca2',1,'3','custom',NULL,NULL,'2',NULL,'',NULL,'','awi','2022-02-14 09:48:48',NULL,NULL),(11,'Astaka Sarwiyanto','astaka@nanthabuana.id','astaka','a57f671e3bd818d5d1d77437772d9eb9',6,'1','role',NULL,NULL,'2','2023-01-02 08:52:47','',NULL,'68u5LMO9DserhBQ40Ya92XFkCI7e2vwwjlX1inTZzvfRA8BgRqk1SPcSQNfK3rTW','awi','2023-01-02 01:43:21','awi','2024-03-08 07:39:07'),(12,'Test','','test','f2fc9c769effa56554ad6da756c9d8b2',8,'1','role',NULL,NULL,'2',NULL,'',NULL,'','awi','2024-03-08 07:35:12','awi','2024-03-08 07:36:55');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -525,4 +527,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-08 20:26:58
+-- Dump completed on 2025-05-14  1:06:57

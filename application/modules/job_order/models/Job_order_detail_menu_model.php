@@ -27,7 +27,8 @@ class Job_order_detail_menu_model extends MY_Model
 			'dt.datetime_start',
 			'dt.datetime_end',
 			'dt.degree',
-			'dt.degree_2'
+			'dt.degree_2',
+			'dt.total_time'
 		];
 		
 		
@@ -205,6 +206,7 @@ class Job_order_detail_menu_model extends MY_Model
 				$row->activity_name,
 				$row->datetime_start,
 				$row->datetime_end,
+				$row->total_time,
 				$row->degree,
 				$row->degree_2
 

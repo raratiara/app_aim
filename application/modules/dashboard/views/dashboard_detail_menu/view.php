@@ -205,6 +205,7 @@ if  (_USER_ACCESS_LEVEL_VIEW == "1" && _USER_ACCESS_LEVEL_EKSPORT == "1") {
 								</a>
 							</div>
 							<div><span id="title_job"></span> </div>
+							<div style="text-align: left;"><span>(minutes)</span> </div> 
 							<canvas  id="chartjs_bar" style="height: 250px; width: 500px;"></canvas>
 						</div>
 					</div>
@@ -235,6 +236,7 @@ if  (_USER_ACCESS_LEVEL_VIEW == "1" && _USER_ACCESS_LEVEL_EKSPORT == "1") {
 								</a>
 							</div>
 							<div><span id="title_activity"></span> </div> 
+							<div style="text-align: left;"><span>(minutes)</span> </div> 
 							<canvas  id="chartjs_bar_activity" style="height: 250px; width: 500px;"></canvas>
 						</div>
 					</div>
@@ -272,7 +274,7 @@ if  (_USER_ACCESS_LEVEL_VIEW == "1" && _USER_ACCESS_LEVEL_EKSPORT == "1") {
 								</a>
 							</div>
 					        <div><span id="detail_activity"></span></div>
-					        
+					        <div style="text-align: left;"><span>(minutes)</span> </div> 
 					        <canvas  id="chartjs_line"></canvas>
 					    </div>  
 					</div>

@@ -95,7 +95,7 @@ class Api extends API_Controller
 
 
     public function send_data_cycle_time()
-    {
+    { 
     	$bearer_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJUSEVfQ0xBSU0iLCJhdWQiOiJUSEVfQVVESUVOQ0UiLCJpYXQiOjE3NDQwODY5MzIsIm5iZiI6MTc0NDA4Njk0MiwiZXhwIjoxNzQ0MDkwNTMyLCJkYXRhIjp7ImlkIjoiMSIsIm5hbWUiOiJEd2kgIiwiZW1haWwiOiJrdXN3YXJub0BnbWFpbC5jb20ifX0.lFA2RNrPCquAs4a-4Kg3z8dNv8t4HGPdxSGslN-4Jqs';
 
     	$headers = getallheaders();
@@ -113,12 +113,9 @@ class Api extends API_Controller
 		}
 
 
-
-
     	$jsonData = file_get_contents('php://input');
     	$data = json_decode($jsonData, true);
     	$_REQUEST = $data;
-
 
 
 		if(!empty($_REQUEST)){
@@ -130,94 +127,132 @@ class Api extends API_Controller
 			$degree_1 		= $_REQUEST['degree_1'];
 			$degree_2 		= $_REQUEST['degree_2'];
 			$datetime_send 	= $_REQUEST['datetime_send'];
-				
-			$cek_data = $this->db->query("select * from job_order where id = '".$id."' and is_active = 1 ")->result();
 
-			if($cek_data[0]->id != '')
-			{ 
-				$cek_sla = $this->db->query("select * from sla where activity_id = '".$type_activity."' ")->result();
-				$sla = 0;
-				if(!empty($cek_sla[0]->sla)){
-					$sla = $cek_sla[0]->sla;
-				}
-				$achieve_sla=1;
-				if($cycle_time > $sla){
-					$achieve_sla=0;
-				}
+			if($datetime_end >= $datetime_start){
+				//GET DURATION CYCLE TIME
+				$start = new DateTime($datetime_start);
+				$end = new DateTime($datetime_end); 
+				$interval = $start->diff($end);
+				// Convert the total duration to hours:minutes:seconds
+				$totalHours = ($interval->days * 24) + $interval->h;
+				$minutes = $interval->i;
+				$seconds = $interval->s;
+				// Format as H:i:s (e.g., 50:30:45)
+				$duration = sprintf("%02d:%02d:%02d", $totalHours, $minutes, $seconds);
+				$cycle_time = $duration;
+				//END GET DURATION CYCLE TIME
 
-				$data = [
-					'job_order_id' 		=> $id,
-					'activity_id' 		=> $type_activity,
-					'datetime_start' 	=> $datetime_start,
-					'datetime_end'		=> $datetime_end,
-					'total_time' 		=> $cycle_time,
-					'degree'			=> $degree_1,
-					'degree_2'			=> $degree_2,
-					'achieve_sla'		=> $achieve_sla,
-					'created_at' 		=> $datetime_send
-				];
+					
+				$cek_data = $this->db->query("select * from job_order where id = '".$id."' and is_active = 1 ")->result();
 
-				$rs = $this->db->insert("job_order_detail", $data);
-				
-
-				if($rs){ 
-
-					/*$f_datetime_start = date_format($datetime_start,"Y-m-d H:i:s"); 
-					$f_datetime_end = date_format($datetime_end,"Y-m-d H:i:s"); */
-					$f_datetime_start = $datetime_start;
-					$f_datetime_end = $datetime_end; 
-					$timestamp1 = strtotime($f_datetime_start); 
-					$timestamp2 = strtotime($f_datetime_end); 
-			  		$diff = abs($timestamp2 - $timestamp1)/(60); //menit
-
-					$data_order = [
-						'datetime_start'	=> $datetime_start,
-						'datetime_end' 		=> $datetime_end,
-						'date_time_total' 	=> $diff
-					];
-					$this->db->update("job_order", $data_order, "id = '".$id."'");
-
-
-
-					$cek_order_summary = $this->db->query("select * from job_order_summary where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
-					$totaltime = $this->db->query("select sum(total_time) as total FROM job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
-
-					if(!empty($cek_order_summary[0]->id)){
-						//update
-						$data2 = [
-							'total_date_time' 	=> $totaltime[0]->total
-						];
-						$this->db->update("job_order_summary", $data2, "id = '".$cek_order_summary[0]->id."'");
-					}else{
-						//insert
-						$data2 = [
-							'job_order_id' 		=> $id,
-							'activity_id' 		=> $type_activity,
-							'total_date_time' 	=> $totaltime[0]->total
-						];
-						$this->db->insert("job_order_summary", $data2);
+				if($cek_data[0]->id != '')
+				{ 
+					$cek_sla = $this->db->query("select * from sla where activity_id = '".$type_activity."' ")->result();
+					$sla = 0;
+					if(!empty($cek_sla[0]->sla)){
+						$sla = $cek_sla[0]->sla;
+					}
+					//$sla='00:02:00';
+					$achieve_sla=1;
+					if($cycle_time > $sla){
+						$achieve_sla=0;
 					}
 
-					$response = [
-						'status' 	=> 200,
-						'message' 	=> 'Success'
+					$data = [
+						'job_order_id' 		=> $id,
+						'activity_id' 		=> $type_activity,
+						'datetime_start' 	=> $datetime_start,
+						'datetime_end'		=> $datetime_end,
+						'total_time' 		=> $cycle_time,
+						'degree'			=> $degree_1,
+						'degree_2'			=> $degree_2,
+						'achieve_sla'		=> $achieve_sla,
+						'created_at' 		=> $datetime_send
 					];
-				}else{ 
+
+					$rs = $this->db->insert("job_order_detail", $data);
+					
+
+					if($rs){ 
+
+						/*$f_datetime_start = date_format($datetime_start,"Y-m-d H:i:s"); 
+						$f_datetime_end = date_format($datetime_end,"Y-m-d H:i:s"); */
+						/*$f_datetime_start = $datetime_start;
+						$f_datetime_end = $datetime_end; 
+						$timestamp1 = strtotime($f_datetime_start); 
+						$timestamp2 = strtotime($f_datetime_end); 
+				  		$diff = abs($timestamp2 - $timestamp1)/(60); //menit*/
+
+						$data_order = [
+							'datetime_start'	=> $datetime_start,
+							'datetime_end' 		=> $datetime_end,
+							'date_time_total' 	=> $cycle_time
+						];
+						$this->db->update("job_order", $data_order, "id = '".$id."'");
+
+
+
+						$cek_order_summary = $this->db->query("select * from job_order_summary where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
+						//$totaltime = $this->db->query("select sum(total_time) as total FROM job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
+
+						// CONVERT each duration to seconds and sum
+						$totaltime = $this->db->query("select * from job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
+						foreach ($totaltime as $duration) {
+						    list($hours, $minutes, $seconds) = explode(":", $duration->total_time);
+						    $totalSeconds += ($hours * 3600) + ($minutes * 60) + $seconds;
+						}
+						// Convert total seconds back to H:i:s
+						$hours = floor($totalSeconds / 3600);
+						$minutes = floor(($totalSeconds % 3600) / 60);
+						$seconds = $totalSeconds % 60;
+						// Format result
+						$totalDuration = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+						// END CONVERT each duration to seconds and sum
+
+
+						if(!empty($cek_order_summary[0]->id)){
+							//update
+							$data2 = [
+								'total_date_time' 	=> $totalDuration //$totaltime[0]->total
+							];
+							$this->db->update("job_order_summary", $data2, "id = '".$cek_order_summary[0]->id."'");
+						}else{
+							//insert
+							$data2 = [
+								'job_order_id' 		=> $id,
+								'activity_id' 		=> $type_activity,
+								'total_date_time' 	=> $totalDuration //$totaltime[0]->total
+							];
+							$this->db->insert("job_order_summary", $data2);
+						}
+
+						$response = [
+							'status' 	=> 200,
+							'message' 	=> 'Success'
+						];
+					}else{ 
+						$response = [
+							'status' 	=> 401,
+							'message' 	=> 'Failed',
+							'error' 	=> 'Error submit'
+						];
+					}
+		
+				} else { 
 					$response = [
 						'status' 	=> 401,
 						'message' 	=> 'Failed',
-						'error' 	=> 'Error submit'
+						'error' 	=> 'Order ID not found'
 					];
 				}
-	
-			} else { 
+			}else{
 				$response = [
-					'status' 	=> 401,
-					'message' 	=> 'Failed',
-					'error' 	=> 'Order ID not found'
+					'status' 	=> 400, // Bad Request
+					'message' 	=>'Failed',
+					'error' 	=> 'Require not satisfied'
 				];
 			}
-			
+
 		} else { 
 			$response = [
 				'status' 	=> 400, // Bad Request

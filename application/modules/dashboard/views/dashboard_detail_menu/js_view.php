@@ -292,7 +292,12 @@ function getDataRealtime(idfc, orderid){
     });
 }
 
+function getTotalMinutes(duration) { 
+  var [hours, minutes, seconds] = duration.split(':').map(Number);
 
+  // Convert hours to minutes and seconds to fractional minutes
+  return (hours * 60) + minutes + (seconds / 60);
+}
 
 
 function jobGraph(idfc){ 
@@ -319,12 +324,12 @@ function jobGraph(idfc){
 				var arrDataJob	= [];	
 
 				var arrColor 	= ["#5969ff",
-	                                "#ff407b",
-	                                "#25d5f2",
-	                                "#ffc750",
-	                                "#2ec551",
-	                                "#7040fa",
-	                                "#ff004e"];
+	                          "#ff407b",
+	                          "#25d5f2",
+	                          "#ffc750",
+	                          "#2ec551",
+	                          "#7040fa",
+	                          "#ff004e"];
 
 	
 	
@@ -346,9 +351,16 @@ function jobGraph(idfc){
 						<?php $ke = 'no'; ?>
 
 						if(data[i].order_name == arrJob[a]){ 
+							var ttl_date_time_total=0;
+							if(data[i].date_time_total != null){
+								var date_time_total = getTotalMinutes(data[i].date_time_total);
+								var ttl_date_time_total = date_time_total.toFixed(2);
+							}
+							
 							var obj={};
 							obj['name'] = <?=$ke?>;
-							obj['time'] = data[i].date_time_total;
+							//obj['time'] = data[i].date_time_total;
+							obj['time'] = ttl_date_time_total;
 							obj['date'] = data[i].date;
 							arrDataJob.push(obj);
 						}
@@ -448,7 +460,7 @@ function jobGraph(idfc){
 			            	?>
 			        	]
 			        },
-			        options: {
+			        /*options: {
 			               		legend: {
 						            display: true,
 						            position: 'bottom',
@@ -459,7 +471,29 @@ function jobGraph(idfc){
 						                fontSize: 14,
 						            }
 						        },
+						    }*/
+			        options: {
+				       	responsive: true,
+		                plugins: {
+		                    datalabels: {
+		                        formatter: (value, context) => {
+		                            let percentage = (value / context.chart._metasets
+		                            [context.datasetIndex].total * 100)
+		                                .toFixed(2) + '%';
+		                            /*return percentage + '\n' + value;*/
+		                            return value;
+		                        },
+		                        color: '#fff',
+		                        font: {
+		                            size: 14,
+		                        }
+		                    },
+		                    legend: {
+						      display: false
 						    }
+		                }
+				    },
+				    plugins: [ChartDataLabels]
 			    });
 
 
@@ -545,6 +579,8 @@ function jobGraph(idfc){
 }
 
 
+
+
 function activityGraph(jobId, fcId){
 	
 	$.ajax({
@@ -563,10 +599,29 @@ function activityGraph(jobId, fcId){
 				var arrAct = [];
 				var arrTotalTime = [];
 				for(var i=0; i<data.length; i++){ 
+					var total_date_time = getTotalMinutes(data[i].total_date_time);
 					arrAct.push(data[i].activity_name);
-					arrTotalTime.push(data[i].total_date_time);
+					//arrTotalTime.push(data[i].total_date_time);
+					arrTotalTime.push(total_date_time.toFixed(2));
 				}
 				//console.log(arrAct);
+				
+				const dataX = {
+				  labels: arrAct, 
+				  datasets: [{
+                            backgroundColor: [
+                               "#3caab7",
+                                "#29747d",
+                                "#25d5f2",
+                                "#ffc750",
+                                "#2ec551",
+                                "#7040fa",
+                                "#ff004e"
+                            ],
+                            data: arrTotalTime, 
+                            label: ''
+                        }]
+				};
 				
 				//var ctx = document.getElementById("chartjs_bar_activity").getContext('2d');
 				const canvas = document.getElementById('chartjs_bar_activity');
@@ -578,7 +633,7 @@ function activityGraph(jobId, fcId){
 
 
 
-			    var myChart = new Chart(ctx, {
+			    /*var myChart = new Chart(ctx, {
 			        type: 'bar',
 			        data: {
 			            labels: arrAct, 
@@ -610,6 +665,35 @@ function activityGraph(jobId, fcId){
 						    }
 			        	}   
 					}
+			    });*/
+
+
+			   var myChart = new Chart(ctx, {
+			        type: 'bar',
+			        data: dataX,
+				  	options: {
+				       	responsive: true,
+		                plugins: {
+		                    datalabels: {
+		                        formatter: (value, context) => {
+		                            let percentage = (value / context.chart._metasets
+		                            [context.datasetIndex].total * 100)
+		                                .toFixed(2) + '%';
+		                            /*return percentage + '\n' + value;*/
+		                            return value;
+		                        },
+		                        color: '#fff',
+		                        font: {
+		                            size: 14,
+		                        }
+		                    },
+		                    legend: {
+						      display: false
+						    }
+		                }
+				    },
+				    plugins: [ChartDataLabels]
+			       
 			    });
 
 
@@ -721,8 +805,10 @@ function getLineChart(activity, jobId, fcId){
 				var arrAct = [];
 				var arrTotalTime = [];
 				for(var i=0; i<data.length; i++){ 
+					var total_time = getTotalMinutes(data[i].total_time);
 					arrAct.push(data[i].activity_name);
-					arrTotalTime.push(data[i].total_time);
+					//arrTotalTime.push(data[i].total_time);
+					arrTotalTime.push(total_time.toFixed(2));
 				}
 				//console.log(arrAct);
 
@@ -731,13 +817,28 @@ function getLineChart(activity, jobId, fcId){
 			    if (chartExist != undefined)  
 			      chartExist.destroy(); 
 
+
+			   const dataX = {
+				  labels: arrAct, 
+				  datasets: [{
+                   backgroundColor: [
+                       "#072f77" //"#98baf9" 
+                   ],
+                   borderColor: [
+                       "#072f77"
+                   ],
+                   data: arrTotalTime, 
+                   label: ''
+               }]
+				};
+
 				
 				const canvas = document.getElementById('chartjs_line');
 				const ctx = canvas.getContext('2d');
 
 
-			    var myChart = new Chart(ctx, {
-			        type: 'line',
+			    /*var myChart = new Chart(ctx, {
+			        type: 'bar',
 			        data: {
 			            labels: arrAct, 
 			            datasets: [{
@@ -766,6 +867,35 @@ function getLineChart(activity, jobId, fcId){
 			        	}
 					}
 
+			    });*/
+
+
+				var myChart = new Chart(ctx, {
+			        type: 'bar',
+			        data: dataX,
+				  	options: {
+				       	responsive: true,
+		                plugins: {
+		                    datalabels: {
+		                        formatter: (value, context) => {
+		                            let percentage = (value / context.chart._metasets
+		                            [context.datasetIndex].total * 100)
+		                                .toFixed(2) + '%';
+		                            /*return percentage + '\n' + value;*/
+		                            return value;
+		                        },
+		                        color: '#fff',
+		                        font: {
+		                            size: 14,
+		                        }
+		                    },
+		                    legend: {
+						      display: false
+						    }
+		                }
+				    },
+				    plugins: [ChartDataLabels]
+			       
 			    });
 
 			    //var chart = new Chart(document.getElementById('chartjs_line'), myChart);
