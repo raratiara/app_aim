@@ -271,10 +271,25 @@ class Job_order_detail_menu_model extends MY_Model
 		$f_datetime_end = date_format($datetime_end,"Y-m-d H:i:s");
 
 
-		$timestamp1 = strtotime($f_datetime_start); 
+		/*$timestamp1 = strtotime($f_datetime_start); 
 		$timestamp2 = strtotime($f_datetime_end);
+  		$diff = abs($timestamp2 - $timestamp1)/(60); //menit*/
 
-  		$diff = abs($timestamp2 - $timestamp1)/(60); //menit
+
+  		//GET DURATION CYCLE TIME
+		$start = new DateTime($f_datetime_start);
+		$end = new DateTime($f_datetime_end); 
+		$interval = $start->diff($end);
+		// Convert the total duration to hours:minutes:seconds
+		$totalHours = ($interval->days * 24) + $interval->h;
+		$minutes = $interval->i;
+		$seconds = $interval->s;
+		// Format as H:i:s (e.g., 50:30:45)
+		$duration = sprintf("%02d:%02d:%02d", $totalHours, $minutes, $seconds);
+		$diff = $duration;
+		//END GET DURATION CYCLE TIME
+
+
 		
   		$sla = trim($post['sla']);
   		if($diff > $sla){
@@ -300,12 +315,34 @@ class Job_order_detail_menu_model extends MY_Model
 			$rs = $this->db->insert($this->table_name, $data);
 
 			if($rs){
+				$data_order = [
+					'datetime_start'	=> $f_datetime_start,
+					'datetime_end' 		=> $f_datetime_end,
+					'date_time_total' 	=> $diff
+				];
+				$this->db->update("job_order", $data_order, "id = '".$post['job_order']."'");
+
 				$cek_order_summary = $this->db->query("select * from job_order_summary where job_order_id = '".$post['job_order']."' and activity_id = '".$post['activity']."' ")->result();
-				$totaltime = $this->db->query("select sum(total_time) as total FROM job_order_detail where job_order_id = '".$post['job_order']."' and activity_id = '".$post['activity']."' ")->result();
+				/*$totaltime = $this->db->query("select sum(total_time) as total FROM job_order_detail where job_order_id = '".$post['job_order']."' and activity_id = '".$post['activity']."' ")->result();*/
+
+				// CONVERT each duration to seconds and sum
+				$totaltime = $this->db->query("select * from job_order_detail where job_order_id = '".$post['job_order']."' and activity_id = '".$post['activity']."' ")->result();
+				foreach ($totaltime as $duration) {
+				    list($hours, $minutes, $seconds) = explode(":", $duration->total_time);
+				    $totalSeconds += ($hours * 3600) + ($minutes * 60) + $seconds;
+				}
+				// Convert total seconds back to H:i:s
+				$hours = floor($totalSeconds / 3600);
+				$minutes = floor(($totalSeconds % 3600) / 60);
+				$seconds = $totalSeconds % 60;
+				// Format result
+				$totalDuration = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+				// END CONVERT each duration to seconds and sum
+
 				if(!empty($cek_order_summary[0]->id)){
 					//update
 					$data2 = [
-						'total_date_time' 	=> $totaltime[0]->total
+						'total_date_time' 	=> $totalDuration //$totaltime[0]->total
 					];
 					$this->db->update("job_order_summary", $data2, "id = '".$cek_order_summary[0]->id."'");
 				}else{
@@ -313,15 +350,13 @@ class Job_order_detail_menu_model extends MY_Model
 					$data2 = [
 						'job_order_id' 		=> $post['job_order'],
 						'activity_id' 		=> $post['activity'],
-						'total_date_time' 	=> $totaltime[0]->total
+						'total_date_time' 	=> $totalDuration //$totaltime[0]->total
 					];
 					$this->db->insert("job_order_summary", $data2);
 				}
 			}
 		}
-		else{
-			$rs='';
-		}
+		else return null;
 
 		
 
