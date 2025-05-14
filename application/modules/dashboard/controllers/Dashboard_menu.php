@@ -48,8 +48,8 @@ class Dashboard_menu extends MY_Controller
 		define('_USER_ACCESS_LEVEL_IMPORT',$akses["import"]);
 		define('_USER_ACCESS_LEVEL_EKSPORT',$akses["eksport"]);
 
-		$value=0;
-		setcookie("totalJob", $value);
+		/*$value=0;
+		setcookie("totalJob", $value);*/
 
     }
 
