@@ -378,6 +378,18 @@ function jobGraph(idfc){
 				    
 				?>
 
+				//refresh for cookie
+				var params = new URLSearchParams(window.location.search);
+				if (!params.has("refreshed")) {
+				  // Reload with a flag
+				  window.location.search = "?refreshed=1";
+				} else {
+				  console.log("Already reloaded with cookie.");
+				}
+
+				
+
+
 				var groupedJob = arrDataJob
 				  .reduce((acc, curr) => {
 				    var key = curr.name;

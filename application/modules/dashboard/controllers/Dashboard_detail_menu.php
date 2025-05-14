@@ -177,6 +177,9 @@ class Dashboard_detail_menu extends MY_Controller
 
 		$rs =  $this->self_model->getJob($cctv, $start_date, $end_date);
 
+
+		
+
 		
 		echo json_encode($rs);
 	}
