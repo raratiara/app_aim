@@ -1120,45 +1120,46 @@ function getDataFC(id_fc){
         { 
 			/*if(data != false){ 	*/
         	if(data.datafc.length != 0){ 	
-        		var joborderid = data.datafc[0].job_order_id;
-				var jobordername = data.datafc[0].order_name;
-				var activityname = data.datafc[0].activity_name;
+	        		var joborderid = data.datafc[0].job_order_id;
+							var jobordername = data.datafc[0].order_name;
+							var activityname = data.datafc[0].activity_name;
 
 
-				$('#txtmothervessel').val(data.datafc[0].mother_vessel_name);
-				$('select#floating_crane').val(data.datafc[0].floating_crane_id).trigger('change.select2');
-				$('#txtdatetimestart').val(data.datafc[0].datetime_start);
-				$('#txtcurrdatetime').val(data.datafc[0].datetime_end);
+							$('#txtmothervessel').val(data.datafc[0].mother_vessel_name);
+							$('select#floating_crane').val(data.datafc[0].floating_crane_id).trigger('change.select2');
+							//$('#txtdatetimestart').val(data.datafc[0].datetime_start);
+							$('#txtdatetimestart').val(data.datafc[0].datetime_start_order);
+							$('#txtcurrdatetime').val(data.datafc[0].datetime_end);
 
 
-				var $el = $("#order_name");
-				$el.empty(); // remove old options
-				$.each(data.msorder, function(key,value) {
-				  	$el.append($("<option></option>")
-				     .attr("value", value.job_order_id).text(value.order_name));
-				});
-				$('select#order_name').val(joborderid).trigger('change.select2');
+							var $el = $("#order_name");
+							$el.empty(); // remove old options
+							$.each(data.msorder, function(key,value) {
+							  	$el.append($("<option></option>")
+							     .attr("value", value.job_order_id).text(value.order_name));
+							});
+							$('select#order_name').val(joborderid).trigger('change.select2');
 
 
-			} else { 
-				var joborderid = '';
-				var jobordername = '';
-				var activityname = '';
+					} else { 
+						var joborderid = '';
+						var jobordername = '';
+						var activityname = '';
 
 
-				$('#txtordername').val('');
-				$('#txtmothervessel').val('');
-				$('#txtdatetimestart').val('');
-				$('#txtcurrdatetime').val('');
+						$('#txtordername').val('');
+						$('#txtmothervessel').val('');
+						$('#txtdatetimestart').val('');
+						$('#txtcurrdatetime').val('');
 
-				var $el = $("#order_name");
-				$el.empty(); // remove old options
-				$.each(data.msorder, function(key,value) {
-				  	$el.append($("<option></option>")
-				     .attr("value", value.id).text(value.order_name));
-				});
-				$('select#order_name').val('').trigger('change.select2');
-			}
+						var $el = $("#order_name");
+						$el.empty(); // remove old options
+						$.each(data.msorder, function(key,value) {
+						  	$el.append($("<option></option>")
+						     .attr("value", value.id).text(value.order_name));
+						});
+						$('select#order_name').val('').trigger('change.select2');
+					}
 
 			reloadDatatable(id_fc, joborderid);
 			SLACycle_percentage(id_fc, joborderid);
@@ -1529,7 +1530,8 @@ $('#order_name').on('change', function () {
 	        { 
 				if(data != false){ 	
 					$('#txtmothervessel').val(data[0].mother_vessel_name);
-					$('#txtdatetimestart').val(data[0].datetime_start);
+					//$('#txtdatetimestart').val(data[0].datetime_start);
+					$('#txtdatetimestart').val(data[0].datetime_start_order);
 					$('#txtcurrdatetime').val(data[0].datetime_end);
 
 				} else { 

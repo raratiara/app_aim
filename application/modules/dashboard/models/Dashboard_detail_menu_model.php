@@ -943,7 +943,7 @@ class Dashboard_detail_menu_model extends MY_Model
 	public function getDataFC($fcId){ 
 
 		$rs = $this->db->query("select a.*, b.date, b.order_no, b.order_name, b.floating_crane_id, b.mother_vessel_id, b.pic, b.order_status, c.activity_name, d.name as floating_crane_name
-					, e.name as mother_vessel_name, f.name as status_name
+					, e.name as mother_vessel_name, f.name as status_name, b.datetime_start as datetime_start_order
 					from job_order_detail a left join job_order b on b.id = a.job_order_id
 					left join activity c on c.id = a.activity_id
 					left join floating_crane d on d.id = b.floating_crane_id
@@ -960,7 +960,7 @@ class Dashboard_detail_menu_model extends MY_Model
 	public function getDataByOrder($orderid, $fcId){ 
 
 		$rs = $this->db->query("select a.*, b.date, b.order_no, b.order_name, b.floating_crane_id, b.mother_vessel_id, b.pic, b.order_status, c.activity_name, d.name as floating_crane_name
-					, e.name as mother_vessel_name, f.name as status_name
+					, e.name as mother_vessel_name, f.name as status_name, b.datetime_start as datetime_start_order
 					from job_order_detail a left join job_order b on b.id = a.job_order_id
 					left join activity c on c.id = a.activity_id
 					left join floating_crane d on d.id = b.floating_crane_id
