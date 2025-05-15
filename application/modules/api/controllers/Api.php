@@ -139,7 +139,7 @@ class Api extends API_Controller
 				$seconds = $interval->s;
 				// Format as H:i:s (e.g., 50:30:45)
 				$duration = sprintf("%02d:%02d:%02d", $totalHours, $minutes, $seconds);
-				$cycle_time = $duration;
+				//$cycle_time = $duration;
 				//END GET DURATION CYCLE TIME
 
 					
@@ -327,37 +327,46 @@ class Api extends API_Controller
 			$status_active 	= $_REQUEST['status_active'];
 			$ip_address 	= $_REQUEST['ip_address'];
 			
+			$cekordername = $this->db->query("select * from job_order where order_name = '".$order_name."' ");
+			if(empty($cekordername)){
 
+				$lettercode = ('ORD'); // ca code
+				$yearcode = date("y");
+				$monthcode = date("m");
+				$period = $yearcode.$monthcode; 
+				
+				$runningnumber 	= $this->getNextNumber(); // next count number
+				$nextnum 		= $lettercode.$period.$runningnumber;
+				
 
-			$lettercode = ('ORD'); // ca code
-			$yearcode = date("y");
-			$monthcode = date("m");
-			$period = $yearcode.$monthcode; 
-			
-			$runningnumber 	= $this->getNextNumber(); // next count number
-			$nextnum 		= $lettercode.$period.$runningnumber;
-			
+				$data = [
+					'date' 				=> $date,
+					'order_no' 			=> $nextnum,
+					'order_name' 		=> $order_name,
+					'floating_crane_id'	=> $fc,
+					'mother_vessel_id' 	=> $mv,
+					'is_active'			=> $status_active,
+					'created_at' 		=> date("Y-m-d H:i:s"),
+					'order_status' 		=> 2, // in progress
+					'ip_address' 		=> $ip_address
+				];
 
-			$data = [
-				'date' 				=> $date,
-				'order_no' 			=> $nextnum,
-				'order_name' 		=> $order_name,
-				'floating_crane_id'	=> $fc,
-				'mother_vessel_id' 	=> $mv,
-				'is_active'			=> $status_active,
-				'created_at' 		=> date("Y-m-d H:i:s"),
-				'order_status' 		=> 2, // in progress
-				'ip_address' 		=> $ip_address
-			];
+				$rs = $this->db->insert("job_order", $data);
+				$lastId = $this->db->insert_id();
 
-			$rs = $this->db->insert("job_order", $data);
-			$lastId = $this->db->insert_id();
+				$response = [
+					'status' 	=> 200,
+					'message' 	=> 'Success',
+					'order_id' 	=> $lastId
+				];
 
-			$response = [
-				'status' 	=> 200,
-				'message' 	=> 'Success',
-				'order_id' 	=> $lastId
-			];
+			}else{
+				$response = [
+					'status' 	=> 401,
+					'message' 	=> 'Failed',
+					'error' 	=> 'Order name already exists'
+				];
+			}
 
 			
 		} else {
