@@ -529,6 +529,7 @@ function jobGraph(idfc){
 				  var valClick = myChart.data.datasets[indexClick].label;
 
 				  activityGraph(valClick, idfc);
+				  getLineChart(activity='Loading Time', valClick, idfc);
 				  //alert('You clicked on ' +valClick);
 				  //alert('You clicked on ' + myChart.data.labels[res[0]._view.datasetLabel]);
 				};
@@ -801,7 +802,7 @@ function getDateRange(){
 }
 
 function getLineChart(activity, jobId, fcId){ 
-	
+	/*alert(activity); alert(jobId); alert(fcId);*/
 
 	$.ajax({
 		type: "POST",
@@ -1204,7 +1205,7 @@ function SLACycle_percentage(fcId, orderid){
 				  datasets: [{
 				    label: 'My First Dataset',
 				    data: [data.sla_ideal, data.sla_over],
-				    backgroundColor: ['#FE6B32','#0F5763'],
+				    backgroundColor: ['#25f242','#f24125'],
 				    //hoverOffset: 4
 				  }]
 				};
@@ -1304,7 +1305,7 @@ function SLACycle_jml(fcId, orderid){
 				  datasets: [{
 				    label: ['',''],
 				    data: [data.sla_ideal, data.sla_over],
-				    backgroundColor: ['#FE6B32','#0F5763']
+				    backgroundColor: ['#25f242','#f24125']
 				  }]
 				};
 
@@ -1514,6 +1515,7 @@ function reloadDatatable(idfc, order_id){
 $('#order_name').on('change', function () { 
 	var id_fc 	= $("#floating_crane option:selected").val();
  	var orderid = $("#order_name option:selected").val();
+ 	var ordername = $("#order_name option:selected").text();
  	
  	if(orderid != ''){
  		
@@ -1539,6 +1541,8 @@ $('#order_name').on('change', function () {
 				reloadDatatable(id_fc, orderid);
 				SLACycle_percentage(id_fc, orderid);
 				SLACycle_jml(id_fc, orderid);
+				activityGraph(ordername, id_fc);
+				getLineChart(activity='Loading Time', ordername, id_fc);
 
 	        },
 	        error: function (jqXHR, textStatus, errorThrown)
