@@ -718,7 +718,7 @@ class Dashboard_detail_menu_model extends MY_Model
 		}
 
 
-		$rs = $this->db->query("select a.*, b.activity_name, c.order_name
+		$rs = $this->db->query("select a.*, b.activity_name, c.order_name, c.date_time_total as total_date_time_order
 				from job_order_summary a left join activity b on b.id = a.activity_id
 				left join job_order c on c.id = a.job_order_id
 				where c.order_name = '".$jobId."' ")->result(); 

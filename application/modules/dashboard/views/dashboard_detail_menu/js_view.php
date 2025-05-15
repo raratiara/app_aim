@@ -611,7 +611,8 @@ function activityGraph(jobId, fcId){
 				var arrAct = [];
 				var arrTotalTime = [];
 				for(var i=0; i<data.length; i++){ 
-					var total_date_time = getTotalMinutes(data[i].total_date_time);
+					//var total_date_time = getTotalMinutes(data[i].total_date_time);
+					var total_date_time = getTotalMinutes(data[i].total_date_time_order);
 					arrAct.push(data[i].activity_name);
 					//arrTotalTime.push(data[i].total_date_time);
 					arrTotalTime.push(total_date_time.toFixed(2));
@@ -1076,12 +1077,13 @@ setInterval(function(){
 
 	var txtdatetimestart = document.getElementById("txtdatetimestart").value;
 
-    currentTime = getDateTime();
+  //currentTime = getDateTime();
+  var currentTime = document.getElementById("txtcurrdatetime").value;
 
-    $('#txtcurrdatetime').val(currentTime);
+  $('#txtcurrdatetime').val(currentTime);
 
-    //count process time 
-    var date1 = new Date(txtdatetimestart);
+  //count process time 
+  var date1 = new Date(txtdatetimestart);
 	var date2 = new Date(currentTime);
 
 	var date1_ms = date1.getTime();
@@ -1125,6 +1127,7 @@ function getDataFC(id_fc){
 				$('#txtmothervessel').val(data.datafc[0].mother_vessel_name);
 				$('select#floating_crane').val(data.datafc[0].floating_crane_id).trigger('change.select2');
 				$('#txtdatetimestart').val(data.datafc[0].datetime_start);
+				$('#txtcurrdatetime').val(data.datafc[0].datetime_end);
 
 
 				var $el = $("#order_name");
@@ -1145,6 +1148,7 @@ function getDataFC(id_fc){
 				$('#txtordername').val('');
 				$('#txtmothervessel').val('');
 				$('#txtdatetimestart').val('');
+				$('#txtcurrdatetime').val('');
 
 				var $el = $("#order_name");
 				$el.empty(); // remove old options
@@ -1524,11 +1528,12 @@ $('#order_name').on('change', function () {
 				if(data != false){ 	
 					$('#txtmothervessel').val(data[0].mother_vessel_name);
 					$('#txtdatetimestart').val(data[0].datetime_start);
+					$('#txtcurrdatetime').val(data[0].datetime_end);
 
 				} else { 
 					$('#txtmothervessel').val('');
 					$('#txtdatetimestart').val('');
-
+					$('#txtcurrdatetime').val('');
 				}
 
 				reloadDatatable(id_fc, orderid);
