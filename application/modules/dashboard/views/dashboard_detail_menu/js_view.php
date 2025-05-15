@@ -1188,12 +1188,12 @@ function SLACycle_percentage(fcId, orderid){
 	
 	$.ajax({
 		type: "POST",
-        url : module_path+'/get_sla_cycle_percentage',
+    url : module_path+'/get_sla_cycle_percentage',
 		data: {fcId: fcId, orderid: orderid},
 		cache: false,		
-        dataType: "JSON",
-        success: function(data)
-        { 
+    dataType: "JSON",
+    success: function(data)
+    { 
 			if(data != false){ 
 				
 				const dataX = {
@@ -1210,11 +1210,12 @@ function SLACycle_percentage(fcId, orderid){
 				};
 
 
-
 				const canvas = document.getElementById('chartjs_pie');
 				const ctx = canvas.getContext('2d');
 				
-				
+				var chartExist = Chart.getChart("chartjs_pie"); // <canvas> id
+		    if (chartExist != undefined)  
+			      chartExist.destroy(); 
 
 			    /*var myChart = new Chart(ctx, {
 			        type: 'pie',
@@ -1224,37 +1225,32 @@ function SLACycle_percentage(fcId, orderid){
 			    });*/
 
 
-			    var myChart = new Chart(ctx, {
-			        type: 'pie',
-			        data: dataX,
+		    var myChart = new Chart(ctx, {
+		        type: 'pie',
+		        data: dataX,
 				  	options: {
-		                responsive: true,
-		                plugins: {
-		                    datalabels: {
-		                        formatter: (value, context) => {
-		                            let percentage = (value / context.chart._metasets
-		                            [context.datasetIndex].total * 100)
-		                                .toFixed(2) + '%';
-		                            //return percentage + '\n' + value;
-		                                return percentage;
-		                        },
-		                        color: '#fff',
-		                        font: {
-		                            size: 14,
-		                        }
-		                    }
-		                }
-		            },
-		            plugins: [ChartDataLabels]
+                responsive: true,
+                plugins: {
+                    datalabels: {
+                        formatter: (value, context) => {
+                            let percentage = (value / context.chart._metasets
+                            [context.datasetIndex].total * 100)
+                                .toFixed(2) + '%';
+                            //return percentage + '\n' + value;
+                                return percentage;
+                        },
+                        color: '#fff',
+                        font: {
+                            size: 14,
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
 			       
 			    });
 
 
-
-			    
-			   
-
-				
 			} else {
 				title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
 				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
@@ -1292,12 +1288,12 @@ function SLACycle_jml(fcId, orderid){
 	
 	$.ajax({
 		type: "POST",
-        url : module_path+'/get_sla_cycle_percentage',
+    url : module_path+'/get_sla_cycle_percentage',
 		data: {fcId: fcId, orderid: orderid},
 		cache: false,		
-        dataType: "JSON",
-        success: function(data)
-        { 
+    dataType: "JSON",
+    success: function(data)
+    { 
 			if(data != false){ 
 				
 				const dataX = {
@@ -1316,6 +1312,10 @@ function SLACycle_jml(fcId, orderid){
 
 				const canvas = document.getElementById('chartjs_cycle_bar');
 				const ctx = canvas.getContext('2d');
+
+				var chartExist = Chart.getChart("chartjs_cycle_bar"); // <canvas> id
+		    if (chartExist != undefined)  
+			      chartExist.destroy(); 
 
 			    /*var myChart = new Chart(ctx, {
 			        type: 'bar',
@@ -1337,33 +1337,33 @@ function SLACycle_jml(fcId, orderid){
 			    });*/
 
 
-			    var myChart = new Chart(ctx, {
-			        type: 'bar',
-			        data: dataX,
-				  	options: {
-				       	responsive: true,
-		                plugins: {
-		                    datalabels: {
-		                        formatter: (value, context) => {
-		                            let percentage = (value / context.chart._metasets
-		                            [context.datasetIndex].total * 100)
-		                                .toFixed(2) + '%';
-		                            /*return percentage + '\n' + value;*/
-		                            return value;
-		                        },
-		                        color: '#fff',
-		                        font: {
-		                            size: 14,
-		                        }
-		                    },
-		                    legend: {
-						      display: false
-						    }
-		                }
-				    },
-				    plugins: [ChartDataLabels]
-			       
-			    });
+		    var myChart = new Chart(ctx, {
+	        type: 'bar',
+	        data: dataX,
+			  	options: {
+			       	responsive: true,
+              plugins: {
+                  datalabels: {
+                      formatter: (value, context) => {
+                          let percentage = (value / context.chart._metasets
+                          [context.datasetIndex].total * 100)
+                              .toFixed(2) + '%';
+                          /*return percentage + '\n' + value;*/
+                          return value;
+                      },
+                      color: '#fff',
+                      font: {
+                          size: 14,
+                      }
+                  },
+                  legend: {
+							      display: false
+							    }
+              }
+			    },
+			    plugins: [ChartDataLabels]
+		       
+		    });
 
 				
 			} else {
