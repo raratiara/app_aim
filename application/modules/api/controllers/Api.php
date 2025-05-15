@@ -183,14 +183,6 @@ class Api extends API_Controller
 						$timestamp2 = strtotime($f_datetime_end); 
 				  		$diff = abs($timestamp2 - $timestamp1)/(60); //menit*/
 
-						$data_order = [
-							'datetime_start'	=> $datetime_start,
-							'datetime_end' 		=> $datetime_end,
-							'date_time_total' 	=> $cycle_time
-						];
-						$this->db->update("job_order", $data_order, "id = '".$id."'");
-
-
 
 						$cek_order_summary = $this->db->query("select * from job_order_summary where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
 						//$totaltime = $this->db->query("select sum(total_time) as total FROM job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
@@ -225,6 +217,23 @@ class Api extends API_Controller
 							];
 							$this->db->insert("job_order_summary", $data2);
 						}
+
+
+						if($cek_data[0]->datetime_start == null || $cek_data[0]->datetime_start == ''){
+				  			$data_order = [
+								'datetime_start'	=> $datetime_start,
+								'datetime_end' 		=> $datetime_end,
+								'date_time_total' 	=> $totalDuration
+							];
+							$this->db->update("job_order", $data_order, "id = '".$id."'");
+				  		}else{
+				  			$data_order = [
+								'datetime_end' 		=> $datetime_end,
+								'date_time_total' 	=> $totalDuration
+							];
+							$this->db->update("job_order", $data_order, "id = '".$id."'");
+				  		}
+				  		
 
 						$response = [
 							'status' 	=> 200,
@@ -328,7 +337,8 @@ class Api extends API_Controller
 			$ip_address 	= $_REQUEST['ip_address'];
 			
 			$cekordername = $this->db->query("select * from job_order where order_name = '".$order_name."' ");
-			if(empty($cekordername)){
+			
+			if($cekordername->affected_rows==''){
 
 				$lettercode = ('ORD'); // ca code
 				$yearcode = date("y");
@@ -360,7 +370,7 @@ class Api extends API_Controller
 					'order_id' 	=> $lastId
 				];
 
-			}else{
+			}else{ 
 				$response = [
 					'status' 	=> 401,
 					'message' 	=> 'Failed',
