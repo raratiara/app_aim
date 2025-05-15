@@ -612,8 +612,8 @@ function activityGraph(jobId, fcId){
 				var arrAct = [];
 				var arrTotalTime = [];
 				for(var i=0; i<data.length; i++){ 
-					//var total_date_time = getTotalMinutes(data[i].total_date_time);
-					var total_date_time = getTotalMinutes(data[i].total_date_time_order);
+					var total_date_time = getTotalMinutes(data[i].total_date_time);
+					//var total_date_time = getTotalMinutes(data[i].total_date_time_order);
 					arrAct.push(data[i].activity_name);
 					//arrTotalTime.push(data[i].total_date_time);
 					arrTotalTime.push(total_date_time.toFixed(2));
