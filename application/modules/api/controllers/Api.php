@@ -205,7 +205,8 @@ class Api extends API_Controller
 						if(!empty($cek_order_summary[0]->id)){
 							//update
 							$data2 = [
-								'total_date_time' 	=> $totalDuration //$totaltime[0]->total
+								'total_date_time' 	=> $totalDuration, //$totaltime[0]->total
+								'datetime_end' 		=> $datetime_end
 							];
 							$this->db->update("job_order_summary", $data2, "id = '".$cek_order_summary[0]->id."'");
 						}else{
@@ -213,7 +214,9 @@ class Api extends API_Controller
 							$data2 = [
 								'job_order_id' 		=> $id,
 								'activity_id' 		=> $type_activity,
-								'total_date_time' 	=> $totalDuration //$totaltime[0]->total
+								'total_date_time' 	=> $totalDuration, //$totaltime[0]->total
+								'datetime_start' 	=> $datetime_start,
+								'datetime_end' 		=> $datetime_end
 							];
 							$this->db->insert("job_order_summary", $data2);
 						}
@@ -233,7 +236,7 @@ class Api extends API_Controller
 							];
 							$this->db->update("job_order", $data_order, "id = '".$id."'");
 				  		}
-				  		
+
 
 						$response = [
 							'status' 	=> 200,

@@ -342,7 +342,8 @@ class Job_order_detail_menu_model extends MY_Model
 				if(!empty($cek_order_summary[0]->id)){
 					//update
 					$data2 = [
-						'total_date_time' 	=> $totalDuration //$totaltime[0]->total
+						'total_date_time' 	=> $totalDuration, //$totaltime[0]->total
+						'datetime_end' 		=> $f_datetime_end
 					];
 					$this->db->update("job_order_summary", $data2, "id = '".$cek_order_summary[0]->id."'");
 				}else{
@@ -350,7 +351,9 @@ class Job_order_detail_menu_model extends MY_Model
 					$data2 = [
 						'job_order_id' 		=> $post['job_order'],
 						'activity_id' 		=> $post['activity'],
-						'total_date_time' 	=> $totalDuration //$totaltime[0]->total
+						'total_date_time' 	=> $totalDuration, //$totaltime[0]->total
+						'datetime_start' 	=> $f_datetime_start,
+						'datetime_end' 		=> $f_datetime_end
 					];
 					$this->db->insert("job_order_summary", $data2);
 				}
