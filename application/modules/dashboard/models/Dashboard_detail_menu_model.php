@@ -688,7 +688,7 @@ class Dashboard_detail_menu_model extends MY_Model
 		}
 
 		
-		$sql = "select a.date, b.name as floating_crane_name, a.order_name, a.date_time_total
+		$sql = "select a.date, b.name as floating_crane_name, a.order_name, a.date_time_total, a.id
 				FROM job_order a INNER JOIN floating_crane b ON a.floating_crane_id = b.id 
 				where b.id = '".$idfc."' 
 				".$whr_date."
@@ -706,7 +706,7 @@ class Dashboard_detail_menu_model extends MY_Model
 
 		if($jobId == 'def'){
 			$dtFC = $this->db->query("select a.*, b.date, b.order_no, b.order_name, b.floating_crane_id, b.mother_vessel_id, b.pic, b.order_status, c.activity_name, d.name as floating_crane_name
-					, e.name as mother_vessel_name, f.name as status_name
+					, e.name as mother_vessel_name, f.name as status_name, b.id as order_id
 					from job_order_detail a left join job_order b on b.id = a.job_order_id
 					left join activity c on c.id = a.activity_id
 					left join floating_crane d on d.id = b.floating_crane_id
@@ -714,14 +714,20 @@ class Dashboard_detail_menu_model extends MY_Model
 					left join status f on f.id = b.order_status
 					where b.floating_crane_id = '".$fcId."' and b.is_active = 1
                     order by a.id desc limit 1 ")->result(); 
-			$jobId = $dtFC[0]->order_name;
+			//$jobId = $dtFC[0]->order_name;
+			$jobId = $dtFC[0]->order_id;
 		}
 
+
+		/*$rs = $this->db->query("select a.*, b.activity_name, c.order_name, c.date_time_total as total_date_time_order
+				from job_order_summary a left join activity b on b.id = a.activity_id
+				left join job_order c on c.id = a.job_order_id
+				where c.order_name = '".$jobId."' ")->result(); */
 
 		$rs = $this->db->query("select a.*, b.activity_name, c.order_name, c.date_time_total as total_date_time_order
 				from job_order_summary a left join activity b on b.id = a.activity_id
 				left join job_order c on c.id = a.job_order_id
-				where c.order_name = '".$jobId."' ")->result(); 
+				where c.id = '".$jobId."' ")->result(); 
 
 
 		return $rs;
@@ -730,24 +736,38 @@ class Dashboard_detail_menu_model extends MY_Model
 
 	public function getdetailwaktuAct($activity, $job, $fcId){ 
 
-		if($activity == 'def' && $job == 'def'){
+		if($activity == 'def'){
+			$whereJob="";
+			if($job != 'def'){
+				$whereJob=" and b.id = '".$job."'";
+			}
 			$dtFC = $this->db->query("select a.*, b.date, b.order_no, b.order_name, b.floating_crane_id, b.mother_vessel_id, b.pic, b.order_status, c.activity_name, d.name as floating_crane_name
-					, e.name as mother_vessel_name, f.name as status_name
+					, e.name as mother_vessel_name, f.name as status_name, b.id as order_id
 					from job_order_detail a left join job_order b on b.id = a.job_order_id
 					left join activity c on c.id = a.activity_id
 					left join floating_crane d on d.id = b.floating_crane_id
 					left join mother_vessel e on e.id = b.mother_vessel_id
 					left join status f on f.id = b.order_status
-					where b.floating_crane_id = '".$fcId."' and b.is_active = 1
+					where b.floating_crane_id = '".$fcId."' ".$whereJob." and b.is_active = 1
                     order by a.id desc limit 1 ")->result(); 
-			$job = $dtFC[0]->order_name;
-			$activity = $dtFC[0]->activity_name;
+			/*$job = $dtFC[0]->order_name;
+			$activity = $dtFC[0]->activity_name;*/
+			if($job == 'def'){
+				$job = $dtFC[0]->order_id;
+			}
+			$activity = $dtFC[0]->activity_id;
 		}
+
+
+		/*$rs = $this->db->query("select a.*, b.activity_name, c.order_name 
+				from job_order_detail a left join activity b on b.id = a.activity_id 
+				left join job_order c on c.id = a.job_order_id
+				where c.order_name = '".$job."' and b.activity_name = '".$activity."'")->result(); */
 
 		$rs = $this->db->query("select a.*, b.activity_name, c.order_name 
 				from job_order_detail a left join activity b on b.id = a.activity_id 
 				left join job_order c on c.id = a.job_order_id
-				where c.order_name = '".$job."' and b.activity_name = '".$activity."'")->result(); 
+				where c.id = '".$job."' and b.id = '".$activity."'")->result(); 
 
 
 		return $rs;

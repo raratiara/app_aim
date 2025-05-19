@@ -322,6 +322,7 @@ function jobGraph(idfc){
 				//// get Job Graph
 				var arrDate		= []; 
 				var arrJob 		= [];
+				var arrJobid 		= [];
 				var arrDataJob	= [];	
 
 				var arrColor 	= ["#5969ff",
@@ -344,6 +345,7 @@ function jobGraph(idfc){
 					var exists_job = arrJob.includes(data[i].order_name);
 					if (!exists_job) { 
 						arrJob.push(data[i].order_name);
+						arrJobid.push(data[i].id);
 						
 					}
 
@@ -463,6 +465,7 @@ function jobGraph(idfc){
 			            		?>
 				            		{
 								      label: arrJob[<?=$aa?>],
+								      idx: arrJobid[<?=$aa?>],
 								      data: groupedArrTotal.xData_<?=$aa?>,
 								      //borderColor: '#36A2EB',
 								      backgroundColor: arrColor[<?=$aa?>],
@@ -522,16 +525,13 @@ function jobGraph(idfc){
 				  }
 
 				  var indexClick = res[0].datasetIndex;
-				  //console.log(myChart.data.datasets[indexClick].label);
-				  
-				  
-				  //var valClick = res[0]._view.datasetLabel;
-				  var valClick = myChart.data.datasets[indexClick].label;
+				 
+				  //var valClick = myChart.data.datasets[indexClick].label;
+				  var valClick = myChart.data.datasets[indexClick].idx;
 
 				  activityGraph(valClick, idfc);
-				  getLineChart(activity='Loading Time', valClick, idfc);
-				  //alert('You clicked on ' +valClick);
-				  //alert('You clicked on ' + myChart.data.labels[res[0]._view.datasetLabel]);
+				  getLineChart(activity='def', valClick, idfc);
+				  
 				};
 
 
@@ -610,11 +610,13 @@ function activityGraph(jobId, fcId){
 
 				//// get Activity Graph
 				var arrAct = [];
+				var arrActid = [];
 				var arrTotalTime = [];
 				for(var i=0; i<data.length; i++){ 
 					var total_date_time = getTotalMinutes(data[i].total_date_time);
 					//var total_date_time = getTotalMinutes(data[i].total_date_time_order);
 					arrAct.push(data[i].activity_name);
+					arrActid.push(data[i].activity_id);
 					//arrTotalTime.push(data[i].total_date_time);
 					arrTotalTime.push(total_date_time.toFixed(2));
 				}
@@ -622,6 +624,7 @@ function activityGraph(jobId, fcId){
 				
 				const dataX = {
 				  labels: arrAct, 
+				  idx: arrActid,
 				  datasets: [{
                             backgroundColor: [
                                "#3caab7",
@@ -723,16 +726,16 @@ function activityGraph(jobId, fcId){
 					    return;
 				  	}
 				
-					var indexClick = res[0].index;
+						var indexClick = res[0].index;
 
-				  	/*var valClick = res[0]._view.label;*/
-				  	var valClick = myChart.data.labels[indexClick];
+				  	
+				  	/*var valClick = myChart.data.labels[indexClick];*/
+						var valClick = myChart.data.idx[indexClick];
 
 			  		getLineChart(valClick, jobId, fcId);
 				  	getTblWaktu(valClick, jobId, fcId);
-				  	//alert('You clicked on ' +valClick);
-				  	//alert('You clicked on ' + myChart.data.labels[res[0]._view.datasetLabel]);
-				};
+				  	
+					};
 
 
 				document.getElementById("downloadCSV_activity").addEventListener("click", function() { 
@@ -802,7 +805,8 @@ function getDateRange(){
 }
 
 function getLineChart(activity, jobId, fcId){ 
-	/*alert(activity); alert(jobId); alert(fcId);*/
+	//alert(activity); 
+	//alert(jobId); alert(fcId);
 
 	$.ajax({
 		type: "POST",
@@ -1122,8 +1126,8 @@ function getDataFC(id_fc){
         	if(data.datafc.length != 0){ 	
 	        		var joborderid = data.datafc[0].job_order_id;
 							var jobordername = data.datafc[0].order_name;
-							var activityname = data.datafc[0].activity_name;
-
+							//var activityname = data.datafc[0].activity_name;
+							var activityname = data.datafc[0].activity_id;
 
 							$('#txtmothervessel').val(data.datafc[0].mother_vessel_name);
 							$('select#floating_crane').val(data.datafc[0].floating_crane_id).trigger('change.select2');
@@ -1164,8 +1168,10 @@ function getDataFC(id_fc){
 			reloadDatatable(id_fc, joborderid);
 			SLACycle_percentage(id_fc, joborderid);
 			SLACycle_jml(id_fc, joborderid);
-			activityGraph(jobordername, id_fc);
-			getLineChart(activityname, jobordername, id_fc);
+			//activityGraph(jobordername, id_fc);
+			//getLineChart(activityname, jobordername, id_fc);
+			activityGraph(joborderid, id_fc);
+			getLineChart(activityname, joborderid, id_fc);
 			getTblWaktu(activityname, jobordername, id_fc);
 
         },
@@ -1534,17 +1540,22 @@ $('#order_name').on('change', function () {
 					$('#txtdatetimestart').val(data[0].datetime_start_order);
 					$('#txtcurrdatetime').val(data[0].datetime_end);
 
+					var activity = data[0].activity_id;
+
 				} else { 
 					$('#txtmothervessel').val('');
 					$('#txtdatetimestart').val('');
 					$('#txtcurrdatetime').val('');
+					var activity =0;
 				}
 
 				reloadDatatable(id_fc, orderid);
 				SLACycle_percentage(id_fc, orderid);
 				SLACycle_jml(id_fc, orderid);
-				activityGraph(ordername, id_fc);
-				getLineChart(activity='Loading Time', ordername, id_fc);
+				//activityGraph(ordername, id_fc);
+				//getLineChart(activity='Loading Time', ordername, id_fc);
+				activityGraph(orderid, id_fc);
+				getLineChart(activity, orderid, id_fc);
 
 	        },
 	        error: function (jqXHR, textStatus, errorThrown)
