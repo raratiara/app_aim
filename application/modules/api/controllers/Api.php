@@ -93,6 +93,23 @@ class Api extends API_Controller
 		$this->render_json($response, $response['status']);
     }
 
+    public function tes(){
+    	$datetime_start = '2025-05-19 21:11:12';
+    	$datetime_end = '2025-05-19 21:11:15';
+
+    	//GET DURATION CYCLE TIME
+		$start = new DateTime($datetime_start);
+		$end = new DateTime($datetime_end); 
+		$interval = $start->diff($end);
+		// Convert the total duration to hours:minutes:seconds
+		$totalHours = ($interval->days * 24) + $interval->h;
+		$minutes = $interval->i;
+		$seconds = $interval->s;
+		// Format as H:i:s (e.g., 50:30:45)
+		$duration = sprintf("%02d:%02d:%02d", $totalHours, $minutes, $seconds);
+		echo $duration; die();
+    }
+
 
     public function send_data_cycle_time()
     { 
@@ -139,7 +156,7 @@ class Api extends API_Controller
 				$seconds = $interval->s;
 				// Format as H:i:s (e.g., 50:30:45)
 				$duration = sprintf("%02d:%02d:%02d", $totalHours, $minutes, $seconds);
-				//$cycle_time = $duration;
+				$cycle_time = $duration;
 				//END GET DURATION CYCLE TIME
 
 					
