@@ -156,7 +156,7 @@ class Api extends API_Controller
 				$seconds = $interval->s;
 				// Format as H:i:s (e.g., 50:30:45)
 				$duration = sprintf("%02d:%02d:%02d", $totalHours, $minutes, $seconds);
-				$cycle_time = $duration;
+				//$cycle_time = $duration;
 				//END GET DURATION CYCLE TIME
 
 					
