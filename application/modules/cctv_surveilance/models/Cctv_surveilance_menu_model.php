@@ -344,7 +344,7 @@ class Cctv_surveilance_menu_model extends MY_Model
 		return $rs;
 	}
 
-	public function getTblCctv($floating_crane,$jmlcctv) { 
+	public function getTblCctv_old($floating_crane,$jmlcctv) { 
 
 		if($floating_crane == 'all' || $floating_crane == ''){
 			$whr = "";
@@ -398,6 +398,7 @@ class Cctv_surveilance_menu_model extends MY_Model
 				$thead .= "<th scope='col'>".$row->name."</th>";
 				$tbody .= "<td><iframe allowfullscreen='true' width='200' height='130' src='".$row->embed."'>
 					</iframe></td> ";
+
 					
 				/*$tbody .= "<td><embed type='application/x-vlc-plugin' pluginspage='http://www.videolan.org' autoplay='yes' loop='no' width='300' height='200' target='rtsp://admin:Nbid@2025!@172.10.11.7:554' />
 					<object classid='clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921' codebase='http://download.videolan.org/pub/videolan/vlc/last/win32/axvlc.cab' style='display:none;'></object></td> ";*/
@@ -451,5 +452,34 @@ class Cctv_surveilance_menu_model extends MY_Model
 
 		return $dt;
 	} 
+
+
+	public function getTblCctv($floating_crane,$jmlcctv) { 
+
+		if($floating_crane == 'all' || $floating_crane == ''){
+			$whr = "";
+		}else{
+			$whr = "where a.floating_crane_id = '".$floating_crane."'";
+		}
+
+		$jml = '';
+		if($jmlcctv != '' && $jmlcctv != 0){
+			$jml = ' limit '.$jmlcctv.' ';
+		}
+
+		
+		$rs = $this->db->query("select a.*, b.name as floating_crane_name from cctv a left join floating_crane b on b.id = a.floating_crane_id  ".$whr.$jml." ")->result();
+		
+		 
+		/*if(!empty($rs)){
+			$dt = '';
+		}*/
+
+		
+
+
+		return $rs;
+	} 
+
 
 }

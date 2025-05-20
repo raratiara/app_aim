@@ -422,7 +422,7 @@ class Dashboard_detail_menu_model extends MY_Model
 		return $rs;
 	}
 
-	public function getTblCctv($cctv) { 
+	public function getTblCctv_old($cctv) { 
 		
 		$rs = $this->db->query("select a.*, b.name as floating_crane_name from cctv a left join floating_crane b on b.id = a.floating_crane_id where a.floating_crane_id = '".$cctv."' ")->result(); 
 		/*$rs = $this->db->query("select a.*, b.name as floating_crane_name from cctv a left join floating_crane b on b.id = a.floating_crane_id  ")->result(); */
@@ -482,6 +482,15 @@ class Dashboard_detail_menu_model extends MY_Model
 
 
 		return $dt;
+	} 
+
+
+	public function getTblCctv($cctv) { 
+		
+		$rs = $this->db->query("select a.*, b.name as floating_crane_name from cctv a left join floating_crane b on b.id = a.floating_crane_id where a.floating_crane_id = '".$cctv."' ")->result(); 
+		
+
+		return $rs;
 	} 
 
 
@@ -619,61 +628,6 @@ class Dashboard_detail_menu_model extends MY_Model
 		return $dt;
 	} 
 
-
-	public function getTblCctv_old($cctv) { 
-		
-		$rs = $this->db->query("select a.*, b.name as floating_crane_name from cctv a left join floating_crane b on b.id = a.floating_crane_id where a.floating_crane_id = '".$cctv."' ")->result(); 
-		$rd = $rs;
-
-
-		if(!empty($rd)){ 
-
-			
-		
-			foreach ($rd as $row){
-
-
-				$thead .= '<th scope="col">'.$row->name.'</th>';
-				$tbody .= '<td><iframe width="420" height="345" src="'.$row->embed.'">
-					</iframe></td> ';
-
-			}
-
-			$dt .= '<div class="row ca">
-                        <div class="col-md-12">
-							<div class="portlet box green">
-								<div class="portlet-title">
-									<div class="caption"><i class="fa fa-cubes"></i>'.$row->floating_crane_name.' </div>
-									<div class="tools">
-								
-									</div>
-								</div>
-								<div class="portlet-body">
-									<div class="table-scrollable tablesaw-cont">
-									<table class="table table-striped table-bordered table-hover reim-list tablesaw tablesaw-stack" id="tblJadwal" data-tablesaw-mode="stack">
-										<thead>
-											<tr>
-											'.$thead.'
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-											'.$tbody.'
-											</tr>
-										</tbody>
-										<tfoot>
-										</tfoot>
-									</table>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>';
-		}
-
-
-		return $dt;
-	} 
 
 	public function getJob($idfc, $start_date, $end_date){ 
 

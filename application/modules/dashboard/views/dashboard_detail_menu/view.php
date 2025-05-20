@@ -39,7 +39,7 @@ if  (_USER_ACCESS_LEVEL_VIEW == "1" && _USER_ACCESS_LEVEL_EKSPORT == "1") {
 		</div>
 		<div class="col-md-6 col-sm-12">
 			<div class="form-group">
-				<label class="col-md-4 control-label no-padding-right">Current Datetime </label>
+				<label class="col-md-4 control-label no-padding-right">Last Datetime </label>
 				<div class="col-md-6">
 					<?=$txtcurrdatetime;?>
 				</div>
@@ -68,11 +68,33 @@ if  (_USER_ACCESS_LEVEL_VIEW == "1" && _USER_ACCESS_LEVEL_EKSPORT == "1") {
 
 &nbsp; &nbsp;
 
-<div class="row ca">
+<!-- <div class="row ca">
 	<div class="col-md-12 col-sm-12 col-xs-12">
 		<span class="tblCctv"></span>
 	</div>
+</div> -->
+
+
+
+<div class="portlet box green">
+	<div class="portlet-title">
+		<div class="caption"><span class="title_maps">CCTV Streaming</span></div>
+		<div class="actions">
+			
+		</div>
+		<div class="tools">
+		</div>
+	</div>
+	<div class="portlet-body">
+		<div id="videoContainerDS">
+			<table id="videoTableDS">
+			  <!-- <tr id="videoRow"></tr> -->
+			</table>
+		</div>
+	</div>
 </div>
+
+
 
 
 <div class="row">

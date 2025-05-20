@@ -5,6 +5,8 @@
 	}
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
 
 <!-- <script src="//code.jquery.com/jquery-1.9.1.js"></script> -->
 <!-- js for bar graph -->
@@ -206,42 +208,96 @@ function getCctv(idfc){
 
 	$.ajax({
 		type: "POST",
-        url : module_path+'/get_cctv',
+    url : module_path+'/get_cctv',
 		data: { cctv: idfc},
 		cache: false,		
         dataType: "JSON",
         success: function(data)
         { 
-			if(data != false){ 
-				
-				$('span.tblCctv').html(data);
-				
-			} else {
-				title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
-				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
-				msg = '<p>Gagal peroleh data.</p>';
-				var dialog = bootbox.dialog({
-					message: title+'<center>'+msg+btn+'</center>'
-				});
-				//if(response.status){
-					setTimeout(function(){
-						dialog.modal('hide');
-					}, 1500);
-				//}
-			}
+        	const table = document.getElementById('videoTableDS');
+      		table.innerHTML = ''; // removes all rows (tr)
+
+					if(data != false){ 
+						
+						//$('span.tblCctv').html(data);
+
+		      	var videoTable = document.getElementById('videoTableDS');
+            let tr = document.createElement('tr');
+            videoTable.appendChild(tr);
+            for(i=0; i<data.length; i++){ 
+                
+                if (i > 0 && i % 4 === 0) {
+                  tr = document.createElement('tr');  // new row after every 4 cells
+                  videoTable.appendChild(tr);
+                }
+
+              
+                var cell = document.createElement('td');
+                cell.style.backgroundColor = '#f0f0f0'; // example style
+
+                var video = document.createElement('video');
+                video.setAttribute('width', '300');
+                video.setAttribute('height', '230');
+                video.setAttribute('controls', '');
+                video.id = "myVideoDS"+i;  // optional, for future reference
+
+
+               
+
+                cell.appendChild(video);
+                tr.appendChild(cell);
+
+                var streamUrl = data[i].embed;
+
+                if (Hls.isSupported()) {
+                    var hls = new Hls();
+                    hls.loadSource(streamUrl);
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                      
+                      video.play().catch((error) => {
+                        console.log("Autoplay failed:", error);
+                      });
+                    });
+                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    video.src = streamUrl;
+                    video.addEventListener('loadedmetadata', function () {
+                      video.play();
+                    });
+                }
+
+                video.muted = true;
+                video.autoplay = true;
+
+          	}
+						
+					} 
+					else {
+						title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
+						btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
+						msg = '<p>Gagal peroleh data.</p>';
+						var dialog = bootbox.dialog({
+							message: title+'<center>'+msg+btn+'</center>'
+						});
+						//if(response.status){
+							setTimeout(function(){
+								dialog.modal('hide');
+							}, 1500);
+						//}
+					}
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-			var dialog = bootbox.dialog({
-				title: '',//'Error ' + jqXHR.status + ' - ' + jqXHR.statusText,
-				message: jqXHR.responseText,
-				buttons: {
-					confirm: {
-						label: 'Ok',
-						className: 'btn blue'
-					}
-				}
-			});
+					var dialog = bootbox.dialog({
+						title: '',//'Error ' + jqXHR.status + ' - ' + jqXHR.statusText,
+						message: jqXHR.responseText,
+						buttons: {
+							confirm: {
+								label: 'Ok',
+								className: 'btn blue'
+							}
+						}
+					});
         }
     });
 }

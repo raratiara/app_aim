@@ -26,9 +26,30 @@
 	</div> &nbsp; &nbsp;
 	<div></div>
 
-	<span class="tblCctv">
+	<!-- <span class="tblCctv">
 		
-	</span>
+	</span> -->
+
+	<div id="videoContainer">
+		<table id="videoTable">
+		  <!-- <tr id="videoRow"></tr> -->
+		</table>
+	</div>
+
+	<!-- <span class="tblStreaming">bbbbb -->
+		<!-- <video id="video1" width="300" height="230" controls></video>
+		<video id="video2" width="300" height="230" controls></video>
+		<video id="video3" width="300" height="230" controls></video> -->
+	<!-- </span> -->
+
+
+	<!-- <video id="video" width='300' height='230' controls> -->
+	    <!-- <source src='https://streamingcctv.gerbangdata.co.id/hls/demo-fc-0.m3u8' type='application/x-mpegURL'> -->
+	<!-- </video> -->
+
+	<!-- <video id="video" width="300" height="230" controls>
+	<video id="video2" width="300" height="230" controls> -->
+	
 
 	<!-- <div class="relative w-full" style="padding-top: 0%;"> 
 	     <div wire:ignore class="absolute top-0 left-0 w-full h-full">

@@ -10,4 +10,12 @@
 [class*="col-"] .chosen-container .chosen-drop {
     width: 100%!important;
 }
+
+table {
+  border-collapse: collapse;
+}
+td {
+  border: 1px solid black;
+  padding: 10px;
+}
 </style>
