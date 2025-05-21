@@ -1147,8 +1147,10 @@ setInterval(function(){
 	//$('#dynamic-table').DataTable().ajax.reload();
 	getDataRealtime(idfc, orderid);
 
-	/*SLACycle_percentage(idfc);
-	SLACycle_jml(idfc);*/
+	/*SLACycle_percentage(idfc, orderid);
+	SLACycle_jml(idfc, orderid);*/
+	getDataFC(idfc);
+	jobGraph(idfc);
 
 	var txtdatetimestart = document.getElementById("txtdatetimestart").value;
 
