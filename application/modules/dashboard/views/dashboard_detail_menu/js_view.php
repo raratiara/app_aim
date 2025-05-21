@@ -1181,6 +1181,20 @@ setInterval(function(){
 	$('#txtprocesstime').val(duration);
 
 
+}, 10000);
+
+
+setInterval(function(){
+	var idfc = $("#floating_crane option:selected").val();
+	var orderid = $("#order_name option:selected").val();
+	
+	
+	getDataFC(idfc);
+	jobGraph(idfc);
+
+	
+
+
 }, 60000);
 
 
