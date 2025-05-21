@@ -376,4 +376,26 @@ class Dashboard_menu_model extends MY_Model
 		return $rs;
 	} 
 
+
+
+	public function getlistFC(){
+		$rs = $this->db->query("select * from floating_crane")->result(); 
+
+		if(!empty($rs)){
+
+			$div='';
+			foreach($rs as $row){
+				$div .= '<div class="box" onclick="getCctv('.$row->id.')" style="margin-top:10px">
+					    	<b>'.$row->name.'</b>
+					  	</div>';
+			}
+
+			$dt = $div;
+
+
+			return $dt;
+
+		}else return null;
+	}
+
 }

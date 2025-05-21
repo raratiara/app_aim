@@ -110,5 +110,19 @@ class Dashboard_menu extends MY_Controller
 	}
 
 
+	public function get_listFC(){
+		if(_USER_ACCESS_LEVEL_VIEW == "1")
+		{ 
+			$rs =  $this->self_model->getlistFC();
+
+			echo json_encode($rs);
+		}
+		else
+		{ 
+			$this->load->view('errors/html/error_hacks_401');
+		}
+	}
+
+
 
 }

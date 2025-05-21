@@ -105,7 +105,8 @@ jQuery(function($) {
 $(document).ready(function() {
    	$(function() {
 
-        getMaps(selectVal='all');
+        	getMaps(selectVal='all');
+        	//listFC();
    	});
 });
 
@@ -257,6 +258,46 @@ function getDetailnew(){
 	}	
 	
 	
+}
+
+function listFC(){
+
+	$.ajax({
+		type: "POST",
+        	url : module_path+'/get_listFC',
+		data: { },
+		cache: false,		
+	        dataType: "JSON",
+	        success: function(data)
+	        { 
+			if(data != false){ 
+				 
+				$('div#listboxFC').html(data);
+
+			} else {
+				alert('No Floating Crane');
+			}
+	        },
+	        error: function (jqXHR, textStatus, errorThrown)
+	        {
+				var dialog = bootbox.dialog({
+					title: 'Error ' + jqXHR.status + ' - ' + jqXHR.statusText,
+					message: jqXHR.responseText,
+					buttons: {
+						confirm: {
+							label: 'Ok',
+							className: 'btn blue'
+						}
+					}
+				});
+	        }
+    	});
+	document.getElementById("listboxFC").innerHTML += "<br>Appended content.";
+
+}
+
+function getCctv(id){
+	alert(id);
 }
 
 

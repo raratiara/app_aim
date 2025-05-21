@@ -1181,7 +1181,7 @@ setInterval(function(){
 	$('#txtprocesstime').val(duration);
 
 
-}, 1000);
+}, 60000);
 
 
 function getDataFC(id_fc){
