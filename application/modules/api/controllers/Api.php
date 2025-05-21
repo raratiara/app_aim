@@ -24,6 +24,24 @@ class Api extends API_Controller
 		exit;
 	}
 
+	public function hitung(){
+		$id='31';
+		$type_activity=6;
+		$totaltime = $this->db->query("select sum(total_time) as total FROM job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
+
+						// CONVERT each duration to seconds and sum
+		$totaltime = $this->db->query("select * from job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
+		foreach ($totaltime as $duration) {
+		    list($hours, $minutes, $seconds) = explode(":", $duration->total_time);
+		    $totalSeconds += ($hours * 3600) + ($minutes * 60) + $seconds;
+		}
+		$hours = floor($totalSeconds / 3600);
+		$minutes = floor(($totalSeconds % 3600) / 60);
+		$seconds = $totalSeconds % 60;
+		$totalDuration = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
+		echo $totalDuration; die();
+	}
+
 
     public function get_order_id()
     {
@@ -202,10 +220,10 @@ class Api extends API_Controller
 
 
 						$cek_order_summary = $this->db->query("select * from job_order_summary where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
-						//$totaltime = $this->db->query("select sum(total_time) as total FROM job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
+						/*$totaltime = $this->db->query("select sum(total_time) as total FROM job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();*/
 
 						// CONVERT each duration to seconds and sum
-						/*$totaltime = $this->db->query("select * from job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
+						$totaltime = $this->db->query("select * from job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
 						foreach ($totaltime as $duration) {
 						    list($hours, $minutes, $seconds) = explode(":", $duration->total_time);
 						    $totalSeconds += ($hours * 3600) + ($minutes * 60) + $seconds;
@@ -214,21 +232,21 @@ class Api extends API_Controller
 						$minutes = floor(($totalSeconds % 3600) / 60);
 						$seconds = $totalSeconds % 60;
 						$totalDuration = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
-						*/
+						
 
-						list($hours, $minutes, $seconds) = explode(":", $cek_order_summary[0]->total_date_time);
-						list($hours2, $minutes2, $seconds2) = explode(":", $cycle_time);
-						$totalSeconds += ($hours * 3600) + ($minutes * 60) + $seconds;
-						$totalSeconds2 += ($hours2 * 3600) + ($minutes2 * 60) + $seconds2;
-					 	// Sum the seconds
-   	 					$sumSeconds = $totalSeconds + $totalSeconds2;
+						// list($hours, $minutes, $seconds) = explode(":", $cek_order_summary[0]->total_date_time);
+						// list($hours2, $minutes2, $seconds2) = explode(":", $cycle_time);
+						// $totalSeconds += ($hours * 3600) + ($minutes * 60) + $seconds;
+						// $totalSeconds2 += ($hours2 * 3600) + ($minutes2 * 60) + $seconds2;
+					 	// // Sum the seconds
+   	 					// $sumSeconds = $totalSeconds + $totalSeconds2;
 
-						// Convert total seconds back to H:i:s
-						$hoursx = floor($sumSeconds / 3600);
-						$minutesx = floor(($sumSeconds % 3600) / 60);
-						$secondsx = $sumSeconds % 60;
-						// Format result
-						$totalDuration = sprintf("%02d:%02d:%02d", $hoursx, $minutesx, $secondsx);
+						// // Convert total seconds back to H:i:s
+						// $hoursx = floor($sumSeconds / 3600);
+						// $minutesx = floor(($sumSeconds % 3600) / 60);
+						// $secondsx = $sumSeconds % 60;
+						// // Format result
+						// $totalDuration = sprintf("%02d:%02d:%02d", $hoursx, $minutesx, $secondsx);
 						// END CONVERT each duration to seconds and sum
 
 
