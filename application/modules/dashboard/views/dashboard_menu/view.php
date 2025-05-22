@@ -18,7 +18,7 @@
 	</div>
 
 	<!-- Peta -->
-	<div id="map" style="height: 70vh;"></div>
+	<div id="map" style="height: 70vh; width: 100%;"></div>
 
 	<!-- Video container -->
 	<div class="video-container" id="videoContainer">
