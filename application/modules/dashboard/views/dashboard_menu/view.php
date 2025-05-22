@@ -12,7 +12,7 @@
 	</div>
 
 
-	 <div class="container demo">
+	 <!-- <div class="container demo">
 		
 		<div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
 			<div class="modal-dialog" role="document">
@@ -55,13 +55,13 @@
 			
 		</div>
 		
-	</div> 
+	</div>  -->
 
 
 
 
 
-	<!-- <div class="container demo">
+	 <div class="container demo">
 		
 		<div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
 			<div class="modal-dialog" role="document">
@@ -77,19 +77,20 @@
 							<div class="col-md-12 col-sm-12">
 								<div class="form-group">
 									<span style="color:red">Click the Floating Crane</span>
+
 								</div>
 							</div>
 							<div id="listboxFC" class="col-md-12 col-sm-12">
 								
 							</div>
-							<div class="col-md-12 col-sm-12" style="margin-top:10px">
+							<!-- <div class="col-md-12 col-sm-12" style="margin-top:10px">
 								<div class="form-group">
 									<div class="col-md-12">
 										<button type="button" class="btn btn-primary" onclick="getDetailnew()">Dashboard</button>
 									</div>
 								</div>
 								
-							</div>
+							</div> -->
 						</div>
 					</div>
 
@@ -99,7 +100,35 @@
 			
 		</div>
 		
-	</div> -->
+	</div> 
+
+
+
+
+
+
+	<div class="modal fade" id="modalCCTV" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content" id="modal-contentcctv" style="width:1000px; height:400px; margin-left:-180px">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="modalLabel"><span id="fc_name"></span></h5>
+	       <!--  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+	      </div>
+	      <div class="modal-body">
+	      	<input type="hidden" id="hdnfloating_crane" name="hdnfloating_crane">
+	        <div id="videoContainerDS2">
+				<table id="videoTableDS2">
+				  <!-- <tr id="videoRow"></tr> -->
+				</table>
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+	        <button type="button" class="btn btn-primary" onclick="getDetailnew()">Dashboard</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 	
 	
 

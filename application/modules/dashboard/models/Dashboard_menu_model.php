@@ -385,8 +385,11 @@ class Dashboard_menu_model extends MY_Model
 
 			$div='';
 			foreach($rs as $row){
-				$div .= '<div class="box" onclick="getCctv('.$row->id.')" style="margin-top:10px">
-					    	<b>'.$row->name.'</b>
+				$div .= '<div class="box" id="boxid" onclick="getCctv('.$row->id.')" style="margin-top:10px;width:270px">
+							<img src="http://localhost/_aim/public/assets/images/crane.png" alt="logo" style="height:100px;" class="logo-default">
+					    	
+					    	<b><span>'.$row->name.'</span></b>
+
 					  	</div>';
 			}
 
@@ -397,5 +400,15 @@ class Dashboard_menu_model extends MY_Model
 
 		}else return null;
 	}
+
+
+	public function getTblCctv($idfc) { 
+		
+		$rs = $this->db->query("select a.*, b.name as floating_crane_name from cctv a left join floating_crane b on b.id = a.floating_crane_id where a.floating_crane_id = '".$idfc."' ")->result(); 
+		
+
+		return $rs;
+	} 
+
 
 }

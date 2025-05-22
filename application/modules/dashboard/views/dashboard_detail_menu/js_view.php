@@ -401,6 +401,34 @@ function jobGraph(idfc){
 	                          "#ffc750",
 	                          "#2ec551",
 	                          "#7040fa",
+	                          "#ff004e",
+	                        "#5969ff",
+	                          "#ff407b",
+	                          "#25d5f2",
+	                          "#ffc750",
+	                          "#2ec551",
+	                          "#7040fa",
+	                          "#ff004e",
+	                        "#5969ff",
+	                          "#ff407b",
+	                          "#25d5f2",
+	                          "#ffc750",
+	                          "#2ec551",
+	                          "#7040fa",
+	                          "#ff004e",
+	                        "#5969ff",
+	                          "#ff407b",
+	                          "#25d5f2",
+	                          "#ffc750",
+	                          "#2ec551",
+	                          "#7040fa",
+	                          "#ff004e",
+	                        "#5969ff",
+	                          "#ff407b",
+	                          "#25d5f2",
+	                          "#ffc750",
+	                          "#2ec551",
+	                          "#7040fa",
 	                          "#ff004e"];
 
 	
@@ -1149,8 +1177,7 @@ setInterval(function(){
 
 	/*SLACycle_percentage(idfc, orderid);
 	SLACycle_jml(idfc, orderid);*/
-	getDataFC(idfc);
-	jobGraph(idfc);
+	
 
 	var txtdatetimestart = document.getElementById("txtdatetimestart").value;
 
@@ -1181,7 +1208,7 @@ setInterval(function(){
 	$('#txtprocesstime').val(duration);
 
 
-}, 10000);
+}, 5000);
 
 
 setInterval(function(){
@@ -1195,7 +1222,7 @@ setInterval(function(){
 	
 
 
-}, 60000);
+}, 20000);
 
 
 function getDataFC(id_fc){

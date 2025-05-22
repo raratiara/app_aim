@@ -124,5 +124,28 @@ class Dashboard_menu extends MY_Controller
 	}
 
 
+	public function get_cctv()
+	{ 
+		if(_USER_ACCESS_LEVEL_VIEW == "1")
+		{ 
+			$post = $this->input->post(null, true);
+			$idfc = $post['idfc'];
+
+
+			if(isset($idfc))
+			{
+				$rs =  $this->self_model->getTblCctv($idfc);
+
+				echo json_encode($rs);
+
+			}
+		}
+		else
+		{ 
+			$this->load->view('errors/html/error_hacks_401');
+		}
+	}
+
+
 
 }

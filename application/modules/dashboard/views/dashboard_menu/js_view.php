@@ -7,6 +7,8 @@
 	
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
 
 <script type="text/javascript">
 
@@ -106,7 +108,23 @@ $(document).ready(function() {
    	$(function() {
 
         	getMaps(selectVal='all');
-        	//listFC();
+        	listFC();
+
+        	// Get the full URL query string
+		const queryString = window.location.search;
+
+		// Create a URLSearchParams object
+		const urlParams = new URLSearchParams(queryString);
+
+		// Get values from URL
+		const id = urlParams.get('id');
+		if(id != '' && id != null){
+			$('#modalCCTV').modal('show');
+			
+
+			getStream(id);
+			
+		}
    	});
 });
 
@@ -134,7 +152,7 @@ function getMaps(id){
         { 
 			if(data != false){ 
 				var locations = data;
-				console.log(locations); 
+				
 				//$('div#clMaps').html(data);
 
 				/*var locations = [
@@ -297,8 +315,134 @@ function listFC(){
 }
 
 function getCctv(id){
-	alert(id);
+	
+	if(id == ''){
+	   	alert("Click Floating Crane");
+	}else{
+		var getUrl = window.location;
+		var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+		//alert(getUrl);
+		/*$('span.title_maps').html(loc);
+		$('#modal-detail').modal('show');*/
+
+		var link = document.createElement("a")
+	  	//link.href = ''+baseUrl+'/dashboard/dashboard_detail_menu?id='+idfc+'&orderid=0'
+	  	link.href = ''+baseUrl+'/dashboard_menu?id='+id+''
+	  	link.target = "_blank"
+	  	link.click()
+	}
 }
+
+
+
+function getStream(idfc){
+	
+
+	$.ajax({
+		type: "POST",
+    		url : module_path+'/get_cctv',
+		data: { idfc: idfc},
+		cache: false,		
+	        dataType: "JSON",
+	        success: function(data)
+	        { 
+	        	var table = document.getElementById('videoTableDS2');
+	      		table.innerHTML = ''; // removes all rows (tr)
+
+			if(data != false){ 
+					
+				$('span#fc_name').html(data[0].floating_crane_name);
+				$('#hdnfloating_crane').val(data[0].floating_crane_id);
+				
+				
+
+			      	var videoTable = document.getElementById('videoTableDS2');
+		            	let tr = document.createElement('tr');
+		            	videoTable.appendChild(tr);
+	            		for(i=0; i<data.length; i++){ 
+                
+	                		if (i > 0 && i % 4 === 0) {
+		                  		tr = document.createElement('tr');  // new row after every 4 cells
+		                  		videoTable.appendChild(tr);
+		                	}
+
+	              
+			                var cell = document.createElement('td');
+			                cell.style.backgroundColor = '#f0f0f0'; // example style
+
+			                var video = document.createElement('video');
+			                video.setAttribute('width', '300');
+			                video.setAttribute('height', '230');
+			                video.setAttribute('controls', '');
+			                video.id = "myVideoDS2"+i;  // optional, for future reference
+
+
+	               
+
+			                cell.appendChild(video);
+			                tr.appendChild(cell);
+
+			                var streamUrl = data[i].embed;
+
+			                if (Hls.isSupported()) {
+			                    var hls = new Hls();
+			                    hls.loadSource(streamUrl);
+			                    hls.attachMedia(video);
+			                    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+			                      
+			                      video.play().catch((error) => {
+			                        console.log("Autoplay failed:", error);
+			                      });
+			                    });
+			                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+			                    video.src = streamUrl;
+			                    video.addEventListener('loadedmetadata', function () {
+			                      video.play();
+			                    });
+			                }
+
+			                video.muted = true;
+			                video.autoplay = true;
+
+		          	}
+						
+			} 
+			else {
+				title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
+				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
+				msg = '<p>Gagal peroleh data.</p>';
+				var dialog = bootbox.dialog({
+					message: title+'<center>'+msg+btn+'</center>'
+				});
+				//if(response.status){
+					setTimeout(function(){
+						dialog.modal('hide');
+					}, 1500);
+				//}
+			}
+	        },
+	        error: function (jqXHR, textStatus, errorThrown)
+	        {
+			var dialog = bootbox.dialog({
+				title: '',//'Error ' + jqXHR.status + ' - ' + jqXHR.statusText,
+				message: jqXHR.responseText,
+				buttons: {
+					confirm: {
+						label: 'Ok',
+						className: 'btn blue'
+					}
+				}
+			});
+	        }
+    	});
+}
+
+
+
+
+
+
 
 
 <?php } ?>
