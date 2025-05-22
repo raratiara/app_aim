@@ -224,6 +224,8 @@ function getMaps(id){
 			    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
 			      video.src = streamUrl;
 			    }
+			    video.muted = true;
+	                    video.autoplay = true;
 			  }
 
 			  // Ganti dengan URL .m3u8 kamu sendiri
