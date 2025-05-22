@@ -3,7 +3,30 @@
 	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 
 
-	<div id='map' style="width: 100%; height: 600px;"></div> 
+	<!-- <div id='map' style="width: 100%; height: 600px;"></div>  -->
+
+
+	<!-- Tombol toggle -->
+	<div class="toggle-button" onclick="toggleVideos()">Sembunyikan Video</div>
+
+	<!-- Info box -->
+	<div class="info-box" id="infoBox">
+	  <img src="https://aim.sandboxxplore.com/public/assets/images/crane.png" alt="Floating Crane" style="width:50px">
+	  <h4>FC Avant Grade</h4>
+	  <button type="button" class="btn btn-primary" onclick="getDetailnew()">Dashboard</button>
+	  <!-- <p>Live View: Jalan M.H. Thamrin, Jakarta</p> -->
+	</div>
+
+	<!-- Peta -->
+	<div id="map" style="height: 70vh;"></div>
+
+	<!-- Video container -->
+	<div class="video-container" id="videoContainer">
+	  <video id="video1" controls muted></video>
+	  <video id="video2" controls muted></video>
+	  <video id="video3" controls muted></video>
+	</div>
+
 
 	<div>
 		<button type="button-primary" id="refreshButton" class="btn btn-demo" data-toggle="modal" data-target="#myModal2">

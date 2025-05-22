@@ -7,6 +7,13 @@
 	
 </style>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"  />
+<!-- Leaflet -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- HLS.js -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 
@@ -108,6 +115,7 @@ $(document).ready(function() {
    	$(function() {
 
         	getMaps(selectVal='all');
+        	//getnewmaps();
         	listFC();
 
         	// Get the full URL query string
@@ -150,76 +158,94 @@ function getMaps(id){
         dataType: "JSON",
         success: function(data)
         { 
-			if(data != false){ 
-				var locations = data;
-				
-				//$('div#clMaps').html(data);
+		if(data != false){ 
+			var locations = data;
+			
+			//$('div#clMaps').html(data);
 
-				/*var locations = [
-				  ["LOCATION_1", 11.8166, 122.0942],
-				  ["LOCATION_2", 11.9804, 121.9189],
-				  ["LOCATION_3", 10.7202, 122.5621],
-				  ["LOCATION_4", 11.3889, 122.6277],
-				  ["LOCATION_5", 10.5929, 122.6325]
-				];*/
+			/*var locations = [
+			  ["LOCATION_1", 11.8166, 122.0942],
+			  ["LOCATION_2", 11.9804, 121.9189],
+			  ["LOCATION_3", 10.7202, 122.5621],
+			  ["LOCATION_4", 11.3889, 122.6277],
+			  ["LOCATION_5", 10.5929, 122.6325]
+			];*/
 
-				//L.map('map').remove();
-				var container = L.DomUtil.get('map');
+			//L.map('map').remove();
+			var container = L.DomUtil.get('map');
 		      	if(container != null){
 			        container._leaflet_id = null;
 		      	}
-				
-				//var map = L.map('map').setView([11.206051, 122.447886], 8);
-				var map = L.map('map').setView([11.8166, 122.0942], 8);
+			
+			//var map = L.map('map').setView([11.206051, 122.447886], 8);
+			var map = L.map('map').setView([11.8166, 122.0942], 8);
 
 
-				mapLink =
-				  '<a href="http://openstreetmap.org">OpenStreetMap</a>';
-				L.tileLayer(
-				  'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-				    attribution: '&copy; ' + mapLink + ' Contributors',
-				    maxZoom: 18,
-			  	}).addTo(map);
+			mapLink =
+			  '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+			L.tileLayer(
+			  'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			    attribution: '&copy; ' + mapLink + ' Contributors',
+			    maxZoom: 18,
+		  	}).addTo(map);
 
 
 
-				for (var i = 0; i < locations.length; i++) {
-				  /*marker = new L.marker([locations[i][1], locations[i][2]])
-				    //.bindPopup(locations[i][0])
-				  	.bindPopup(locations[i][0]).openPopup()
-				    .addTo(map);*/
-					var latlng = L.latLng(locations[i]['latitude'], locations[i]['longitude']);
-				    /*marker = new L.popup(latlng, {content: '<p>Hello world!<br />This is a nice popup.</p>'})
-				    .addTo(map);*/
-				   
+			for (var i = 0; i < locations.length; i++) {
+			  /*marker = new L.marker([locations[i][1], locations[i][2]])
+			    //.bindPopup(locations[i][0])
+			  	.bindPopup(locations[i][0]).openPopup()
+			    .addTo(map);*/
+				var latlng = L.latLng(locations[i]['latitude'], locations[i]['longitude']);
+			    /*marker = new L.popup(latlng, {content: '<p>Hello world!<br />This is a nice popup.</p>'})
+			    .addTo(map);*/
+			   
 
-				    marker = new L.popup()
-				    .setLatLng(latlng)
-				    .setContent('<div class="mydivclass" onclick="getDetail('+"'"+locations[i]['floating_crane_id']+"'"+')"> <p>'+locations[i]['name']+'</p> </div>')
-				    .addTo(map);
+			    marker = new L.popup()
+			    .setLatLng(latlng)
+			    .setContent('<div class="mydivclass" onclick="getDetail('+"'"+locations[i]['floating_crane_id']+"'"+')"> <p>'+locations[i]['name']+'</p> </div>')
+			    .addTo(map);
 
-				    /*marker.on('click', function() { alert("hahaha");
-					    alert(ev.latlng); // ev is an event object (MouseEvent in this case)
-					});*/
-				    //var google = window.google.maps;
+			    /*marker.on('click', function() { alert("hahaha");
+				    alert(ev.latlng); // ev is an event object (MouseEvent in this case)
+				});*/
+			    //var google = window.google.maps;
 
-				}
-
-				
-				
-			} else {
-				title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
-				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
-				msg = '<p>Gagal peroleh data.</p>';
-				var dialog = bootbox.dialog({
-					message: title+'<center>'+msg+btn+'</center>'
-				});
-				if(response.status){
-					setTimeout(function(){
-						dialog.modal('hide');
-					}, 1500);
-				}
 			}
+
+
+			// Fungsi untuk load HLS stream
+			  function loadHLS(videoElementId, streamUrl) {
+			    const video = document.getElementById(videoElementId);
+			    if (Hls.isSupported()) {
+			      const hls = new Hls();
+			      hls.loadSource(streamUrl);
+			      hls.attachMedia(video);
+			    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+			      video.src = streamUrl;
+			    }
+			  }
+
+			  // Ganti dengan URL .m3u8 kamu sendiri
+			  loadHLS('video1', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-0.m3u8');
+			  loadHLS('video2', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-1.m3u8');
+			  loadHLS('video3', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-2.m3u8');
+
+			
+			
+		} else {
+			title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
+			btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
+			msg = '<p>Gagal peroleh data.</p>';
+			var dialog = bootbox.dialog({
+				message: title+'<center>'+msg+btn+'</center>'
+			});
+			if(response.status){
+				setTimeout(function(){
+					dialog.modal('hide');
+				}, 1500);
+			}
+		}
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
@@ -257,6 +283,7 @@ function getDetail(idfc){
 
 function getDetailnew(){
 	var idfc = $("#hdnfloating_crane").val();
+	var idfc = 1;
 
 	if(idfc == ''){
 	   	alert("Choose Floating Crane");
@@ -439,7 +466,67 @@ function getStream(idfc){
 }
 
 
+function getnewmaps(){
+	 // Inisialisasi Leaflet Map
+	  var map = L.map('map').setView([-6.1754, 106.8272], 13);
+	  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	    attribution: '© OpenStreetMap contributors'
+	  }).addTo(map);
+	  L.marker([-6.1754, 106.8272]).addTo(map)
+	    .bindPopup("<b>CCTV Bundaran HI</b><br>Live monitoring area.")
+	    .openPopup();
 
+	  // Fungsi untuk load HLS stream
+	  function loadHLS(videoElementId, streamUrl) {
+	    const video = document.getElementById(videoElementId);
+	    if (Hls.isSupported()) {
+	      const hls = new Hls();
+	      hls.loadSource(streamUrl);
+	      hls.attachMedia(video);
+	    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+	      video.src = streamUrl;
+	    }
+	  }
+
+	  // Ganti dengan URL .m3u8 kamu sendiri
+	  loadHLS('video1', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-0.m3u8');
+	  loadHLS('video2', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-1.m3u8');
+	  loadHLS('video3', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-2.m3u8');
+
+	  
+}
+
+
+// Toggle video & peta
+	  var isVisible = true;
+function toggleVideos() {
+	
+    const videoContainer = document.getElementById("videoContainer");
+    const mapDiv = document.getElementById("map");
+    const toggleBtn = document.querySelector(".toggle-button");
+
+    if (isVisible) { 
+      videoContainer.style.display = "none";
+      mapDiv.style.height = "100vh";
+      toggleBtn.innerText = "Tampilkan Video";
+    } else { 
+      videoContainer.style.display = "flex";
+      mapDiv.style.height = "70vh";
+      toggleBtn.innerText = "Sembunyikan Video";
+    }
+
+
+    var container = L.DomUtil.get('map');
+		      	if(container != null){
+			        container._leaflet_id = null;
+		      	}
+			
+			//var map = L.map('map').setView([11.206051, 122.447886], 8);
+			var map = L.map('map').setView([11.8166, 122.0942], 8);
+
+    isVisible = !isVisible;
+    setTimeout(() => { map.invalidateSize(); }, 300);
+}
 
 
 
