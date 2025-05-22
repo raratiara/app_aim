@@ -386,7 +386,7 @@ class Dashboard_menu_model extends MY_Model
 			$div='';
 			foreach($rs as $row){
 				$div .= '<div class="box" id="boxid" onclick="getCctv('.$row->id.')" style="margin-top:10px;width:270px">
-							<img src="http://localhost/_aim/public/assets/images/crane.png" alt="logo" style="height:100px;" class="logo-default">
+							<img src="https://aim.sandboxxplore.com/public/assets/images/crane.png" alt="logo" style="height:100px;" class="logo-default">
 					    	
 					    	<b><span>'.$row->name.'</span></b>
 
