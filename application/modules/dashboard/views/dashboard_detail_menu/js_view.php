@@ -550,6 +550,13 @@ function jobGraph(idfc){
 				
 				const canvas = document.getElementById('chartjs_bar');
 				const ctx = canvas.getContext('2d');
+
+
+
+				var chartExist = Chart.getChart("chartjs_bar"); // <canvas> id
+			    if (chartExist != undefined)  
+			      chartExist.destroy(); 
+			    
 				
 				//var ctx = document.getElementById("chartjs_bar").getContext('2d');
 			    var myChart = new Chart(ctx, {
