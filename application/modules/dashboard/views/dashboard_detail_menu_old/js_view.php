@@ -566,8 +566,7 @@ function jobGraph(idfc){
 								      idx: arrJobid[<?=$aa?>],
 								      data: groupedArrTotal.xData_<?=$aa?>,
 								      //borderColor: '#36A2EB',
-								      /*backgroundColor: arrColor[<?=$aa?>],*/
-								      backgroundColor: '#5969ff',
+								      backgroundColor: arrColor[<?=$aa?>],
 								    },
 			            		<?php
 			            	}
