@@ -1216,7 +1216,7 @@ setInterval(function(){
 	$('#txtprocesstime').val(duration);
 
 
-}, 5000);
+}, 1000);
 
 
 setInterval(function(){
