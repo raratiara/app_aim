@@ -839,7 +839,7 @@ function activityGraph(jobId, fcId){
 						var valClick = myChart.data.idx[indexClick];
 
 			  		getLineChart(valClick, jobId, fcId);
-				  	getTblWaktu(valClick, jobId, fcId);
+				  	/*getTblWaktu(valClick, jobId, fcId);*/
 				  	
 					};
 
@@ -1078,7 +1078,7 @@ function getLineChart(activity, jobId, fcId){
 
 }
 
-function getTblWaktu(activity, job, fcId){
+/*function getTblWaktu(activity, job, fcId){
 
 	myTable =
 	$('#tbldetailWaktuAct')
@@ -1102,7 +1102,7 @@ function getTblWaktu(activity, job, fcId){
 		"colReorder": true
     } );
 
-}
+}*/
 
 function getEksportActivityMonitor(){
 	var id_fc = document.getElementById("id_fc").value;
@@ -1224,7 +1224,11 @@ setInterval(function(){
 	var orderid = $("#order_name option:selected").val();
 	
 	
-	getDataFC(idfc);
+	reloadDatatable(idfc, orderid);
+	SLACycle_percentage(idfc, orderid);
+	SLACycle_jml(idfc, orderid);
+	activityGraph(orderid, idfc);
+	getLineChart(activityname, orderid, idfc);
 	jobGraph(idfc);
 
 	
@@ -1293,7 +1297,7 @@ function getDataFC(id_fc){
 			//getLineChart(activityname, jobordername, id_fc);
 			activityGraph(joborderid, id_fc);
 			getLineChart(activityname, joborderid, id_fc);
-			getTblWaktu(activityname, jobordername, id_fc);
+			/*getTblWaktu(activityname, jobordername, id_fc);*/
 
         },
         error: function (jqXHR, textStatus, errorThrown)

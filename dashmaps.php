@@ -304,13 +304,13 @@
 </div>
 
 <div class="top-bar">
-  <input class="search-box" type="text" placeholder="Search..." />
+  <!-- <input class="search-box" type="text" placeholder="Search..." /> -->
   <div class="user-dropdown" id="userDropdown">
-    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" />
+    <!-- <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" /> -->
     <i class="fas fa-user-circle"></i> Admin
     <div class="dropdown-menu">
-      <a href="#" id="profileLink"><i class="fas fa-user"></i> Profile</a>
-      <a href="#" id="logoutLink"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      <a href="https://aim.sandboxxplore.com/reset_password" id="profileLink"><i class="fas fa-user"></i> Reset Password</a>
+      <a href="https://aim.sandboxxplore.com/login/logout" id="logoutLink"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
   </div>
 </div>
