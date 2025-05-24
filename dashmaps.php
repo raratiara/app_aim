@@ -446,7 +446,7 @@ function getDetailnew(){
 
     var link = document.createElement("a")
       //link.href = ''+baseUrl+'/dashboard/dashboard_detail_menu?id='+idfc+'&orderid=0'
-      link.href = ''+baseUrl+'/dashboard_detail_menu?id='+idfc+'&orderid=0'
+      link.href = 'https://aim.sandboxxplore.com/dashboard/dashboard_detail_menu?id='+idfc+'&orderid=0'
       link.target = "_blank"
       link.click()
   } 
