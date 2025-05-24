@@ -134,7 +134,8 @@
                             success: function(data) {
                                 if (data == 'Welcome') {
 									//window.location.href = '<?= base_url('dashboard') ?>';
-                                    window.location.href = '<?= base_url('dashboard/dashboard_menu') ?>';
+                                    /*window.location.href = '<?= base_url('dashboard/dashboard_menu') ?>';*/
+                                    window.location.href = '<?= base_url('dashmaps.php') ?>';
                                 } else {
                                     $('.alert-danger', $('.login-form')).html(data);
                                     $('.alert-danger', $('.login-form')).show();
