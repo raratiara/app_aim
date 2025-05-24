@@ -283,7 +283,7 @@
 <!-- Sidebar tanpa logo -->
 <div class="sidebar" id="sidebar">
   <div class="menu-item" onclick="window.location.href='https://aim.sandboxxplore.com/dashmaps.php'">Dashboard</div>
-  <div class="menu-item" onclick="window.location.href='https://aim.sandboxxplore.com/cctv_surveilance/cctv_surveilance_menu'">CCTV Surveillance</div>
+  <!-- <div class="menu-item" onclick="window.location.href='https://aim.sandboxxplore.com/cctv_surveilance/cctv_surveilance_menu'">CCTV Surveillance</div> -->
   <div class="menu-item" onclick="window.location.href='https://aim.sandboxxplore.com/job_order/job_order_menu'">Job Order</div>
   <div class="menu-item" onclick="window.location.href='https://aim.sandboxxplore.com/job_order/job_order_summary_menu'">Order Summary</div>
   <div class="menu-item" onclick="window.location.href='https://aim.sandboxxplore.com/job_order/job_order_detail_menu'">Order Detail</div>
