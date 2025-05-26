@@ -1224,7 +1224,7 @@ setInterval(function(){
 	SLACycle_percentage(idfc, orderid);
 	SLACycle_jml(idfc, orderid);
 	activityGraph(orderid, idfc);
-	getLineChart('Loading Time', orderid, idfc);
+	getLineChart('6', orderid, idfc);
 	jobGraph(idfc);
 
 	
