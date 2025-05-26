@@ -39,13 +39,13 @@ td {
 
 #graphCycleJml {
     width: 450px;
-    height: 500px;
+    height: 320px;
     /*border: 1px solid black;*/
   }
 
   #colCycleJml {
     width: 450px;
-    height: 500px;
+    height: 320px;
     /*border: 1px solid black;*/
   }
 
