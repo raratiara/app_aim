@@ -517,7 +517,7 @@ class Dashboard_detail_menu_model extends MY_Model
 			
 			$tableRow='';
 
-			for($i=0; $i<30; $i++){
+			for($i=0; $i<20; $i++){
 
 				$activity_name	= ''; 
 				$datetime_start = '';
@@ -577,7 +577,7 @@ class Dashboard_detail_menu_model extends MY_Model
 		}else{
 			$tableRow='';
 
-			for($i=0; $i<30; $i++){
+			for($i=0; $i<20; $i++){
 				$tableRow .= "<tr>
 								<td></td>
 								<td></td>
