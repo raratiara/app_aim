@@ -960,7 +960,7 @@ class Dashboard_detail_menu_model extends MY_Model
 			from job_order_detail a left join job_order b on b.id = a.job_order_id 
 			left join activity c on c.id = a.activity_id left join floating_crane d on d.id = b.floating_crane_id 
 			left join mother_vessel e on e.id = b.mother_vessel_id left join status f on f.id = b.order_status 
-			where b.floating_crane_id = '".$fcId."' and a.job_order_id = '".$orderid."' and b.is_active = 1 order by a.id desc limit 30) dt group by dt.achieve_sla
+			where b.floating_crane_id = '".$fcId."' and a.job_order_id = '".$orderid."' and b.is_active = 1 order by a.id desc) dt group by dt.achieve_sla
 			")->result(); 
 
 

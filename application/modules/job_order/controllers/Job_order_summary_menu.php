@@ -15,12 +15,12 @@ class Job_order_summary_menu extends MY_Controller
 	
 	/* View */
 	public $icon 					= 'fa-database';
-	public $tabel_header 			= ["ID","Floating Crane","Mother Vessel", "Job Order","Activity", "Total DateTime"];
+	public $tabel_header 			= ["ID","Floating Crane","Mother Vessel", "Job Order","Activity", "Total DateTime","Datetime Start","Datetime End"];
 	
 
 	/* Export */
-	public $colnames 				= ["ID","Floating Crane","Mother Vessel", "Job Order","Activity", "Total DateTime"];
-	public $colfields 				= ["id","floating_crane_name","mother_vessel_name", "order_name", "activity_name", "total_date_time"];
+	public $colnames 				= ["ID","Floating Crane","Mother Vessel", "Job Order","Activity", "Total DateTime","Datetime Start","Datetime End"];
+	public $colfields 				= ["id","floating_crane_name","mother_vessel_name", "order_name", "activity_name", "total_date_time","datetime_start","datetime_end"];
 
 	/* Form Field Asset */
 	public function form_field_asset()

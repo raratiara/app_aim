@@ -24,7 +24,9 @@ class Job_order_summary_menu_model extends MY_Model
 			'dt.mother_vessel_name',
 			'dt.order_name',
 			'dt.activity_name',
-			'dt.total_date_time'
+			'dt.total_date_time',
+			'dt.datetime_start',
+			'dt.datetime_end'
 		];
 		
 		
@@ -199,7 +201,9 @@ class Job_order_summary_menu_model extends MY_Model
 				$row->mother_vessel_name,
 				$row->order_name,
 				$row->activity_name,
-				$row->total_date_time
+				$row->total_date_time,
+				$row->datetime_start,
+				$row->datetime_end
 
 			));
 		}
