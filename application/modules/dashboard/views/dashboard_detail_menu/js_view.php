@@ -995,7 +995,7 @@ function getLineChart(activity, jobId, fcId){
 
 
 				var myChart = new Chart(ctx, {
-			        type: 'bar',
+			        type: 'line',
 			        data: dataX,
 				  	options: {
 				       	responsive: true,
@@ -1183,12 +1183,8 @@ setInterval(function(){
 	//$('#dynamic-table').DataTable().ajax.reload();
 	getDataRealtime(idfc, orderid);
 
-	/*SLACycle_percentage(idfc, orderid);
-	SLACycle_jml(idfc, orderid);*/
 	
-
-	var txtdatetimestart = document.getElementById("txtdatetimestart").value;
-
+	/*var txtdatetimestart = document.getElementById("txtdatetimestart").value;
   //currentTime = getDateTime();
   var currentTime = document.getElementById("txtcurrdatetime").value;
 
@@ -1213,7 +1209,7 @@ setInterval(function(){
 	if(duration == 'NaN:NaN:NaN'){
 		duration = '';
 	}
-	$('#txtprocesstime').val(duration);
+	$('#txtprocesstime').val(duration);*/
 
 
 }, 1000);
@@ -1228,13 +1224,22 @@ setInterval(function(){
 	SLACycle_percentage(idfc, orderid);
 	SLACycle_jml(idfc, orderid);
 	activityGraph(orderid, idfc);
-	getLineChart(activityname, orderid, idfc);
+	getLineChart('Loading Time', orderid, idfc);
 	jobGraph(idfc);
 
 	
-
-
 }, 20000);
+
+
+
+setInterval(function(){
+	/*var idfc = $("#floating_crane option:selected").val();
+	var orderid = $("#order_name option:selected").val();*/
+
+	getLasttime();
+
+
+}, 10000);
 
 
 function getDataFC(id_fc){
@@ -1268,6 +1273,38 @@ function getDataFC(id_fc){
 							     .attr("value", value.job_order_id).text(value.order_name));
 							});
 							$('select#order_name').val(joborderid).trigger('change.select2');
+
+
+
+							///
+
+							var txtdatetimestart = data.datafc[0].datetime_start_order;
+						  var currentTime = data.datafc[0].datetime_end;
+
+						  $('#txtcurrdatetime').val(currentTime);
+
+						  //count process time 
+						  var date1 = new Date(txtdatetimestart);
+							var date2 = new Date(currentTime);
+
+							var date1_ms = date1.getTime();
+							var date2_ms = date2.getTime();
+
+
+							var diff = date2_ms - date1_ms;
+							var hours   = Math.floor(diff / 3.6e6);
+							var minutes = Math.floor((diff % 3.6e6) / 6e4);
+							var seconds = Math.floor((diff % 6e4) / 1000);
+							var duration = hours+":"+minutes+":"+seconds;
+							//end count process time
+
+							
+							if(duration == 'NaN:NaN:NaN'){
+								duration = '';
+							}
+							$('#txtprocesstime').val(duration);
+
+							///
 
 
 					} else { 
@@ -1710,7 +1747,84 @@ function deleteCookie(name) {
      
 
      document.cookie = name + '=; Max-Age=0'
- }
+}
+
+
+function getLasttime(){
+	var id_fc 	= $("#floating_crane option:selected").val();
+ 	var orderid = $("#order_name option:selected").val();
+ 	var ordername = $("#order_name option:selected").text();
+ 	
+ 	
+ 		
+	$.ajax({
+			type: "POST",
+      url : module_path+'/get_Data_By_Order',
+			data: { orderid: orderid, id_fc: id_fc },
+			cache: false,		
+      dataType: "JSON",
+      success: function(data)
+      { 
+					if(data != false){ 	
+						/*$('#txtmothervessel').val(data[0].mother_vessel_name);
+						$('#txtdatetimestart').val(data[0].datetime_start_order);*/
+						//$('#txtcurrdatetime').val(data[0].datetime_end);
+
+						/*var activity = data[0].activity_id;*/
+
+						var txtdatetimestart = document.getElementById("txtdatetimestart").value;
+
+					  //currentTime = getDateTime();
+					  var currentTime = data[0].datetime_end;
+
+					  $('#txtcurrdatetime').val(currentTime);
+
+					  //count process time 
+					  var date1 = new Date(txtdatetimestart);
+						var date2 = new Date(currentTime);
+
+						var date1_ms = date1.getTime();
+						var date2_ms = date2.getTime();
+
+
+						var diff = date2_ms - date1_ms;
+						var hours   = Math.floor(diff / 3.6e6);
+						var minutes = Math.floor((diff % 3.6e6) / 6e4);
+						var seconds = Math.floor((diff % 6e4) / 1000);
+						var duration = hours+":"+minutes+":"+seconds;
+						//end count process time
+
+						
+						if(duration == 'NaN:NaN:NaN'){
+							duration = '';
+						}
+						$('#txtprocesstime').val(duration);
+
+
+					} else { 
+						/*$('#txtmothervessel').val('');
+						$('#txtdatetimestart').val('');*/
+						$('#txtcurrdatetime').val('');
+						/*var activity =0;*/
+					}
+
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+				var dialog = bootbox.dialog({
+					title: 'Error ' + jqXHR.status + ' - ' + jqXHR.statusText,
+					message: jqXHR.responseText,
+					buttons: {
+						confirm: {
+							label: 'Ok',
+							className: 'btn blue'
+						}
+					}
+				});
+      }
+  });
+
+}
 
 
 
