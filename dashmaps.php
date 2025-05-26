@@ -335,7 +335,8 @@
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
   // Initialize Map
-  var map = L.map('map').setView([-6.1754, 106.8272], 13);
+  //var map = L.map('map').setView([-6.1754, 106.8272], 13);
+  var map = L.map('map').setView([-6.25618, 106.98926], 13);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
   }).addTo(map);

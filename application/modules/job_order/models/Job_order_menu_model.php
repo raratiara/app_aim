@@ -411,7 +411,7 @@ class Job_order_menu_model extends MY_Model
 				left join floating_crane b on b.id = a.floating_crane_id
 				left join mother_vessel c on c.id = a.mother_vessel_id
 				left join status d on d.id = a.order_status
-				order by a.id asc
+				order by a.id desc
 		";
 
 		$res = $this->db->query($sql);
