@@ -200,7 +200,7 @@
     }
 
     .info-box img {
-      width: 100%;
+      width: 20%;
       border-radius: 4px;
     }
 
@@ -316,7 +316,8 @@
 </div>
 
 <div class="info-box" id="infoBox">
-  <img src="https://via.placeholder.com/200x100?text=CCTV+1" alt="CCTV Location" />
+  <!-- <img src="https://via.placeholder.com/200x100?text=CCTV+1" alt="CCTV Location" /> -->
+  <img src="https://aim.sandboxxplore.com/public/assets/images/crane.png" alt="CCTV Location" />
   <h4>FC Avant Grade</h4>
   <p>Live View: cctv FC Avant Grade</p>
   <button type="button" class="btn btn-primary" onclick="getDetailnew()">Dashboard</button>
@@ -336,10 +337,20 @@
 <script>
   // Initialize Map
   //var map = L.map('map').setView([-6.1754, 106.8272], 13);
-  var map = L.map('map').setView([-6.25618, 106.98926], 13);
+  /*var map = L.map('map').setView([-3.6921028591350216, 114.46377489871408], 13);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
-  }).addTo(map);
+  }).addTo(map);*/
+
+
+  var map = L.map('map').setView([-3.6921028591350216, 114.46377489871408], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    L.marker([-3.6921028591350216, 114.46377489871408]).addTo(map)
+      .bindPopup("<b>CCTV FC Avant Grade</b><br>Live monitoring area.")
+      .openPopup();
+
 
   // Sidebar submenu toggle
   function toggleSubmenu(elem) {
