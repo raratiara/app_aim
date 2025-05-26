@@ -135,7 +135,7 @@ if  (_USER_ACCESS_LEVEL_VIEW == "1" && _USER_ACCESS_LEVEL_EKSPORT == "1") {
 		<span class="tblDataRealtime"></span>
 	</div> 
 	<div class="col-md-4 col-sm-6">
-		<div class="row ca">
+		<div class="row ca" id="graphCyclePer">
             <div class="col-md-12">
 				<div class="portlet box green">
 					<div class="portlet-title">
@@ -144,22 +144,24 @@ if  (_USER_ACCESS_LEVEL_VIEW == "1" && _USER_ACCESS_LEVEL_EKSPORT == "1") {
 					</div>
 					<div class="portlet-body">
 						<div class="table-scrollable tablesaw-cont">
-							<canvas  id="chartjs_pie" style="height: 180px; width: 360px;"></canvas>
+							<!-- <canvas  id="chartjs_pie" style="height: 180px; width: 360px;"></canvas> -->
+							<canvas  id="chartjs_pie"></canvas>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row ca">
-            <div class="col-md-12">
-				<div class="portlet box green">
+		<div class="row ca" id="graphCycleJml">
+            <div class="col-md-12" id="colCycleJml">
+				<div class="portlet box green" >
 					<div class="portlet-title">
 						<div class="caption">SLA Cycle Time (Jml)</div>
 						<div class="tools"></div>
 					</div>
-					<div class="portlet-body">
+					<div class="portlet-body" id="bodyCycleJml">
 						<div class="table-scrollable tablesaw-cont">
-							<canvas  id="chartjs_cycle_bar" style="height: 250px; width: 500px;"></canvas>
+							<!-- <canvas  id="chartjs_cycle_bar" style="height: 250px; width: 500px;"></canvas> -->
+							<canvas  id="chartjs_cycle_bar"></canvas>
 						</div>
 					</div>
 				</div>
