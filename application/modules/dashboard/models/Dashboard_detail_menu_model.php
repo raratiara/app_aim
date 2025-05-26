@@ -44,7 +44,7 @@ class Dashboard_detail_menu_model extends MY_Model
 					left join floating_crane d on d.id = b.floating_crane_id
 					left join mother_vessel e on e.id = b.mother_vessel_id
 					left join status f on f.id = b.order_status
-					where b.floating_crane_id = '.$id.' and a.job_order_id = "'.$orderid.'" and b.is_active = 1 order by a.id desc limit 30)dt';
+					where b.floating_crane_id = '.$id.' and a.job_order_id = "'.$orderid.'" and b.is_active = 1 order by a.id desc limit 20)dt';
 		
 
 		/* Paging */
@@ -509,7 +509,7 @@ class Dashboard_detail_menu_model extends MY_Model
 					left join floating_crane d on d.id = b.floating_crane_id
 					left join mother_vessel e on e.id = b.mother_vessel_id
 					left join status f on f.id = b.order_status
-					where b.floating_crane_id = '".$idfc."' and a.job_order_id = '".$orderid."' and b.is_active = 1 order by a.id desc limit 30 ")->result(); 
+					where b.floating_crane_id = '".$idfc."' and a.job_order_id = '".$orderid."' and b.is_active = 1 order by a.id desc limit 20 ")->result(); 
 
 
 	
