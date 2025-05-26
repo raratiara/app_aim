@@ -268,6 +268,13 @@
     .video-toggle:hover {
       background-color: #3b5998;
     }
+
+     .image-text {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+
   </style>
 </head>
 <body>
@@ -317,9 +324,9 @@
 
 <div class="info-box" id="infoBox">
   <!-- <img src="https://via.placeholder.com/200x100?text=CCTV+1" alt="CCTV Location" /> -->
-  <img src="https://aim.sandboxxplore.com/public/assets/images/crane.png" alt="CCTV Location" />
-  <h4>FC Avant Grade</h4>
-  <p>Live View: cctv FC Avant Grade</p>
+  <img src="https://aim.sandboxxplore.com/public/assets/images/crane.png" class="image-text" alt="CCTV Location" />
+  <span class="image-text"><h4>FC Avant Grade</h4></span>
+  <p>Live View: cctv FC Avant Grade</p><br>
   <button type="button" class="btn btn-primary" onclick="getDetailnew()">Dashboard</button>
   
 </div>
