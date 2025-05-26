@@ -24,7 +24,8 @@ class Job_order_menu_model extends MY_Model
 			'dt.order_no',
 			'dt.order_name',
 			'dt.datetime_start',
-			'dt.datetime_end'
+			'dt.datetime_end',
+			'dt.date_time_total'
 		];
 		
 
@@ -199,7 +200,8 @@ class Job_order_menu_model extends MY_Model
 				$row->order_no,
 				$row->order_name,
 				$row->datetime_start,
-				$row->datetime_end
+				$row->datetime_end,
+				$row->date_time_total
 
 			));
 		}

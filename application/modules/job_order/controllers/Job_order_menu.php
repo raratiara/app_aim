@@ -15,11 +15,11 @@ class Job_order_menu extends MY_Controller
 	
 	/* View */
 	public $icon 					= 'fa-database';
-	public $tabel_header 			= ["ID","Date","Order No","Order Name","Datetime Start","Datetime End"];
+	public $tabel_header 			= ["ID","Date","Order No","Order Name","Datetime Start","Datetime End","Total Time"];
 	
 	/* Export */
-	public $colnames 				= ["ID","Date","Order No","Order Name","Datetime Start","Datetime End"];
-	public $colfields 				= ["id","date","order_no","order_name","datetime_start","datetime_end"];
+	public $colnames 				= ["ID","Date","Order No","Order Name","Datetime Start","Datetime End","Total Time"];
+	public $colfields 				= ["id","date","order_no","order_name","datetime_start","datetime_end","date_time_total"];
 
 	/* Form Field Asset */
 	public function form_field_asset()
