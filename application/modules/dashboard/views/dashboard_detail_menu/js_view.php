@@ -928,14 +928,17 @@ function getLineChart(activity, jobId, fcId){
 				//// get Activity Graph
 				var arrAct = [];
 				var arrTotalTime = [];
+				var arrDateStart = [];
+				var arrDateEnd = [];
 				for(var i=0; i<data.length; i++){ 
 					var total_time = getTotalMinutes(data[i].total_time);
 					arrAct.push(data[i].activity_name);
 					//arrTotalTime.push(data[i].total_time);
 					arrTotalTime.push(total_time.toFixed(2));
+					arrDateStart.push(data[i].datetime_start);
+					arrDateEnd.push(data[i].datetime_end);
 				}
-				//console.log(arrAct);
-
+				
 
 				var chartExist = Chart.getChart("chartjs_line"); // <canvas> id
 			    if (chartExist != undefined)  
@@ -997,30 +1000,59 @@ function getLineChart(activity, jobId, fcId){
 				var myChart = new Chart(ctx, {
 			        type: 'line',
 			        data: dataX,
-				  	options: {
-				       	responsive: true,
-		                plugins: {
-		                    datalabels: {
-		                        formatter: (value, context) => {
-		                            let percentage = (value / context.chart._metasets
-		                            [context.datasetIndex].total * 100)
-		                                .toFixed(2) + '%';
-		                            /*return percentage + '\n' + value;*/
-		                            return value;
-		                        },
-		                        color: '#fff',
-		                        font: {
-		                            size: 14,
-		                        }
-		                    },
-		                    legend: {
-						      display: false
-						    }
-		                }
-				    },
-				    plugins: [ChartDataLabels]
+					  	options: {
+					       	responsive: true,
+			                plugins: {
+			                    datalabels: {
+			                        formatter: (value, context) => {
+			                            let percentage = (value / context.chart._metasets
+			                            [context.datasetIndex].total * 100)
+			                                .toFixed(2) + '%';
+			                            /*return percentage + '\n' + value;*/
+			                            return value;
+			                        },
+			                        color: '#fff',
+			                        font: {
+			                            size: 14,
+			                        }
+			                    },
+			                    legend: {
+											      display: false
+											    },
+											    tooltip: {
+											      callbacks: {
+											      	title: function(tooltipItems) {
+											          const item = tooltipItems[0];
+											          const rawLabel = item.label; // default label
+											          const index = item.dataIndex;
+											          // Example: add extra info or modify label
+											          return `${rawLabel}`;
+										           	
+											        },
+											        label: function(context) { 
+											         	const index = context.dataIndex;
+											          const value = context.raw;
+											          const month = context.label;
+											          const vall_arrDateStart = arrDateStart[index];
+											          const vall_arrDateEnd 	= arrDateEnd[index];
+											          /*const aa = context.label;
+											          const bb = context.dataset.label;*/
+											          /*return `${context.dataset.label}: ${value} (${vall}) `;*/
+											          return [
+											            /*`${context.dataset.label}: ${value}`,*/
+											            `${value}`,
+											            `Start: ${vall_arrDateStart}`,
+											            `End: ${vall_arrDateEnd}`
+											          ]; 
+											        }
+											      }
+											    }
+			                }
+					    },
+					    plugins: [ChartDataLabels]
 			       
 			    });
+
 
 			    //var chart = new Chart(document.getElementById('chartjs_line'), myChart);
 
