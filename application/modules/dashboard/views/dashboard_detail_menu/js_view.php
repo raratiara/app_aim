@@ -1690,12 +1690,12 @@ $('#order_name').on('change', function () {
  		
  		$.ajax({
 			type: "POST",
-	        url : module_path+'/get_Data_By_Order',
+      url : module_path+'/get_Data_By_Order',
 			data: { orderid: orderid, id_fc: id_fc },
 			cache: false,		
-	        dataType: "JSON",
-	        success: function(data)
-	        { 
+      dataType: "JSON",
+      success: function(data)
+      { 
 				if(data != false){ 	
 					$('#txtmothervessel').val(data[0].mother_vessel_name);
 					//$('#txtdatetimestart').val(data[0].datetime_start);
@@ -1703,6 +1703,30 @@ $('#order_name').on('change', function () {
 					$('#txtcurrdatetime').val(data[0].datetime_end);
 
 					var activity = data[0].activity_id;
+
+					
+				  //count process time 
+				  var date1 = new Date(data[0].datetime_start_order);
+					var date2 = new Date(data[0].datetime_end);
+
+					var date1_ms = date1.getTime();
+					var date2_ms = date2.getTime();
+
+
+					var diff = date2_ms - date1_ms;
+					var hours   = Math.floor(diff / 3.6e6);
+					var minutes = Math.floor((diff % 3.6e6) / 6e4);
+					var seconds = Math.floor((diff % 6e4) / 1000);
+					var duration = hours+":"+minutes+":"+seconds;
+					//end count process time
+
+					
+					if(duration == 'NaN:NaN:NaN'){
+						duration = '';
+					}
+					$('#txtprocesstime').val(duration);
+					//end count process time 
+
 
 				} else { 
 					$('#txtmothervessel').val('');
