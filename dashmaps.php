@@ -13,6 +13,15 @@
       background-color: #1f2d3d; overflow: hidden;
     }
 
+    #btnDash {
+      background-color: #1b186c; 
+      border-radius: 8px;
+      color: white;
+      width: 100px;
+      height: 30px;
+      
+    }
+
     /* Container logo + toggle sidebar di kiri atas */
     .top-left-bar {
       position: fixed;
@@ -326,8 +335,8 @@
   <!-- <img src="https://via.placeholder.com/200x100?text=CCTV+1" alt="CCTV Location" /> -->
   <img src="https://aim.sandboxxplore.com/public/assets/images/crane.png" class="image-text" alt="CCTV Location" />
   <span class="image-text"><h4>FC Avant Grade</h4></span>
-  <p>Live View: cctv FC Avant Grade</p><br>
-  <button type="button" class="btn btn-primary" onclick="getDetailnew()">Dashboard</button>
+  <p>Live View: CCTV FC Avant Grade</p><br>
+  <button type="button" class="btn btn-primary" id="btnDash" onclick="getDetailnew()">Dashboard</button>
   
 </div>
 
