@@ -34,8 +34,11 @@ $(document).ready(function() {
 
 	
 	$(function() {
-     $( "#start_date" ).datepicker();
-     $( "#end_date" ).datepicker();
+     	/*$( "#start_date" ).datepicker();
+     	$( "#end_date" ).datepicker();*/
+
+			$( "#start_date" ).datetimepicker();
+   		$( "#end_date" ).datetimepicker();
 	});
 
    	
@@ -360,18 +363,18 @@ function jobGraph(idfc){
 	
 
 	var start_date = document.getElementById("start_date").value;
-  	var end_date = document.getElementById("end_date").value;
+	var end_date = document.getElementById("end_date").value;
 
   	
 
 	$.ajax({
 		type: "POST",
-        url : module_path+'/get_detailJobGraph',
+    url : module_path+'/get_detailJobGraph',
 		data: { cctv: idfc, start_date: start_date, end_date: end_date},
 		cache: false,		
-        dataType: "JSON",
-        success: function(data)
-        { 
+    dataType: "JSON",
+    success: function(data)
+    { 	
 			if(data != false){ 
 
 				$('span#title_job').html(data[0].floating_crane_name);
@@ -382,54 +385,12 @@ function jobGraph(idfc){
 				var arrDataJob	= [];	
 
 				var arrColor 	= ["#5969ff",
-	                          "#ff407b",
-	                          "#25d5f2",
-	                          "#ffc750",
-	                          "#2ec551",
-	                          "#7040fa",
-	                          "#ff004e",
-	                        "#5969ff",
-	                          "#ff407b",
-	                          "#25d5f2",
-	                          "#ffc750",
-	                          "#2ec551",
-	                          "#7040fa",
-	                          "#ff004e",
-	                        "#5969ff",
-	                          "#ff407b",
-	                          "#25d5f2",
-	                          "#ffc750",
-	                          "#2ec551",
-	                          "#7040fa",
-	                          "#ff004e",
-	                        "#5969ff",
-	                          "#ff407b",
-	                          "#25d5f2",
-	                          "#ffc750",
-	                          "#2ec551",
-	                          "#7040fa",
-	                          "#ff004e",
-	                        "#5969ff",
-	                          "#ff407b",
-	                          "#25d5f2",
-	                          "#ffc750",
-	                          "#2ec551",
-	                          "#7040fa",
-	                          "#ff004e",
-	                        "#5969ff",
-	                          "#ff407b",
-	                          "#25d5f2",
-	                          "#ffc750",
-	                          "#2ec551",
-	                          "#7040fa",
-	                          "#ff004e",
-	                        "#5969ff",
-	                          "#ff407b",
-	                          "#25d5f2",
-	                          "#ffc750",
-	                          "#2ec551",
-	                          "#7040fa",
-	                          "#ff004e"];
+                        "#ff407b",
+                        "#25d5f2",
+                        "#ffc750",
+                        "#2ec551",
+                        "#7040fa",
+                        "#ff004e"];
 
 	
 	
@@ -903,11 +864,58 @@ function activityGraph(jobId, fcId){
 function getDateRange(){
 	var id_fc = document.getElementById("id_fc").value;
 	var start_date = document.getElementById("start_date").value;
-  	var end_date = document.getElementById("end_date").value;
+	var end_date = document.getElementById("end_date").value;
 
 
-  	jobGraph(id_fc);
-	
+	jobGraph(id_fc);
+
+
+	$.ajax({
+		type: "POST",
+    url : module_path+'/get_detailJobGraph_byDateRange',
+		data: { id_fc: id_fc, start_date: start_date, end_date: end_date },
+		cache: false,		
+    dataType: "JSON",
+    success: function(data)
+    {
+			if(data != false){
+
+				var orderid = data.order_id;
+				var activityid = data.activity_id;
+
+				activityGraph(orderid, id_fc);
+				getLineChart(activityid, orderid, id_fc);
+
+			} else {
+				title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
+				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
+				msg = '<p>Gagal peroleh data.</p>';
+				var dialog = bootbox.dialog({
+					message: title+'<center>'+msg+btn+'</center>'
+				});
+				//if(response.status){
+					setTimeout(function(){
+						dialog.modal('hide');
+					}, 1500);
+				//}
+			}
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+			var dialog = bootbox.dialog({
+				title: 'Error ' + jqXHR.status + ' - ' + jqXHR.statusText,
+				message: jqXHR.responseText,
+				buttons: {
+					confirm: {
+						label: 'Ok',
+						className: 'btn blue'
+					}
+				}
+			});
+    }
+  });
+
+
 }
 
 function getLineChart(activity, jobId, fcId){ 
@@ -916,12 +924,12 @@ function getLineChart(activity, jobId, fcId){
 
 	$.ajax({
 		type: "POST",
-        url : module_path+'/get_detailwaktuAct',
+    url : module_path+'/get_detailwaktuAct',
 		data: { activity: activity, jobId: jobId, fcId: fcId},
 		cache: false,		
-        dataType: "JSON",
-        success: function(data)
-        { 
+  	dataType: "JSON",
+  	success: function(data)
+    { 
 			if(data != false){ 
 				$('span#detail_activity').html("Cycle Time");
 				
@@ -941,11 +949,11 @@ function getLineChart(activity, jobId, fcId){
 				
 
 				var chartExist = Chart.getChart("chartjs_line"); // <canvas> id
-			    if (chartExist != undefined)  
+		    if (chartExist != undefined)  
 			      chartExist.destroy(); 
 
 
-			   const dataX = {
+		   	const dataX = {
 				  labels: arrAct, 
 				  datasets: [{
                    backgroundColor: [
@@ -964,37 +972,37 @@ function getLineChart(activity, jobId, fcId){
 				const ctx = canvas.getContext('2d');
 
 
-			    /*var myChart = new Chart(ctx, {
-			        type: 'bar',
-			        data: {
-			            labels: arrAct, 
-			            datasets: [{
-                            backgroundColor: [
-                                "#072f77" //"#98baf9" 
-                            ],
-                            borderColor: [
-                                "#072f77"
-                            ],
-                            data: arrTotalTime, 
-                            label: ''
-                        }]
-			        },
-			        options: {
-			        	plugins: {
-			        		legend: {
-						            display: false,
-						            position: 'bottom',
+		    /*var myChart = new Chart(ctx, {
+		        type: 'bar',
+		        data: {
+		            labels: arrAct, 
+		            datasets: [{
+                          backgroundColor: [
+                              "#072f77" //"#98baf9" 
+                          ],
+                          borderColor: [
+                              "#072f77"
+                          ],
+                          data: arrTotalTime, 
+                          label: ''
+                      }]
+		        },
+		        options: {
+		        	plugins: {
+		        		legend: {
+					            display: false,
+					            position: 'bottom',
 
-						            labels: {
-						                fontColor: '#71748d',
-						                fontFamily: 'Circular Std Book',
-						                fontSize: 14,
-						            }
-						    }
-			        	}
-					}
+					            labels: {
+					                fontColor: '#71748d',
+					                fontFamily: 'Circular Std Book',
+					                fontSize: 14,
+					            }
+					    }
+		        	}
+				}
 
-			    });*/
+		    });*/
 
 
 				var myChart = new Chart(ctx, {
@@ -1002,59 +1010,59 @@ function getLineChart(activity, jobId, fcId){
 			        data: dataX,
 					  	options: {
 					       	responsive: true,
-			                plugins: {
-			                    datalabels: {
-			                        formatter: (value, context) => {
-			                            let percentage = (value / context.chart._metasets
-			                            [context.datasetIndex].total * 100)
-			                                .toFixed(2) + '%';
-			                            /*return percentage + '\n' + value;*/
-			                            return value;
-			                        },
-			                        color: '#fff',
-			                        font: {
-			                            size: 14,
-			                        }
-			                    },
-			                    legend: {
-											      display: false
-											    },
-											    tooltip: {
-											      callbacks: {
-											      	title: function(tooltipItems) {
-											          const item = tooltipItems[0];
-											          const rawLabel = item.label; // default label
-											          const index = item.dataIndex;
-											          // Example: add extra info or modify label
-											          return `${rawLabel}`;
-										           	
-											        },
-											        label: function(context) { 
-											         	const index = context.dataIndex;
-											          const value = context.raw;
-											          const month = context.label;
-											          const vall_arrDateStart = arrDateStart[index];
-											          const vall_arrDateEnd 	= arrDateEnd[index];
-											          /*const aa = context.label;
-											          const bb = context.dataset.label;*/
-											          /*return `${context.dataset.label}: ${value} (${vall}) `;*/
-											          return [
-											            /*`${context.dataset.label}: ${value}`,*/
-											            `${value}`,
-											            `Start: ${vall_arrDateStart}`,
-											            `End: ${vall_arrDateEnd}`
-											          ]; 
-											        }
-											      }
-											    }
-			                }
+	                plugins: {
+	                    datalabels: {
+	                        formatter: (value, context) => {
+	                            let percentage = (value / context.chart._metasets
+	                            [context.datasetIndex].total * 100)
+	                                .toFixed(2) + '%';
+	                            /*return percentage + '\n' + value;*/
+	                            return value;
+	                        },
+	                        color: '#fff',
+	                        font: {
+	                            size: 14,
+	                        }
+	                    },
+	                    legend: {
+									      display: false
+									    },
+									    tooltip: {
+									      callbacks: {
+									      	title: function(tooltipItems) {
+									          const item = tooltipItems[0];
+									          const rawLabel = item.label; // default label
+									          const index = item.dataIndex;
+									          // Example: add extra info or modify label
+									          return `${rawLabel}`;
+								           	
+									        },
+									        label: function(context) { 
+									         	const index = context.dataIndex;
+									          const value = context.raw;
+									          const month = context.label;
+									          const vall_arrDateStart = arrDateStart[index];
+									          const vall_arrDateEnd 	= arrDateEnd[index];
+									          /*const aa = context.label;
+									          const bb = context.dataset.label;*/
+									          /*return `${context.dataset.label}: ${value} (${vall}) `;*/
+									          return [
+									            /*`${context.dataset.label}: ${value}`,*/
+									            `${value}`,
+									            `Start: ${vall_arrDateStart}`,
+									            `End: ${vall_arrDateEnd}`
+									          ]; 
+									        }
+									      }
+									    }
+	                }
 					    },
 					    plugins: [ChartDataLabels]
 			       
-			    });
+		    });
 
 
-			    //var chart = new Chart(document.getElementById('chartjs_line'), myChart);
+		    //var chart = new Chart(document.getElementById('chartjs_line'), myChart);
 
 				document.getElementById("downloadCSV").addEventListener("click", function() { 
 				  downloadCSV({ 
@@ -1064,14 +1072,14 @@ function getLineChart(activity, jobId, fcId){
 				});
 
 				document.getElementById('downloadImage').addEventListener('click', () => {
-	                const image = myChart
-	                    .toBase64Image();
-	                const link = document
-	                    .createElement('a');
-	                link.href = image;
-	                link.download = 'detail_activity_chart.png';
-	                link.click();
-	            });
+            const image = myChart
+                .toBase64Image();
+            const link = document
+                .createElement('a');
+            link.href = image;
+            link.download = 'detail_activity_chart.png';
+            link.click();
+        });
 
 				
 			} else {
@@ -1090,9 +1098,9 @@ function getLineChart(activity, jobId, fcId){
 					}, 1500);*/
 				//}
 			}
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+  	{
 			var dialog = bootbox.dialog({
 				title: '',//'Error ' + jqXHR.status + ' - ' + jqXHR.statusText,
 				message: jqXHR.responseText,
@@ -1103,9 +1111,8 @@ function getLineChart(activity, jobId, fcId){
 					}
 				}
 			});
-        }
-    });
-
+    }
+  });
 
 
 }
@@ -1141,12 +1148,12 @@ function getEksportActivityMonitor(){
 	
 	$.ajax({
 		type: "POST",
-        url : module_path+'/eksport_activity_monitor',
+    url : module_path+'/eksport_activity_monitor',
 		data: { id: id_fc },
 		cache: false,		
-        dataType: "JSON",
-        success: function(data)
-        {
+    dataType: "JSON",
+    success: function(data)
+    {
 			if(data != false){
 				
 			} else {
@@ -1162,9 +1169,9 @@ function getEksportActivityMonitor(){
 					}, 1500);
 				//}
 			}
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
 			var dialog = bootbox.dialog({
 				title: 'Error ' + jqXHR.status + ' - ' + jqXHR.statusText,
 				message: jqXHR.responseText,
@@ -1175,8 +1182,8 @@ function getEksportActivityMonitor(){
 					}
 				}
 			});
-        }
-    });
+    }
+  });
 
 }
 
@@ -1250,14 +1257,24 @@ setInterval(function(){
 setInterval(function(){
 	var idfc = $("#floating_crane option:selected").val();
 	var orderid = $("#order_name option:selected").val();
+
+	var start_date = document.getElementById("start_date").value;
+	var end_date = document.getElementById("end_date").value;
 	
 	
 	reloadDatatable(idfc, orderid);
 	SLACycle_percentage(idfc, orderid);
 	SLACycle_jml(idfc, orderid);
-	activityGraph(orderid, idfc);
-	getLineChart('6', orderid, idfc);
-	jobGraph(idfc);
+
+	if(start_date == '' && end_date == ''){
+		activityGraph(orderid, idfc);
+		getLineChart('6', orderid, idfc);
+		jobGraph(idfc);
+	}else{
+		getDateRange();
+	}
+
+	
 
 	
 }, 20000);
@@ -1278,13 +1295,13 @@ function getDataFC(id_fc){
 	
 	$.ajax({
 		type: "POST",
-        url : module_path+'/get_Data_FC',
+    url : module_path+'/get_Data_FC',
 		data: { id_fc: id_fc },
 		cache: false,		
-        dataType: "JSON",
-        success: function(data)
+    dataType: "JSON",
+    success: function(data)
         { 
-			/*if(data != false){ 	*/
+				/*if(data != false){ 	*/
         	if(data.datafc.length != 0){ 	
 	        		var joborderid = data.datafc[0].job_order_id;
 							var jobordername = data.datafc[0].order_name;
@@ -1359,28 +1376,28 @@ function getDataFC(id_fc){
 						$('select#order_name').val('').trigger('change.select2');
 					}
 
-			reloadDatatable(id_fc, joborderid);
-			SLACycle_percentage(id_fc, joborderid);
-			SLACycle_jml(id_fc, joborderid);
-			//activityGraph(jobordername, id_fc);
-			//getLineChart(activityname, jobordername, id_fc);
-			activityGraph(joborderid, id_fc);
-			getLineChart(activityname, joborderid, id_fc);
-			/*getTblWaktu(activityname, jobordername, id_fc);*/
+					reloadDatatable(id_fc, joborderid);
+					SLACycle_percentage(id_fc, joborderid);
+					SLACycle_jml(id_fc, joborderid);
+					//activityGraph(jobordername, id_fc);
+					//getLineChart(activityname, jobordername, id_fc);
+					activityGraph(joborderid, id_fc);
+					getLineChart(activityname, joborderid, id_fc);
+					/*getTblWaktu(activityname, jobordername, id_fc);*/
 
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
-			var dialog = bootbox.dialog({
-				title: 'Error ' + jqXHR.status + ' - ' + jqXHR.statusText,
-				message: jqXHR.responseText,
-				buttons: {
-					confirm: {
-						label: 'Ok',
-						className: 'btn blue'
-					}
-				}
-			});
+					var dialog = bootbox.dialog({
+						title: 'Error ' + jqXHR.status + ' - ' + jqXHR.statusText,
+						message: jqXHR.responseText,
+						buttons: {
+							confirm: {
+								label: 'Ok',
+								className: 'btn blue'
+							}
+						}
+					});
         }
     });
 }

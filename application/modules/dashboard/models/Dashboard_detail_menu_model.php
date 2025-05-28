@@ -631,14 +631,21 @@ class Dashboard_detail_menu_model extends MY_Model
 
 	public function getJob($idfc, $start_date, $end_date){ 
 
+		if($start_date != '' && $end_date == ''){ 
+			/*$whr_date = " and date >= '".$start_date."' ";*/
+			$whr_date = " and datetime_start >= '".$start_date."' ";
+		}
+		else if($end_date != '' && $start_date == ''){ 
+			$whr_date = " and datetime_end <= '".$end_date."' ";
+		}
 		if($start_date != '' && $end_date != ''){
-			$whr_date = " and date >= '".$start_date."' and date <= '".$end_date."' ";
+			$whr_date = " and datetime_start >= '".$start_date."' and datetime_end <= '".$end_date."' ";
 		}else{ //default sebulan terakhir
-			$today = date("Y-m-d");
-			$start = date('Y-m-d',strtotime($today. ' - 1 months'));
-			$end = date("Y-m-d");
+			$today = date("Y-m-d 00:00:00");
+			$start = date('Y-m-d 00:00:00',strtotime($today. ' - 1 months'));
+			$end = date("Y-m-d 00:00:00");
 			
-			$whr_date = " and date >= '".$start."' and date <= '".$end."' ";
+			$whr_date = " and datetime_start >= '".$start."' and datetime_end <= '".$end."' ";
 		}
 
 		
@@ -653,6 +660,43 @@ class Dashboard_detail_menu_model extends MY_Model
 		$res = $this->db->query($sql);
 		$rs = $res->result_array();
 		return $rs;
+
+	}
+
+
+	public function getJob_byDateRange($idfc, $start_date, $end_date){ 
+
+		if($start_date != '' && $end_date == ''){ 
+			/*$whr_date = " and date >= '".$start_date."' ";*/
+			$whr_date = " and datetime_start >= '".$start_date."' ";
+		}
+		else if($end_date != '' && $start_date == ''){ 
+			$whr_date = " and datetime_end <= '".$end_date."' ";
+		}
+		else if($start_date != '' && $end_date != ''){
+			$whr_date = " and datetime_start >= '".$start_date."' and datetime_end <= '".$end_date."' ";
+		}else{ //default sebulan terakhir
+			$today = date("Y-m-d 00:00:00");
+			$start = date('Y-m-d 00:00:00',strtotime($today. ' - 1 months'));
+			$end = date("Y-m-d 24:00:00");
+			
+			$whr_date = " and datetime_start >= '".$start."' and datetime_end <= '".$end."' ";
+		}
+
+		$rs = $this->db->query("select a.date, b.name as floating_crane_name, a.order_name, a.date_time_total, a.id as order_id FROM job_order a INNER JOIN floating_crane b ON a.floating_crane_id = b.id where b.id = '".$idfc."' ".$whr_date." order by a.id desc limit 1")->result(); 
+
+
+		$activity = $this->db->query("select * from job_order_detail where job_order_id = '".$rs[0]->order_id."' order by id desc limit 1")->result(); 
+
+	
+
+		$arrData = [
+			"order_id" => $rs[0]->order_id,
+			"activity_id" => $activity[0]->activity_id
+		];
+
+
+		return $arrData;
 
 	}
 

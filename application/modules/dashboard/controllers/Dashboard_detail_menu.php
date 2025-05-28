@@ -178,9 +178,28 @@ class Dashboard_detail_menu extends MY_Controller
 		$rs =  $this->self_model->getJob($cctv, $start_date, $end_date);
 
 
-		
+		echo json_encode($rs);
+	}
 
+
+	public function get_detailJobGraph_byDateRange(){
 		
+		$post = $this->input->post(null, true);
+		$id_fc = $post['id_fc'];
+		$start_date = $post['start_date'];
+		$end_date = $post['end_date'];
+
+		if($start_date != ''){ 
+			$start_date = date("Y-m-d H:i:s", strtotime($start_date));
+		}
+		if($end_date != ''){
+			$end_date = date("Y-m-d H:i:s", strtotime($end_date));
+		}
+
+
+		$rs =  $this->self_model->getJob_byDateRange($id_fc, $start_date, $end_date);
+
+
 		echo json_encode($rs);
 	}
 
