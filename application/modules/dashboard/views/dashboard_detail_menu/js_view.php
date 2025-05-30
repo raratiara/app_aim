@@ -1293,7 +1293,7 @@ setInterval(function(){
 		getLineChart('6', orderid, idfc);
 		jobGraph(idfc);
 	}else{
-		getDateRange();
+		//getDateRange();
 	}
 
 	
@@ -1622,7 +1622,7 @@ function SLACycle_jml(fcId, orderid){
 				  chart.data.datasets = [];
 				  chart.update();
 				//}
-				  
+
 				/*title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
 				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
 				msg = '<p>Gagal peroleh data.</p>';
