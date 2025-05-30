@@ -625,6 +625,13 @@ function jobGraph(idfc){
 			} else { 
 				$('span#title_job').html('No Data');
 
+				var chart = Chart.getChart("chartjs_bar");
+				/*if (!data || data.length === 0) {*/
+				  chart.data.labels = [];
+				  chart.data.datasets = [];
+				  chart.update();
+				//}
+
 
 
 				/*title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
@@ -829,6 +836,13 @@ function activityGraph(jobId, fcId){
 
 				$('span#title_activity').html("No Data");
 
+
+				var chart = Chart.getChart("chartjs_bar_activity");
+				/*if (!data || data.length === 0) {*/
+				  chart.data.labels = [];
+				  chart.data.datasets = [];
+				  chart.update();
+				//}
 
 				/*title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
 				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
@@ -1085,6 +1099,14 @@ function getLineChart(activity, jobId, fcId){
 			} else {
 
 				$('span#detail_activity').html("No Data");
+
+
+				var chart = Chart.getChart("chartjs_line");
+				/*if (!data || data.length === 0) {*/
+				  chart.data.labels = [];
+				  chart.data.datasets = [];
+				  chart.update();
+				//}
 
 				/*title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
 				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
@@ -1445,47 +1467,55 @@ function SLACycle_percentage(fcId, orderid){
 
 
 		    var myChart = new Chart(ctx, {
-		        type: 'pie',
-		        data: dataX,
-				  	options: {
-                responsive: true,
-                plugins: {
-                    datalabels: {
-                        formatter: (value, context) => {
-                            let percentage = (value / context.chart._metasets
-                            [context.datasetIndex].total * 100)
-                                .toFixed(2) + '%';
-                            //return percentage + '\n' + value;
-                                return percentage;
-                        },
-                        color: '#fff',
-                        font: {
-                            size: 14,
-                        }
-                    }
-                }
-            },
-            plugins: [ChartDataLabels]
-			       
-			    });
+	        type: 'pie',
+	        data: dataX,
+			  	options: {
+              responsive: true,
+              plugins: {
+                  datalabels: {
+                      formatter: (value, context) => {
+                          let percentage = (value / context.chart._metasets
+                          [context.datasetIndex].total * 100)
+                              .toFixed(2) + '%';
+                          //return percentage + '\n' + value;
+                              return percentage;
+                      },
+                      color: '#fff',
+                      font: {
+                          size: 14,
+                      }
+                  }
+              }
+          },
+          plugins: [ChartDataLabels]
+		       
+		    });
 
 
 			} else {
-				title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
-				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
-				msg = '<p>Gagal peroleh data.</p>';
-				var dialog = bootbox.dialog({
-					message: title+'<center>'+msg+btn+'</center>'
-				});
-				//if(response.status){
-					setTimeout(function(){
-						dialog.modal('hide');
-					}, 1500);
+
+				//if (!data || data.length === 0) {
+					var chart = Chart.getChart("chartjs_pie");
+				  chart.data.labels = [];
+				  chart.data.datasets = [];
+				  chart.update();
 				//}
+
+				// title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
+				// btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
+				// msg = '<p>Gagal peroleh data.</p>';
+				// var dialog = bootbox.dialog({
+				// 	message: title+'<center>'+msg+btn+'</center>'
+				// });
+				// if(response.status){
+				// 	setTimeout(function(){
+				// 		dialog.modal('hide');
+				// 	}, 1500);
+				// }
 			}
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
 			var dialog = bootbox.dialog({
 				title: '',//'Error ' + jqXHR.status + ' - ' + jqXHR.statusText,
 				message: jqXHR.responseText,
@@ -1496,8 +1526,8 @@ function SLACycle_percentage(fcId, orderid){
 					}
 				}
 			});
-        }
-    });
+    }
+  });
 
 
 }
@@ -1586,21 +1616,28 @@ function SLACycle_jml(fcId, orderid){
 
 				
 			} else {
-				title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
+				//if (!data || data.length === 0) {
+					var chart = Chart.getChart("chartjs_cycle_bar");
+				  chart.data.labels = [];
+				  chart.data.datasets = [];
+				  chart.update();
+				//}
+				  
+				/*title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
 				btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
 				msg = '<p>Gagal peroleh data.</p>';
 				var dialog = bootbox.dialog({
 					message: title+'<center>'+msg+btn+'</center>'
 				});
-				//if(response.status){
+				if(response.status){
 					setTimeout(function(){
 						dialog.modal('hide');
 					}, 1500);
-				//}
+				}*/
 			}
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
 			var dialog = bootbox.dialog({
 				title: '',//'Error ' + jqXHR.status + ' - ' + jqXHR.statusText,
 				message: jqXHR.responseText,
@@ -1611,8 +1648,8 @@ function SLACycle_jml(fcId, orderid){
 					}
 				}
 			});
-        }
-    });
+    }
+  });
 
 
 }
