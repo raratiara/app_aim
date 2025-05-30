@@ -1294,7 +1294,7 @@ setInterval(function(){
 		getLineChart('6', orderid, idfc);
 		jobGraph(idfc);
 	}else{
-		//getDateRange();
+		getDateRange();
 	}
 
 	
