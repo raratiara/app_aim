@@ -19,10 +19,15 @@ td {
   padding: 10px;
 }
 
-#chartjs_pie {
+#videoContainerDS {
+    width: 80%;
+  }
+
+
+/*#chartjs_pie {
     width: 360px;
     height: 180px;
-    /*border: 1px solid black;*/
+    
   }
 
 #chartjs_cycle_bar {
@@ -34,26 +39,26 @@ td {
 #graphCyclePer {
     width: 450px;
     height: 500px;
-    /*border: 1px solid black;*/
+    
   }
 
 #graphCycleJml {
     width: 450px;
     height: 320px;
-    /*border: 1px solid black;*/
+    
   }
 
   #colCycleJml {
     width: 450px;
     height: 320px;
-    /*border: 1px solid black;*/
+    
   }
 
   #bodyCycleJml {
     width: 418px;
     height: 320px;
-    /*border: 1px solid black;*/
-  }
+   
+  }*/
 
   
 

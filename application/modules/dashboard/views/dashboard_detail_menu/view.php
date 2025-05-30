@@ -80,7 +80,7 @@ if  (_USER_ACCESS_LEVEL_VIEW == "1" && _USER_ACCESS_LEVEL_EKSPORT == "1") {
 
 <div class="portlet box green">
 	<div class="portlet-title">
-		<div class="caption"><span class="title_maps">CCTV Streaming.</span></div>
+		<div class="caption"><span class="title_maps">CCTV Streaming..</span></div>
 		<div class="actions">
 			
 		</div>
