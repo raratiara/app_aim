@@ -80,7 +80,7 @@ if  (_USER_ACCESS_LEVEL_VIEW == "1" && _USER_ACCESS_LEVEL_EKSPORT == "1") {
 
 <div class="portlet box green">
 	<div class="portlet-title">
-		<div class="caption"><span class="title_maps">CCTV Streaming..</span></div>
+		<div class="caption"><span class="title_maps">CCTV Streaming</span></div>
 		<div class="actions">
 			
 		</div>
@@ -100,78 +100,81 @@ if  (_USER_ACCESS_LEVEL_VIEW == "1" && _USER_ACCESS_LEVEL_EKSPORT == "1") {
 
 
 <div class="row">
-	<div class="col-md-8 col-sm-6 col-xs-6">
-		<!-- <div class="portlet box green">
-			<div class="portlet-title">
-				<div class="caption"><span class="title_maps">Realtime Analytics Detection</span></div>
-				<div class="actions">
-					<a class="btn btn-default btn-sm btn-circle" id="btnEksportData">
-						<i class="fa fa-download"></i>
-						Eksport
-					</a>
+	<div class="col-md-12 col-sm-12">
+		<!-- <div class="col-md-8 col-sm-6 col-xs-6"> -->
+		<div class="col-md-8 col-sm-8">
+			<!-- <div class="portlet box green">
+				<div class="portlet-title">
+					<div class="caption"><span class="title_maps">Realtime Analytics Detection</span></div>
+					<div class="actions">
+						<a class="btn btn-default btn-sm btn-circle" id="btnEksportData">
+							<i class="fa fa-download"></i>
+							Eksport
+						</a>
+					</div>
+					<div class="tools">
+					</div>
 				</div>
-				<div class="tools">
+				<div class="portlet-body">
+					<table class="table table-striped table-bordered table-hover tblActMonitor" id="dynamic-table">
+						<thead>
+							<tr>
+								<th scope="col">Activity</th>
+								<th scope="col">Start Time</th>
+								<th scope="col">End Time</th>
+								<th scope="col">Total Time</th>
+								<th scope="col">Degree</th>
+								<th scope="col">Degree 2</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+						<tfoot>
+						</tfoot>
+					</table>
 				</div>
-			</div>
-			<div class="portlet-body">
-				<table class="table table-striped table-bordered table-hover tblActMonitor" id="dynamic-table">
-					<thead>
-						<tr>
-							<th scope="col">Activity</th>
-							<th scope="col">Start Time</th>
-							<th scope="col">End Time</th>
-							<th scope="col">Total Time</th>
-							<th scope="col">Degree</th>
-							<th scope="col">Degree 2</th>
-						</tr>
-					</thead>
-					<tbody>
-						
-					</tbody>
-					<tfoot>
-					</tfoot>
-				</table>
-			</div>
-		</div> -->
+			</div> -->
 
-		<span class="tblDataRealtime"></span>
-	</div> 
-	<div class="col-md-4 col-sm-6">
-		<div class="row ca" id="graphCyclePer">
-            <div class="col-md-12">
-				<div class="portlet box green">
-					<div class="portlet-title">
-						<div class="caption">SLA Cycle Time (%)</div>
-						<div class="tools"></div>
-					</div>
-					<div class="portlet-body">
-						<div class="table-scrollable tablesaw-cont">
-							<!-- <canvas  id="chartjs_pie" style="height: 180px; width: 360px;"></canvas> -->
-							<canvas  id="chartjs_pie"></canvas>
+			<span class="tblDataRealtime"></span>
+		</div> 
+		<!-- <div class="col-md-4 col-sm-6"> -->
+		<div class="col-md-4 col-sm-4">
+			<div class="row ca" id="graphCyclePer">
+	            <div class="col-md-12">
+					<div class="portlet box green">
+						<div class="portlet-title">
+							<div class="caption">SLA Cycle Time (%)</div>
+							<div class="tools"></div>
+						</div>
+						<div class="portlet-body">
+							<div class="table-scrollable tablesaw-cont">
+								<!-- <canvas  id="chartjs_pie" style="height: 180px; width: 360px;"></canvas> -->
+								<canvas  id="chartjs_pie"></canvas>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row ca" id="graphCycleJml">
-            <div class="col-md-12" id="colCycleJml">
-				<div class="portlet box green" >
-					<div class="portlet-title">
-						<div class="caption">SLA Cycle Time (Jml)</div>
-						<div class="tools"></div>
-					</div>
-					<div class="portlet-body" id="bodyCycleJml">
-						<div class="table-scrollable tablesaw-cont">
-							<!-- <canvas  id="chartjs_cycle_bar" style="height: 250px; width: 500px;"></canvas> -->
-							<canvas  id="chartjs_cycle_bar"></canvas>
+			<div class="row ca" id="graphCycleJml">
+	            <div class="col-md-12" id="colCycleJml">
+					<div class="portlet box green" >
+						<div class="portlet-title">
+							<div class="caption">SLA Cycle Time (Jml)</div>
+							<div class="tools"></div>
+						</div>
+						<div class="portlet-body" id="bodyCycleJml">
+							<div class="table-scrollable tablesaw-cont">
+								<!-- <canvas  id="chartjs_cycle_bar" style="height: 250px; width: 500px;"></canvas> -->
+								<canvas  id="chartjs_cycle_bar"></canvas>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			
 		</div>
-		
 	</div>
-
 </div>
 
 
