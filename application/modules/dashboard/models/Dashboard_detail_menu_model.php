@@ -633,26 +633,61 @@ class Dashboard_detail_menu_model extends MY_Model
 
 		if($start_date != '' && $end_date == ''){ 
 			/*$whr_date = " and date >= '".$start_date."' ";*/
-			$whr_date = " and datetime_start >= '".$start_date."' ";
+			/*$whr_date = " and datetime_start >= '".$start_date."' ";*/
+			$whr_date = " and (datetime_start >= '".$start_date."' or ('".$start_date."' between datetime_start and datetime_end) ) ";	
 		}
 		else if($end_date != '' && $start_date == ''){ 
-			$whr_date = " and datetime_end <= '".$end_date."' ";
+			/*$whr_date = " and datetime_end <= '".$end_date."' ";*/
+			$whr_date = " and (datetime_end <= '".$end_date."' or ('".$end_date."' between datetime_start and datetime_end)) ";			
 		}
-		if($start_date != '' && $end_date != ''){
-			$whr_date = " and datetime_start >= '".$start_date."' and datetime_end <= '".$end_date."' ";
+		else if($start_date != '' && $end_date != ''){ 
+			//$whr_date = " and datetime_start >= start_date and datetime_end <= '".$end_date."' ";
+			/*$whr_date = " and ((datetime_start between '".$start_date."' and '".$end_date."')
+						or 
+						(datetime_end between '".$start_date."' and '".$end_date."')) ";*/
+			/*$whr_date = " and (('".$start_date."' between datetime_start and datetime_end) or (('".$end_date."' between datetime_start and datetime_end))) ";*/
+
+			$whr_date = " and (
+							(('".$start_date."' between datetime_start and datetime_end) or (('".$end_date."' between datetime_start and datetime_end)))
+							or ((datetime_start between '".$start_date."' and '".$end_date."')
+								or 
+								(datetime_end between '".$start_date."' and '".$end_date."'))
+							) ";
+
 		}else{ //default sebulan terakhir
-			$today = date("Y-m-d 00:00:00");
-			$start = date('Y-m-d 00:00:00',strtotime($today. ' - 1 months'));
-			$end = date("Y-m-d 00:00:00");
+			$today = date("Y-m-d H:i:s");
+			$start = date('Y-m-d H:i:s',strtotime($today. ' - 1 months'));
+			$end = date("Y-m-d H:i:s");
 			
-			$whr_date = " and datetime_start >= '".$start."' and datetime_end <= '".$end."' ";
+			/*$whr_date = " and datetime_start >= '".$start."' and datetime_end <= '".$end."' ";*/
+			/*$whr_date = " and ((datetime_start between '".$start."' and '".$end."')
+						or 
+						(datetime_end between '".$start."' and '".$end."')) ";*/
+
+			$whr_date = " and (
+							(('".$start."' between datetime_start and datetime_end) or (('".$end."' between datetime_start and datetime_end)))
+							or ((datetime_start between '".$start."' and '".$end."')
+								or 
+								(datetime_end between '".$start."' and '".$end."'))
+							) ";
 		}
 
 		
-		$sql = "select a.date, b.name as floating_crane_name, a.order_name, a.date_time_total, a.id
+		/*$sql = "select a.date, b.name as floating_crane_name, a.order_name, a.date_time_total, a.id
 				FROM job_order a INNER JOIN floating_crane b ON a.floating_crane_id = b.id 
 				where b.id = '".$idfc."' 
 				".$whr_date."
+		";*/
+
+		$sql = "select a.date, b.name as floating_crane_name, a.order_name, a.id
+				,(SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(total_time))) from job_order_detail 
+				where job_order_id = a.id ".$whr_date."
+
+				) AS date_time_total
+				FROM job_order a INNER JOIN floating_crane b ON a.floating_crane_id = b.id 
+				where b.id = '".$idfc."' 
+				".$whr_date."
+
 		";
 
 		
@@ -668,22 +703,53 @@ class Dashboard_detail_menu_model extends MY_Model
 
 		if($start_date != '' && $end_date == ''){ 
 			/*$whr_date = " and date >= '".$start_date."' ";*/
-			$whr_date = " and datetime_start >= '".$start_date."' ";
+			/*$whr_date = " and datetime_start >= '".$start_date."' ";*/
+			$whr_date = " and (datetime_start >= '".$start_date."' or ('".$start_date."' between datetime_start and datetime_end) ) ";	
 		}
 		else if($end_date != '' && $start_date == ''){ 
-			$whr_date = " and datetime_end <= '".$end_date."' ";
+			/*$whr_date = " and datetime_end <= '".$end_date."' ";*/
+			$whr_date = " and (datetime_end <= '".$end_date."' or ('".$end_date."' between datetime_start and datetime_end)) ";		
 		}
 		else if($start_date != '' && $end_date != ''){
-			$whr_date = " and datetime_start >= '".$start_date."' and datetime_end <= '".$end_date."' ";
+			/*$whr_date = " and datetime_start >= '".$start_date."' and datetime_end <= '".$end_date."' ";*/
+			/*$whr_date = " and ((datetime_start between '".$start_date."' and '".$end_date."')
+						or 
+						(datetime_end between '".$start_date."' and '".$end_date."')) ";*/
+			/*$whr_date = " and (('".$start_date."' between datetime_start and datetime_end) or (('".$end_date."' between datetime_start and datetime_end))) ";*/
+			$whr_date = " and (
+							(('".$start_date."' between datetime_start and datetime_end) or (('".$end_date."' between datetime_start and datetime_end)))
+							or ((datetime_start between '".$start_date."' and '".$end_date."')
+								or 
+								(datetime_end between '".$start_date."' and '".$end_date."'))
+							) ";
 		}else{ //default sebulan terakhir
-			$today = date("Y-m-d 00:00:00");
-			$start = date('Y-m-d 00:00:00',strtotime($today. ' - 1 months'));
-			$end = date("Y-m-d 24:00:00");
+			$today = date("Y-m-d H:i:s");
+			$start = date('Y-m-d H:i:s',strtotime($today. ' - 1 months'));
+			$end = date("Y-m-d H:i:s");
 			
-			$whr_date = " and datetime_start >= '".$start."' and datetime_end <= '".$end."' ";
+			/*$whr_date = " and datetime_start >= '".$start."' and datetime_end <= '".$end."' ";*/
+			/*$whr_date = " and ((datetime_start between '".$start."' and '".$end."')
+						or 
+						(datetime_end between '".$start."' and '".$end."')) ";*/
+
+			$whr_date = " and (
+							(('".$start."' between datetime_start and datetime_end) or (('".$end."' between datetime_start and datetime_end)))
+							or ((datetime_start between '".$start."' and '".$end."')
+								or 
+								(datetime_end between '".$start."' and '".$end."'))
+							) ";
 		}
 
-		$rs = $this->db->query("select a.date, b.name as floating_crane_name, a.order_name, a.date_time_total, a.id as order_id FROM job_order a INNER JOIN floating_crane b ON a.floating_crane_id = b.id where b.id = '".$idfc."' ".$whr_date." order by a.id desc limit 1")->result(); 
+		/*$rs = $this->db->query("select a.date, b.name as floating_crane_name, a.order_name, a.date_time_total, a.id as order_id FROM job_order a INNER JOIN floating_crane b ON a.floating_crane_id = b.id where b.id = '".$idfc."' ".$whr_date." order by a.id desc limit 1")->result(); */
+
+		$rs = $this->db->query("select a.date, b.name as floating_crane_name, a.order_name, a.id as order_id
+				,(SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(total_time))) from job_order_detail 
+				where job_order_id = a.id ".$whr_date."
+
+				) AS date_time_total
+				FROM job_order a INNER JOIN floating_crane b ON a.floating_crane_id = b.id 
+				where b.id = '".$idfc."' 
+				".$whr_date." order by a.id desc limit 1")->result(); 
 
 
 		$activity = $this->db->query("select * from job_order_detail where job_order_id = '".$rs[0]->order_id."' order by id desc limit 1")->result(); 
@@ -700,7 +766,7 @@ class Dashboard_detail_menu_model extends MY_Model
 
 	}
 
-	public function getActivity($jobId, $fcId){ 
+	public function getActivity_old($jobId, $fcId){ 
 
 		if($jobId == 'def'){
 			$dtFC = $this->db->query("select a.*, b.date, b.order_no, b.order_name, b.floating_crane_id, b.mother_vessel_id, b.pic, b.order_status, c.activity_name, d.name as floating_crane_name
@@ -732,7 +798,71 @@ class Dashboard_detail_menu_model extends MY_Model
 
 	}
 
-	public function getdetailwaktuAct($activity, $job, $fcId){ 
+
+	public function getActivity($jobId, $fcId, $start_date, $end_date){ 
+
+		if($start_date != '' && $end_date == ''){ 
+			
+			$whr_date = " and (datetime_start >= '".$start_date."' or ('".$start_date."' between datetime_start and datetime_end) ) ";	
+		}
+		else if($end_date != '' && $start_date == ''){ 
+			
+			$whr_date = " and (datetime_end <= '".$end_date."' or ('".$end_date."' between datetime_start and datetime_end)) ";		
+		}
+		else if($start_date != '' && $end_date != ''){
+			
+			$whr_date = " and (
+							(('".$start_date."' between datetime_start and datetime_end) or (('".$end_date."' between datetime_start and datetime_end)))
+							or ((datetime_start between '".$start_date."' and '".$end_date."')
+								or 
+								(datetime_end between '".$start_date."' and '".$end_date."'))
+							) ";
+		}else{ //default sebulan terakhir
+			$today = date("Y-m-d H:i:s");
+			$start = date('Y-m-d H:i:s',strtotime($today. ' - 1 months'));
+			$end = date("Y-m-d H:i:s");
+			
+
+			$whr_date = " and (
+							(('".$start."' between datetime_start and datetime_end) or (('".$end."' between datetime_start and datetime_end)))
+							or ((datetime_start between '".$start."' and '".$end."')
+								or 
+								(datetime_end between '".$start."' and '".$end."'))
+							) ";
+		}
+
+
+
+		if($jobId == 'def'){
+			$dtFC = $this->db->query("select a.*, b.date, b.order_no, b.order_name, b.floating_crane_id, b.mother_vessel_id, b.pic, b.order_status, c.activity_name, d.name as floating_crane_name
+					, e.name as mother_vessel_name, f.name as status_name, b.id as order_id
+					from job_order_detail a left join job_order b on b.id = a.job_order_id
+					left join activity c on c.id = a.activity_id
+					left join floating_crane d on d.id = b.floating_crane_id
+					left join mother_vessel e on e.id = b.mother_vessel_id
+					left join status f on f.id = b.order_status
+					where b.floating_crane_id = '".$fcId."' and b.is_active = 1
+                    order by a.id desc limit 1 ")->result(); 
+			//$jobId = $dtFC[0]->order_name;
+			$jobId = $dtFC[0]->order_id;
+		}
+
+
+		
+		$rs = $this->db->query("select a.*, b.activity_name, c.order_name, c.date_time_total as total_date_time_order
+			,(SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(total_time))) from job_order_detail 
+			where job_order_id = a.job_order_id ".$whr_date."
+			) AS date_time_total_fl
+				from job_order_summary a left join activity b on b.id = a.activity_id
+				left join job_order c on c.id = a.job_order_id
+				where c.id = '".$jobId."' ")->result(); 
+
+
+		return $rs;
+
+	}
+
+	public function getdetailwaktuAct_old($activity, $job, $fcId){ 
 
 		if($activity == 'def'){
 			$whereJob="";
@@ -766,6 +896,83 @@ class Dashboard_detail_menu_model extends MY_Model
 				from job_order_detail a left join activity b on b.id = a.activity_id 
 				left join job_order c on c.id = a.job_order_id
 				where c.id = '".$job."' and b.id = '".$activity."'")->result(); 
+
+
+		return $rs;
+
+	}
+
+
+	public function getdetailwaktuAct($activity, $job, $fcId, $start_date, $end_date){ 
+
+		if($start_date != '' && $end_date == ''){ 
+			
+			$whr_date = " and (a.datetime_start >= '".$start_date."' or ('".$start_date."' between a.datetime_start and a.datetime_end) ) ";	
+		}
+		else if($end_date != '' && $start_date == ''){ 
+			
+			$whr_date = " and (a.datetime_end <= '".$end_date."' or ('".$end_date."' between a.datetime_start and a.datetime_end)) ";		
+		}
+		else if($start_date != '' && $end_date != ''){
+			
+			$whr_date = " and (
+							(('".$start_date."' between a.datetime_start and a.datetime_end) or (('".$end_date."' between a.datetime_start and a.datetime_end)))
+							or ((a.datetime_start between '".$start_date."' and '".$end_date."')
+								or 
+								(a.datetime_end between '".$start_date."' and '".$end_date."'))
+							) ";
+		}else{ //default sebulan terakhir
+			$today = date("Y-m-d H:i:s");
+			$start = date('Y-m-d H:i:s',strtotime($today. ' - 1 months'));
+			$end = date("Y-m-d H:i:s");
+			
+
+			$whr_date = " and (
+							(('".$start."' between a.datetime_start and a.datetime_end) or (('".$end."' between a.datetime_start and a.datetime_end)))
+							or ((a.datetime_start between '".$start."' and '".$end."')
+								or 
+								(a.datetime_end between '".$start."' and '".$end."'))
+							) ";
+		}
+
+
+
+
+
+		if($activity == 'def'){
+			$whereJob="";
+			if($job != 'def'){
+				$whereJob=" and b.id = '".$job."'";
+			}
+			$dtFC = $this->db->query("select a.*, b.date, b.order_no, b.order_name, b.floating_crane_id, b.mother_vessel_id, b.pic, b.order_status, c.activity_name, d.name as floating_crane_name
+					, e.name as mother_vessel_name, f.name as status_name, b.id as order_id
+					from job_order_detail a left join job_order b on b.id = a.job_order_id
+					left join activity c on c.id = a.activity_id
+					left join floating_crane d on d.id = b.floating_crane_id
+					left join mother_vessel e on e.id = b.mother_vessel_id
+					left join status f on f.id = b.order_status
+					where b.floating_crane_id = '".$fcId."' ".$whereJob." and b.is_active = 1
+                    order by a.id desc limit 1 ")->result(); 
+			/*$job = $dtFC[0]->order_name;
+			$activity = $dtFC[0]->activity_name;*/
+			if($job == 'def'){
+				$job = $dtFC[0]->order_id;
+			}
+			$activity = $dtFC[0]->activity_id;
+		}
+
+
+
+
+		/*$rs = $this->db->query("select a.*, b.activity_name, c.order_name 
+				from job_order_detail a left join activity b on b.id = a.activity_id 
+				left join job_order c on c.id = a.job_order_id
+				where c.id = '".$job."' and b.id = '".$activity."'")->result(); */
+
+		$rs = $this->db->query("select a.*, b.activity_name, c.order_name
+				from job_order_detail a left join activity b on b.id = a.activity_id 
+				left join job_order c on c.id = a.job_order_id
+				where c.id = '".$job."' and b.id = '".$activity."' ".$whr_date." ")->result(); 
 
 
 		return $rs;

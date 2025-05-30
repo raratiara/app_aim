@@ -669,12 +669,16 @@ function jobGraph(idfc){
 
 
 
-function activityGraph(jobId, fcId){
+function activityGraph(jobId, fcId,start_date='',end_date=''){
+
+	var start_date = document.getElementById("start_date").value;
+	var end_date = document.getElementById("end_date").value;
+
 	
 	$.ajax({
 		type: "POST",
         url : module_path+'/get_detailActivityGraph',
-		data: { jobId: jobId, fcId: fcId},
+		data: { jobId: jobId, fcId: fcId, start_date: start_date, end_date: end_date},
 		cache: false,		
         dataType: "JSON",
         success: function(data)
@@ -688,7 +692,7 @@ function activityGraph(jobId, fcId){
 				var arrActid = [];
 				var arrTotalTime = [];
 				for(var i=0; i<data.length; i++){ 
-					var total_date_time = getTotalMinutes(data[i].total_date_time);
+					var total_date_time = getTotalMinutes(data[i].date_time_total_fl); //getTotalMinutes(data[i].total_date_time);
 					//var total_date_time = getTotalMinutes(data[i].total_date_time_order);
 					arrAct.push(data[i].activity_name);
 					arrActid.push(data[i].activity_id);
@@ -933,14 +937,17 @@ function getDateRange(){
 
 }
 
-function getLineChart(activity, jobId, fcId){ 
-	//alert(activity); 
-	//alert(jobId); alert(fcId);
+function getLineChart(activity, jobId, fcId,start_date='',end_date=''){ 
+
+	var start_date = document.getElementById("start_date").value;
+	var end_date = document.getElementById("end_date").value;
+
+
 
 	$.ajax({
 		type: "POST",
     url : module_path+'/get_detailwaktuAct',
-		data: { activity: activity, jobId: jobId, fcId: fcId},
+		data: { activity: activity, jobId: jobId, fcId: fcId, start_date:start_date,end_date: end_date },
 		cache: false,		
   	dataType: "JSON",
   	success: function(data)

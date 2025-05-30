@@ -27,9 +27,9 @@ class Api extends API_Controller
 	public function hitung(){
 		$id='31';
 		$type_activity=6;
-		$totaltime = $this->db->query("select sum(total_time) as total FROM job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
+		
 
-						// CONVERT each duration to seconds and sum
+		// CONVERT each duration to seconds and sum
 		$totaltime = $this->db->query("select * from job_order_detail where job_order_id = '".$id."' and activity_id = '".$type_activity."' ")->result();
 		foreach ($totaltime as $duration) {
 		    list($hours, $minutes, $seconds) = explode(":", $duration->total_time);

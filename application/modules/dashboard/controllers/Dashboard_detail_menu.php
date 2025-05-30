@@ -207,8 +207,18 @@ class Dashboard_detail_menu extends MY_Controller
 		$post = $this->input->post(null, true);
 		$jobId = $post['jobId'];
 		$fcId = $post['fcId'];
+		$end_date = $post['end_date'];
+		$start_date = $post['start_date'];
 
-		$rs =  $this->self_model->getActivity($jobId, $fcId);
+		if($start_date != ''){ 
+			$start_date = date("Y-m-d H:i:s", strtotime($start_date));
+		}
+		if($end_date != ''){
+			$end_date = date("Y-m-d H:i:s", strtotime($end_date));
+		}
+		
+
+		$rs =  $this->self_model->getActivity($jobId, $fcId,$start_date,$end_date);
 
 		
 		echo json_encode($rs);
@@ -219,8 +229,18 @@ class Dashboard_detail_menu extends MY_Controller
 		$activity = $post['activity'];
 		$job = $post['jobId'];
 		$fcId = $post['fcId'];
+		$end_date = $post['end_date'];
+		$start_date = $post['start_date'];
 
-		$rs =  $this->self_model->getdetailwaktuAct($activity, $job, $fcId);
+		if($start_date != ''){ 
+			$start_date = date("Y-m-d H:i:s", strtotime($start_date));
+		}
+		if($end_date != ''){
+			$end_date = date("Y-m-d H:i:s", strtotime($end_date));
+		}
+		
+
+		$rs =  $this->self_model->getdetailwaktuAct($activity, $job, $fcId,$start_date,$end_date);
 
 		
 		echo json_encode($rs);
