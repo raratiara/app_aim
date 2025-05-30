@@ -4,6 +4,8 @@ if  (_USER_ACCESS_LEVEL_VIEW == "1" && _USER_ACCESS_LEVEL_EKSPORT == "1") {
 }
 ?>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 
 
 <input type="hidden" id="id_fc" name="id_fc">
