@@ -239,7 +239,8 @@ function getCctv(idfc){
                 cell.style.backgroundColor = '#f0f0f0'; // example style
 
                 var video = document.createElement('video');
-                video.setAttribute('width', '300');
+                /*video.setAttribute('width', '300');*/
+                video.setAttribute('width', '100%');
                 video.setAttribute('height', '230');
                 video.setAttribute('controls', '');
                 video.id = "myVideoDS"+i;  // optional, for future reference
