@@ -219,7 +219,7 @@ if  (_USER_ACCESS_LEVEL_VIEW == "1" && _USER_ACCESS_LEVEL_EKSPORT == "1") {
             <div class="col-md-12">
 				<div class="portlet box green">
 					<div class="portlet-title">
-						<div class="caption">Summary Waktu Pekerjaan</div>
+						<div class="caption">Summary Waktu Pekerjaan.</div>
 						<div class="tools">
 							
 						</div>
