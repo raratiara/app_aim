@@ -284,13 +284,22 @@
       margin-right: 10px;
     }
 
+    .logo {
+     /* width: 50px;
+      height: 50px;*/
+      margin-bottom: 1rem;
+      border-radius: 50%;
+
+    }
+
   </style>
 </head>
 <body>
 
 <!-- Logo + Toggle sidebar di kiri atas -->
 <div class="top-left-bar">
-  <img src="https://aim.sandboxxplore.com/public/assets/images/logo/nbid_new_logo_inside.png" alt="NBID Logo" class="logo" />
+  <!-- <img src="https://aim.sandboxxplore.com/public/assets/images/logo/nbid_new_logo_inside.png" alt="NBID Logo" class="logo" /> -->
+  <img style="width:50px; margin-top:-5px; " src="https://aim.sandboxxplore.com/public/assets/images/logo/gerbangdata.jpg" alt="GDI Logo" class="logo" />
   <div class="sidebar-toggle" onclick="toggleSidebar()" title="Toggle Menu">
     <i class="fas fa-bars"></i>
   </div>

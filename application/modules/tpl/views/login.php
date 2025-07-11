@@ -36,11 +36,23 @@
         <link rel="shortcut icon" href="favicon.ico" /> </head>
     <!-- END HEAD -->
 
+    <style type="text/css">
+
+        .logo img {
+          width: 100px;
+          margin-bottom: 1rem;
+          border-radius: 50%;
+
+        }
+
+    </style>
+
     <body class=" login">
         <!-- BEGIN LOGO -->
         <div class="logo">
             <a href="/">
-                <img width="109" src="<?php echo _ASSET_LOGO_FRONT; ?>" alt="<?php echo _COMPANY_NAME; ?>" /> </a>
+                <!-- <img width="109" src="<?php echo _ASSET_LOGO_FRONT; ?>" alt="<?php echo _COMPANY_NAME; ?>" /> </a> -->
+                <img src="<?php echo _ASSET_LOGO_FRONT; ?>" alt="<?php echo _COMPANY_NAME; ?>" /> </a>
         </div>
         <!-- END LOGO -->
         <!-- BEGIN LOGIN -->

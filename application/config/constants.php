@@ -91,21 +91,21 @@ defined('_USERNAME_DB')        OR define('_USERNAME_DB','root'); # live
 defined('_PASSWD_DB')        	OR define('_PASSWD_DB',''); #live
 #defined('_USERNAME_DB')        	OR define('_USERNAME_DB','root'); #localhost
 #defined('_PASSWD_DB')        	OR define('_PASSWD_DB',''); #localhost
-defined('_DBNAME_DB')        	OR define('_DBNAME_DB','simrs_db'); #localhost/live
+defined('_DBNAME_DB')        	OR define('_DBNAME_DB','aim'); #localhost/live
 #defined('_SUB_DOMAIN')       	OR define('_SUB_DOMAIN','.mymeters.id'); #live
 defined('_SUB_DOMAIN')        	OR define('_SUB_DOMAIN',''); #localhost
 #defined('_PREFIX_TABLE')        OR define('_PREFIX_TABLE','erp_');
 defined('_PREFIX_TABLE')        OR define('_PREFIX_TABLE','');
  
-defined('_APP_NAME')        	OR define('_APP_NAME','PT. Natha Buana Indonesia - ERP System');
-defined('_SUP_APP_NAME')        OR define('_SUP_APP_NAME','PT. Natha Buana Indonesia');
-defined('_TITLE')        		OR define('_TITLE', 'PT. Natha Buana Indonesia - ERP System');
-defined('_COMPANY_NAME')        OR define('_COMPANY_NAME','PT. Natha Buana Indonesia');
-defined('_COMPANY_NAME_ABBR')   OR define('_COMPANY_NAME_ABBR','NBID');
-defined('_COPYRIGHT')        	OR define('_COPYRIGHT','Copyright &copy; PT. Natha Buana Indonesia 2020');
+defined('_APP_NAME')        	OR define('_APP_NAME','PT. Gerbang Data Indonesia');
+defined('_SUP_APP_NAME')        OR define('_SUP_APP_NAME','PT. Gerbang Data Indonesia');
+defined('_TITLE')        		OR define('_TITLE', 'PT. Gerbang Data Indonesia - ERP System');
+defined('_COMPANY_NAME')        OR define('_COMPANY_NAME','PT. Gerbang Data Indonesia');
+defined('_COMPANY_NAME_ABBR')   OR define('_COMPANY_NAME_ABBR','GDI');
+defined('_COPYRIGHT')        	OR define('_COPYRIGHT','Copyright &copy; PT. Gerbang Data Indonesia');
  
-defined('_URL_ADMIN')        	OR define('_URL_ADMIN','http://localhost/_13_simrs/');
-defined('_URL')        			OR define('_URL','http://localhost/_13_simrs/');
+defined('_URL_ADMIN')        	OR define('_URL_ADMIN','http://localhost/_aim/');
+defined('_URL')        			OR define('_URL','http://localhost/_aim/');
 defined('_ASSET')        		OR define('_ASSET',_URL."public/assets/");  
 defined('_ASSET_IMG')        	OR define('_ASSET_IMG',_URL."public/assets/images/");  
 defined('_ASSET_PLUGINS')       OR define('_ASSET_PLUGINS',_URL."public/assets/plugins/");  
@@ -119,9 +119,12 @@ $mk_cutofflogo = mktime(23, 59, 59, 2, 13, 2022); // memasuki 14 Februari 2022
 defined('_CUT_OFF_LOGO')        			OR define('_CUT_OFF_LOGO', $mk_cutofflogo);  
 
 // Template
-defined('_ASSET_LOGO')        	OR define('_ASSET_LOGO',_ASSET_IMG."logo/nbid_logo.png");  
-defined('_ASSET_LOGO_2022')     OR define('_ASSET_LOGO_2022',_ASSET_IMG."logo/nbid_new_logo.png");  
-defined('_ASSET_LOGO_2022_INSIDE')     OR define('_ASSET_LOGO_2022_INSIDE',_ASSET_IMG."logo/nbid_new_logo_inside.png");  
+/*defined('_ASSET_LOGO')        	OR define('_ASSET_LOGO',_ASSET_IMG."logo/nbid_logo.png"); */
+defined('_ASSET_LOGO')        	OR define('_ASSET_LOGO',_ASSET_IMG."logo/gerbangdata.jpg");  
+/*defined('_ASSET_LOGO_2022')     OR define('_ASSET_LOGO_2022',_ASSET_IMG."logo/nbid_new_logo.png");*/
+defined('_ASSET_LOGO_2022')     OR define('_ASSET_LOGO_2022',_ASSET_IMG."logo/gerbangdata.jpg");  
+/*defined('_ASSET_LOGO_2022_INSIDE')     OR define('_ASSET_LOGO_2022_INSIDE',_ASSET_IMG."logo/nbid_new_logo_inside.png");  */
+defined('_ASSET_LOGO_2022_INSIDE')     OR define('_ASSET_LOGO_2022_INSIDE',_ASSET_IMG."logo/gerbangdata.jpg");  
 defined('_ASSET_LOGO_2022_SURAT')     OR define('_ASSET_LOGO_2022_SURAT',_ASSET_IMG."logo/nbid_new_logo_surat.png");  
 if($mk_currenttime > $mk_cutofflogo){
 	defined('_ASSET_LOGO_FRONT')        	OR define('_ASSET_LOGO_FRONT',_ASSET_LOGO_2022);  
