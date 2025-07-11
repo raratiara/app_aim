@@ -120,9 +120,9 @@ defined('_CUT_OFF_LOGO')        			OR define('_CUT_OFF_LOGO', $mk_cutofflogo);
 
 // Template
 /*defined('_ASSET_LOGO')        	OR define('_ASSET_LOGO',_ASSET_IMG."logo/nbid_logo.png"); */
-defined('_ASSET_LOGO')        	OR define('_ASSET_LOGO',_ASSET_IMG."logo/gerbangdata.jpg");  
+defined('_ASSET_LOGO')        	OR define('_ASSET_LOGO',_ASSET_IMG."logo/gerbangdata.PNG");  
 /*defined('_ASSET_LOGO_2022')     OR define('_ASSET_LOGO_2022',_ASSET_IMG."logo/nbid_new_logo.png");*/
-defined('_ASSET_LOGO_2022')     OR define('_ASSET_LOGO_2022',_ASSET_IMG."logo/gerbangdata.jpg");  
+defined('_ASSET_LOGO_2022')     OR define('_ASSET_LOGO_2022',_ASSET_IMG."logo/gerbangdata.PNG");  
 /*defined('_ASSET_LOGO_2022_INSIDE')     OR define('_ASSET_LOGO_2022_INSIDE',_ASSET_IMG."logo/nbid_new_logo_inside.png");  */
 defined('_ASSET_LOGO_2022_INSIDE')     OR define('_ASSET_LOGO_2022_INSIDE',_ASSET_IMG."logo/gerbangdata.jpg");  
 defined('_ASSET_LOGO_2022_SURAT')     OR define('_ASSET_LOGO_2022_SURAT',_ASSET_IMG."logo/nbid_new_logo_surat.png");  
