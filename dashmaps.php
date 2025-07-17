@@ -427,10 +427,15 @@
   });
 
   // Video streaming URLs
-  const videoSources = [
+  /*const videoSources = [
     'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-0.m3u8',
     'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-1.m3u8',
     'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-2.m3u8'
+  ];*/
+  const videoSources = [
+    'https://streamingcctv.gerbangdata.co.id/hls/aim-fc-0.m3u8',
+    'https://streamingcctv.gerbangdata.co.id/hls/aim-fc-1.m3u8',
+    'https://streamingcctv.gerbangdata.co.id/hls/aim-fc-2.m3u8'
   ];
 
   function setupHLS(videoElement, url) {

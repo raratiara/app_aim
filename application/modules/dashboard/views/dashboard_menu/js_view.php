@@ -228,13 +228,17 @@ function getMaps(id){
 	                    video.autoplay = true;
 			  }
 
+			
 			  // Ganti dengan URL .m3u8 kamu sendiri
-			  loadHLS('video1', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-0.m3u8');
+			  /*loadHLS('video1', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-0.m3u8');
 			  loadHLS('video2', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-1.m3u8');
-			  loadHLS('video3', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-2.m3u8');
+			  loadHLS('video3', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-2.m3u8');*/
 
-			
-			
+
+    		loadHLS('video1', 'https://streamingcctv.gerbangdata.co.id/hls/aim-fc-0.m3u8');
+			  loadHLS('video2', 'https://streamingcctv.gerbangdata.co.id/hls/aim-fc-1.m3u8');
+			  loadHLS('video3', 'https://streamingcctv.gerbangdata.co.id/hls/aim-fc-2.m3u8');
+
 		} else {
 			title = '<div class="text-center" style="padding-top:20px;padding-bottom:10px;"><i class="fa fa-exclamation-circle fa-5x" style="color:red"></i></div>';
 			btn = '<br/><button class="btn blue" data-dismiss="modal">OK</button>';
@@ -491,9 +495,14 @@ function getnewmaps(){
 	  }
 
 	  // Ganti dengan URL .m3u8 kamu sendiri
-	  loadHLS('video1', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-0.m3u8');
+	  /*loadHLS('video1', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-0.m3u8');
 	  loadHLS('video2', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-1.m3u8');
-	  loadHLS('video3', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-2.m3u8');
+	  loadHLS('video3', 'https://streamingcctv.gerbangdata.co.id/hls/demo-fc-2.m3u8');*/
+
+
+	  loadHLS('video1', 'https://streamingcctv.gerbangdata.co.id/hls/aim-fc-0.m3u8');
+	  loadHLS('video2', 'https://streamingcctv.gerbangdata.co.id/hls/aim-fc-1.m3u8');
+	  loadHLS('video3', 'https://streamingcctv.gerbangdata.co.id/hls/aim-fc-2.m3u8');
 
 	  
 }
