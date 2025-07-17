@@ -20,7 +20,7 @@ class Job_order_detail_menu extends MY_Controller
 
 	/* Export */
 	public $colnames 				= ["ID","Floating Crane","Mother Vessel", "Job Order","Activity", "Datetime Start", "Datetime End", "Total Time", "Degree", "Degree 2"];
-	public $colfields 				= ["id","id","id","id","id","id","id","id","id","id"];
+	public $colfields 				= ["id","floating_crane_name","mother_vessel_name","order_name","activity_name","datetime_start","datetime_end","total_time","degree","degree_2"];
 
 	/* Form Field Asset */
 	public function form_field_asset()

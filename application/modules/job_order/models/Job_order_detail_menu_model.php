@@ -452,10 +452,13 @@ class Job_order_detail_menu_model extends MY_Model
 
 	public function eksport_data()
 	{
-		$sql = "select a.*, b.order_name, c.activity_name from job_order_detail a
-				left join job_order b on b.id = a.job_order_id
-				left join activity c on c.id = a.activity_id
-				order by a.id asc
+		$sql = "select a.*, b.order_name, c.activity_name, d.name as floating_crane_name, e.name as mother_vessel_name
+					from job_order_detail a
+					left join job_order b on b.id = a.job_order_id
+					left join activity c on c.id = a.activity_id
+					left join floating_crane d on d.id = b.floating_crane_id
+					left join mother_vessel e on e.id = b.mother_vessel_id
+				order by a.id desc
 		";
 
 		$res = $this->db->query($sql);
