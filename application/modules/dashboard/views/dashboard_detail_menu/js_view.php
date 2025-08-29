@@ -352,12 +352,26 @@ function getDataRealtime(idfc, orderid){
     });
 }
 
-function getTotalMinutes(duration) { 
-  var [hours, minutes, seconds] = duration.split(':').map(Number);
+// function getTotalMinutes(duration) { 
+//   var [hours, minutes, seconds] = duration.split(':').map(Number);
 
-  // Convert hours to minutes and seconds to fractional minutes
+//   // Convert hours to minutes and seconds to fractional minutes
+//   return (hours * 60) + minutes + (seconds / 60);
+// }
+
+function getTotalMinutes(duration) {
+  if (!duration || typeof duration !== "string" || !duration.includes(":")) {
+    return 0; // atau bisa return null sesuai kebutuhan
+  }
+
+  let [hours, minutes, seconds] = duration.split(":").map(Number);
+
+  // kalau misalnya seconds kosong (format hanya hh:mm)
+  seconds = seconds || 0;
+
   return (hours * 60) + minutes + (seconds / 60);
 }
+
 
 
 function jobGraph(idfc){ 
