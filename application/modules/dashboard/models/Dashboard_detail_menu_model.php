@@ -829,6 +829,10 @@ class Dashboard_detail_menu_model extends MY_Model
 								or 
 								(datetime_end between '".$start."' and '".$end."'))
 							) ";
+
+			if($jobId != 'def'){
+				$whr_date="";
+			}
 		}
 
 
@@ -921,7 +925,8 @@ class Dashboard_detail_menu_model extends MY_Model
 								or 
 								(a.datetime_end between '".$start_date."' and '".$end_date."'))
 							) ";
-		}else{ //default sebulan terakhir
+		}
+		else{ //default sebulan terakhir
 			$today = date("Y-m-d H:i:s");
 			$start = date('Y-m-d H:i:s',strtotime($today. ' - 1 months'));
 			$end = date("Y-m-d H:i:s");
@@ -933,6 +938,10 @@ class Dashboard_detail_menu_model extends MY_Model
 								or 
 								(a.datetime_end between '".$start."' and '".$end."'))
 							) ";
+
+			if($activity != 'def'){
+				$whr_date="";
+			}
 		}
 
 

@@ -706,7 +706,9 @@ function activityGraph(jobId, fcId,start_date='',end_date=''){
 				var arrActid = [];
 				var arrTotalTime = [];
 				for(var i=0; i<data.length; i++){ 
-					var total_date_time = getTotalMinutes(data[i].date_time_total_fl); //getTotalMinutes(data[i].total_date_time);
+					var total_date_time = getTotalMinutes(data[i].date_time_total_fl);
+					//var total_date_time = getTotalMinutes(data[i].total_date_time);
+					//getTotalMinutes(data[i].total_date_time);
 					//var total_date_time = getTotalMinutes(data[i].total_date_time_order);
 					arrAct.push(data[i].activity_name);
 					arrActid.push(data[i].activity_id);
@@ -1848,7 +1850,7 @@ $('#order_name').on('change', function () {
 				SLACycle_jml(id_fc, orderid);
 				//activityGraph(ordername, id_fc);
 				//getLineChart(activity='Loading Time', ordername, id_fc);
-				activityGraph(orderid, id_fc);
+				activityGraph(orderid, id_fc); 
 				getLineChart(activity, orderid, id_fc);
 
 	        },
